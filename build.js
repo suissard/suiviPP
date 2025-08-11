@@ -20,6 +20,12 @@ if (fs.existsSync(cssPath)) {
 }
 
 // Inline JavaScript
+const excelProcessorPath = path.join(publicDir, 'excel-processor.js');
+if (fs.existsSync(excelProcessorPath)) {
+    const excelProcessorJs = fs.readFileSync(excelProcessorPath, 'utf-8');
+    html = html.replace('<script src="excel-processor.js"></script>', `<script>${excelProcessorJs}</script>`);
+}
+
 const jsPath = path.join(publicDir, 'script.js');
 if (fs.existsSync(jsPath)) {
     const js = fs.readFileSync(jsPath, 'utf-8');

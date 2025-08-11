@@ -8,7 +8,14 @@
 </head>
 <body>
     <h1>Tableau de Suivi des Résidents</h1>
+    <div>
+        <label for="xlsx-input">Charger des fichiers XLSX :</label>
+        <input type="file" id="xlsx-input" accept=".xlsx" multiple>
+        <button id="load-button">Charger les données</button>
+    </div>
     <div id="table-container"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="excel-processor.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

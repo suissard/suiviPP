@@ -1,12 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     const tableContainer = document.getElementById('table-container');
+    const loadButton = document.getElementById('load-button');
+    const xlsxInput = document.getElementById('xlsx-input');
 
-    Promise.all([
-        fetch('residents.json').then(response => response.json()),
-        fetch('projets.json').then(response => response.json()),
-        fetch('vie_sociale.json').then(response => response.json())
-    ])
-    .then(([residents, projets, vieSociale]) => {
+    function generateTable(residents, projets, vieSociale) {
+        tableContainer.innerHTML = ''; // Clear previous table
         const combinedData = new Map();
 
         // 1. Initialize with resident data
@@ -73,9 +71,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         tableContainer.appendChild(table);
+    }
+
+    // Load default data
+    Promise.all([
+        fetch('residents.json').then(response => response.json()),
+        fetch('projets.json').then(response => response.json()),
+        fetch('vie_sociale.json').then(response => response.json())
+    ])
+    .then(([residents, projets, vieSociale]) => {
+        generateTable(residents, projets, vieSociale);
     })
     .catch(error => {
-        console.error('Erreur lors du chargement des données:', error);
-        tableContainer.textContent = 'Erreur lors du chargement des données. Veuillez vérifier la console.';
+        console.error('Erreur lors du chargement des données par défaut:', error);
+        tableContainer.textContent = 'Erreur lors du chargement des données par défaut. Veuillez vérifier la console.';
+    });
+
+    // Handle file upload
+    loadButton.addEventListener('click', () => {
+        const files = xlsxInput.files;
+        if (files.length === 0) {
+            alert('Veuillez sélectionner des fichiers XLSX.');
+            return;
+        }
+
+        processFiles(files)
+            .then(data => {
+                generateTable(data.residents, data.projets, data.vieSociale);
+            })
+            .catch(error => {
+                console.error('Erreur lors du traitement des fichiers XLSX:', error);
+                alert('Erreur lors du traitement des fichiers XLSX. Veuillez vérifier la console.');
+            });
     });
 });
