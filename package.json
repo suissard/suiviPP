@@ -20,5 +20,8 @@
   "homepage": "https://github.com/suissard/suiviPP#readme",
   "devDependencies": {
     "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5"
   }
 }
