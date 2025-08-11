@@ -1,22 +1,214 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon application</title>
+    <title>Tableau de Suivi des Résidents</title>
     <style>body {
-    background-color: #f0f0f0;
     font-family: sans-serif;
+    margin: 20px;
 }
 
-h1 {
-    color: #333;
+#table-container {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+thead {
+    background-color: #f2f2f2;
+}
+
+th {
+    font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
 }
 </style>
 </head>
 <body>
-    <h1>Bonjour, monde !</h1>
-    <script>console.log("Bonjour depuis le script !");
+    <h1>Tableau de Suivi des Résidents</h1>
+    <div>
+        <label for="xlsx-input">Charger des fichiers XLSX :</label>
+        <input type="file" id="xlsx-input" accept=".xlsx" multiple>
+        <button id="load-button">Charger les données</button>
+    </div>
+    <div id="table-container"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script>function processFiles(files) {
+    return new Promise((resolve, reject) => {
+        const processedData = {
+            residents: [],
+            projets: [],
+            vieSociale: []
+        };
+
+        if (files.length === 0) {
+            return reject(new Error('No files selected.'));
+        }
+
+        let filesProcessed = 0;
+
+        for (const file of files) {
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+
+                    if (file.name.toLowerCase().includes('residents')) {
+                        const sheetName = workbook.SheetNames[0];
+                        processedData.residents = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+                    } else if (file.name.toLowerCase().includes('projets')) {
+                        const sheetName = workbook.SheetNames[0];
+                        processedData.projets = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+                    } else if (file.name.toLowerCase().includes('vie sociale')) {
+                        const sheetName = workbook.SheetNames[0];
+                        processedData.vieSociale = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+                    }
+
+                    filesProcessed++;
+                    if (filesProcessed === files.length) {
+                        resolve(processedData);
+                    }
+                } catch (error) {
+                    reject(error);
+                }
+            };
+
+            reader.onerror = (error) => {
+                reject(error);
+            };
+
+            reader.readAsArrayBuffer(file);
+        }
+    });
+}
+</script>
+    <script>document.addEventListener('DOMContentLoaded', () => {
+    const tableContainer = document.getElementById('table-container');
+    const loadButton = document.getElementById('load-button');
+    const xlsxInput = document.getElementById('xlsx-input');
+
+    function generateTable(residents, projets, vieSociale) {
+        tableContainer.innerHTML = ''; // Clear previous table
+        const combinedData = new Map();
+
+        // 1. Initialize with resident data
+        residents.forEach(resident => {
+            combinedData.set(resident.id, {
+                ...resident,
+                projets: [],
+                vieSociale: []
+            });
+        });
+
+        // 2. Add projects to residents
+        projets.forEach(projet => {
+            if (combinedData.has(projet.id)) {
+                combinedData.get(projet.id).projets.push(projet);
+            }
+        });
+
+        // 3. Add social life events to residents
+        vieSociale.forEach(event => {
+            if (combinedData.has(event.id)) {
+                combinedData.get(event.id).vieSociale.push(event);
+            }
+        });
+
+        // 4. Generate the table
+        const table = document.createElement('table');
+
+        // Table header
+        const thead = table.createTHead();
+        const headerRow = thead.insertRow();
+        const headers = ['ID', 'Nom', 'Prénom', 'Date d\'entrée', 'Chambre', 'Projets', 'Vie Sociale'];
+        headers.forEach(headerText => {
+            const th = document.createElement('th');
+            th.textContent = headerText;
+            headerRow.appendChild(th);
+        });
+
+        // Table body
+        const tbody = table.createTBody();
+        combinedData.forEach(resident => {
+            const row = tbody.insertRow();
+
+            row.insertCell().textContent = resident.id;
+            row.insertCell().textContent = resident.Nom;
+            row.insertCell().textContent = resident.Prénom;
+            row.insertCell().textContent = resident.entry;
+            row.insertCell().textContent = resident.chNum;
+
+            // Projects cell
+            const projetsCell = row.insertCell();
+            projetsCell.innerHTML = resident.projets.map(p =>
+                `<b>Type:</b> ${p.type}<br>
+                 <b>État:</b> ${p.state}<br>
+                 <b>Du:</b> ${p.from} <b>Au:</b> ${p.to}`
+            ).join('<hr style="margin: 5px 0;">');
+
+            // Social life cell
+            const vieSocialeCell = row.insertCell();
+            vieSocialeCell.innerHTML = resident.vieSociale.map(v =>
+                `<b>Motif:</b> ${v.type}<br>
+                 <b>Date:</b> ${v.date}`
+            ).join('<hr style="margin: 5px 0;">');
+        });
+
+        tableContainer.appendChild(table);
+    }
+
+    // Load default data
+    Promise.all([
+        fetch('residents.json').then(response => response.json()),
+        fetch('projets.json').then(response => response.json()),
+        fetch('vie_sociale.json').then(response => response.json())
+    ])
+    .then(([residents, projets, vieSociale]) => {
+        generateTable(residents, projets, vieSociale);
+    })
+    .catch(error => {
+        console.error('Erreur lors du chargement des données par défaut:', error);
+        tableContainer.textContent = 'Erreur lors du chargement des données par défaut. Veuillez vérifier la console.';
+    });
+
+    // Handle file upload
+    loadButton.addEventListener('click', () => {
+        const files = xlsxInput.files;
+        if (files.length === 0) {
+            alert('Veuillez sélectionner des fichiers XLSX.');
+            return;
+        }
+
+        processFiles(files)
+            .then(data => {
+                generateTable(data.residents, data.projets, data.vieSociale);
+            })
+            .catch(error => {
+                console.error('Erreur lors du traitement des fichiers XLSX:', error);
+                alert('Erreur lors du traitement des fichiers XLSX. Veuillez vérifier la console.');
+            });
+    });
+});
 </script>
 </body>
 </html>
