@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "Nom": "Dupont",
+    "Prénom": "Jean",
+    "entry": "2023-01-15",
+    "chNum": 101
+  },
+  {
+    "id": 2,
+    "Nom": "Martin",
+    "Prénom": "Marie",
+    "entry": "2023-02-20",
+    "chNum": 102
+  },
+  {
+    "id": 3,
+    "Nom": "Bernard",
+    "Prénom": "Luc",
+    "entry": "2023-03-10",
+    "chNum": 201
+  }
+]
