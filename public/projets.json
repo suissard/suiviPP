@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "Nom": "Dupont",
+    "Prénom": "Jean",
+    "type": "Atelier peinture",
+    "state": "En cours",
+    "from": "2023-04-01",
+    "to": "2023-06-30"
+  },
+  {
+    "id": 2,
+    "Nom": "Martin",
+    "Prénom": "Marie",
+    "type": "Jardinage",
+    "state": "Terminé",
+    "from": "2023-05-15",
+    "to": "2023-07-31"
+  },
+  {
+    "id": 1,
+    "Nom": "Dupont",
+    "Prénom": "Jean",
+    "type": "Club de lecture",
+    "state": "À venir",
+    "from": "2023-09-01",
+    "to": "2023-12-31"
+  }
+]
