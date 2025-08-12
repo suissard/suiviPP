@@ -56,68 +56,149 @@ document.addEventListener('DOMContentLoaded', () => {
         const thead = table.createTHead();
         thead.className = 'bg-gray-50';
         const headerRow = thead.insertRow();
-        const headers = ['ID', 'Nom', 'Prénom', 'Date d\'entrée', 'Chambre', 'Projets', 'Vie Sociale'];
-        headers.forEach(headerText => {
+        const headers = [
+            { text: 'Nom', sortable: true },
+            { text: 'Prénom', sortable: true },
+            { text: 'Date d\'entrée', sortable: true },
+            { text: 'Chambre', sortable: true },
+            { text: 'Projets Signature (<1 an)', sortable: true },
+            { text: 'Projets Brouillon (<1 an)', sortable: true },
+            { text: 'PP et Consentement (<1 an)', sortable: true },
+            { text: 'Bilan d\'intégration', sortable: true },
+            { text: 'Projet Médical (signé <1 an)', sortable: true }
+        ];
+
+        headers.forEach((header, index) => {
             const th = document.createElement('th');
             th.className = 'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider';
-            th.textContent = headerText;
+            th.textContent = header.text;
+            if (header.sortable) {
+                th.style.cursor = 'pointer';
+                th.addEventListener('click', () => sortTable(index));
+            }
             headerRow.appendChild(th);
         });
 
         // Table body
         const tbody = table.createTBody();
         tbody.className = 'bg-white divide-y divide-gray-200';
-        combinedData.forEach(data => {
-            const row = tbody.insertRow();
+        let sortedData = Array.from(combinedData.values());
 
-            // Apply status colors
-            if (data.status === 'success') {
-                row.className = 'bg-green-100';
-            } else if (data.status === 'warning') {
-                row.className = 'bg-yellow-100';
-            } else if (data.status === 'error') {
-                row.className = 'bg-red-100';
-            }
+        function renderTable(dataToRender) {
+            tbody.innerHTML = ''; // Clear existing rows
+            dataToRender.forEach(data => {
+                const row = tbody.insertRow();
 
-            const cellClasses = 'px-6 py-4 whitespace-nowrap text-sm text-gray-900';
+                // Apply status colors
+                if (data.status === 'success') {
+                    row.className = 'bg-green-100';
+                } else if (data.status === 'warning') {
+                    row.className = 'bg-yellow-100';
+                } else if (data.status === 'error') {
+                    row.className = 'bg-red-100';
+                }
 
-            const idCell = row.insertCell();
-            idCell.className = cellClasses;
-            idCell.textContent = data.resident.id;
+                const cellClasses = 'px-6 py-4 whitespace-nowrap text-sm text-gray-900';
 
-            const nomCell = row.insertCell();
-            nomCell.className = cellClasses;
-            nomCell.textContent = data.resident.Nom;
+                const nomCell = row.insertCell();
+                nomCell.className = cellClasses;
+                nomCell.textContent = data.resident.Nom;
 
-            const prenomCell = row.insertCell();
-            prenomCell.className = cellClasses;
-            prenomCell.textContent = data.resident.Prénom;
+                const prenomCell = row.insertCell();
+                prenomCell.className = cellClasses;
+                prenomCell.textContent = data.resident.Prénom;
 
-            const entryCell = row.insertCell();
-            entryCell.className = cellClasses;
-            entryCell.textContent = data.resident.entry;
+                const entryCell = row.insertCell();
+                entryCell.className = cellClasses;
+                entryCell.textContent = data.resident.entry;
 
-            const chNumCell = row.insertCell();
-            chNumCell.className = cellClasses;
-            chNumCell.textContent = data.resident.chNum;
+                const chNumCell = row.insertCell();
+                chNumCell.className = cellClasses;
+                chNumCell.textContent = data.resident.chNum;
 
-            // Projects cell
-            const projetsCell = row.insertCell();
-            projetsCell.className = cellClasses;
-            projetsCell.innerHTML = data.projets.map(p =>
-                `<div class="mb-2"><b>Type:</b> ${p.type}</div>
-                 <div class="mb-2"><b>État:</b> ${p.state}</div>
-                 <div><b>Du:</b> ${p.from} <b>Au:</b> ${p.to}</div>`
-            ).join('<hr class="my-2">');
+                const signatureProjetsCell = row.insertCell();
+                signatureProjetsCell.className = cellClasses;
+                signatureProjetsCell.textContent = data.signatureProjetsLessThanYear;
 
-            // Social life cell
-            const vieSocialeCell = row.insertCell();
-            vieSocialeCell.className = cellClasses;
-            vieSocialeCell.innerHTML = data.vieSociale.map(v =>
-                `<div class="mb-2"><b>Motif:</b> ${v.type}</div>
-                 <div><b>Date:</b> ${v.date}</div>`
-            ).join('<hr class="my-2">');
-        });
+                const brouillonProjetsCell = row.insertCell();
+                brouillonProjetsCell.className = cellClasses;
+                brouillonProjetsCell.textContent = data.brouillonProjetsLessThanYear;
+
+                const ppEtConsentementCell = row.insertCell();
+                ppEtConsentementCell.className = cellClasses;
+                ppEtConsentementCell.textContent = data.hasPpEtConsentementLessThanYear ? 'Oui' : 'Non';
+
+                const bilanIntegrationCell = row.insertCell();
+                bilanIntegrationCell.className = cellClasses;
+                bilanIntegrationCell.textContent = data.hasBilanIntegration ? 'Oui' : 'Non';
+
+                const medicalProjetCell = row.insertCell();
+                medicalProjetCell.className = cellClasses;
+                medicalProjetCell.textContent = data.hasMedicalProjetInSignatureLessThanYear ? 'Oui' : 'Non';
+            });
+        }
+
+        let sortDirection = 'asc';
+
+        function sortTable(columnIndex) {
+            const isAsc = sortDirection === 'asc';
+            sortDirection = isAsc ? 'desc' : 'asc';
+
+            sortedData.sort((a, b) => {
+                let valA, valB;
+
+                switch (columnIndex) {
+                    case 0:
+                        valA = a.resident.Nom;
+                        valB = b.resident.Nom;
+                        break;
+                    case 1:
+                        valA = a.resident.Prénom;
+                        valB = b.resident.Prénom;
+                        break;
+                    case 2:
+                        valA = new Date(a.resident.entry);
+                        valB = new Date(b.resident.entry);
+                        break;
+                    case 3:
+                        valA = a.resident.chNum;
+                        valB = b.resident.chNum;
+                        break;
+                    case 4:
+                        valA = a.signatureProjetsLessThanYear;
+                        valB = b.signatureProjetsLessThanYear;
+                        break;
+                    case 5:
+                        valA = a.brouillonProjetsLessThanYear;
+                        valB = b.brouillonProjetsLessThanYear;
+                        break;
+                    case 6:
+                        valA = a.hasPpEtConsentementLessThanYear;
+                        valB = b.hasPpEtConsentementLessThanYear;
+                        break;
+                    case 7:
+                        valA = a.hasBilanIntegration;
+                        valB = b.hasBilanIntegration;
+                        break;
+                    case 8:
+                        valA = a.hasMedicalProjetInSignatureLessThanYear;
+                        valB = b.hasMedicalProjetInSignatureLessThanYear;
+                        break;
+                }
+
+                if (valA < valB) {
+                    return isAsc ? -1 : 1;
+                }
+                if (valA > valB) {
+                    return isAsc ? 1 : -1;
+                }
+                return 0;
+            });
+
+            renderTable(sortedData);
+        }
+
+        renderTable(sortedData);
 
         tableContainer.appendChild(table);
     }

@@ -54,7 +54,7 @@ function processVieSociale(filePath) {
       formattedData["Vie Sociale"].push({
         "id": currentResident,
         "type": row[2], // "motif" is in the third column
-        "date": row[1]  // "date" is in the second column
+        "date": new Date(row[1])  // "date" is in the second column
       });
     }
   }
