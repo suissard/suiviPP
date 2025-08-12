@@ -4,6 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "start": "serve public",
     "test": "npx vitest"
   },
   "repository": {
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/suissard/suiviPP#readme",
   "devDependencies": {
+    "serve": "^14.2.3",
     "vitest": "^3.2.4"
   },
   "dependencies": {
