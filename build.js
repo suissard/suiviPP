@@ -26,6 +26,12 @@ if (fs.existsSync(excelProcessorPath)) {
     html = html.replace('<script src="excel-processor.js"></script>', `<script>${excelProcessorJs}</script>`);
 }
 
+const dataJsPath = path.join(publicDir, 'Data.js');
+if (fs.existsSync(dataJsPath)) {
+    const dataJs = fs.readFileSync(dataJsPath, 'utf-8');
+    html = html.replace('<script src="Data.js"></script>', `<script>${dataJs}</script>`);
+}
+
 const jsPath = path.join(publicDir, 'script.js');
 if (fs.existsSync(jsPath)) {
     const js = fs.readFileSync(jsPath, 'utf-8');
