@@ -139,9 +139,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle "Voir JSON" buttons
     residentsJsonButton.addEventListener('click', () => {
+        if (residentsJsonOutput.textContent) {
+            residentsJsonOutput.textContent = '';
+            return;
+        }
         const file = residentsInput.files[0];
         if (file) {
-            processFile(file)
+            processResidentsFile(file)
                 .then(data => {
                     tableData.residents = data;
                     residentsJsonOutput.textContent = JSON.stringify(data, null, 2);
@@ -154,9 +158,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     projetsJsonButton.addEventListener('click', () => {
+        if (projetsJsonOutput.textContent) {
+            projetsJsonOutput.textContent = '';
+            return;
+        }
         const file = projetsInput.files[0];
         if (file) {
-            processFile(file)
+            processProjetsFile(file)
                 .then(data => {
                     tableData.projets = data;
                     projetsJsonOutput.textContent = JSON.stringify(data, null, 2);
@@ -169,9 +177,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     vieSocialeJsonButton.addEventListener('click', () => {
+        if (vieSocialeJsonOutput.textContent) {
+            vieSocialeJsonOutput.textContent = '';
+            return;
+        }
         const file = vieSocialeInput.files[0];
         if (file) {
-            processFile(file)
+            processVieSocialeFile(file)
                 .then(data => {
                     tableData.vieSociale = data;
                     vieSocialeJsonOutput.textContent = JSON.stringify(data, null, 2);
