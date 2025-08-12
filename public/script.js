@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // 4. Generate the table
+        console.log('combinedData', combinedData);
         const table = document.createElement('table');
         table.className = 'min-w-full divide-y divide-gray-200';
 
