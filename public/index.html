@@ -8,12 +8,34 @@
 </head>
 <body>
     <h1>Tableau de Suivi des Résidents</h1>
-    <div>
-        <label for="xlsx-input">Charger des fichiers XLSX :</label>
-        <input type="file" id="xlsx-input" accept=".xlsx" multiple>
-        <button id="load-button">Charger les données</button>
+
+    <div class="file-input-container">
+        <label for="residents-input">Fichier Résidents (XLSX):</label>
+        <input type="file" id="residents-input" accept=".xlsx">
+        <button id="residents-json-button">Voir JSON</button>
+        <pre id="residents-json-output"></pre>
     </div>
+
+    <div class="file-input-container">
+        <label for="projets-input">Fichier Projets (XLSX):</label>
+        <input type="file" id="projets-input" accept=".xlsx">
+        <button id="projets-json-button">Voir JSON</button>
+        <pre id="projets-json-output"></pre>
+    </div>
+
+    <div class="file-input-container">
+        <label for="vie-sociale-input">Fichier Vie Sociale (XLSX):</label>
+        <input type="file" id="vie-sociale-input" accept=".xlsx">
+        <button id="vie-sociale-json-button">Voir JSON</button>
+        <pre id="vie-sociale-json-output"></pre>
+    </div>
+
+    <div>
+        <button id="generate-table-button">Générer le tableau</button>
+    </div>
+
     <div id="table-container"></div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="excel-processor.js"></script>
     <script src="Data.js"></script>

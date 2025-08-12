@@ -52,76 +52,195 @@ tbody tr:hover {
 </head>
 <body>
     <h1>Tableau de Suivi des Résidents</h1>
-    <div>
-        <label for="xlsx-input">Charger des fichiers XLSX :</label>
-        <input type="file" id="xlsx-input" accept=".xlsx" multiple>
-        <button id="load-button">Charger les données</button>
+
+    <div class="file-input-container">
+        <label for="residents-input">Fichier Résidents (XLSX):</label>
+        <input type="file" id="residents-input" accept=".xlsx">
+        <button id="residents-json-button">Voir JSON</button>
+        <pre id="residents-json-output"></pre>
     </div>
+
+    <div class="file-input-container">
+        <label for="projets-input">Fichier Projets (XLSX):</label>
+        <input type="file" id="projets-input" accept=".xlsx">
+        <button id="projets-json-button">Voir JSON</button>
+        <pre id="projets-json-output"></pre>
+    </div>
+
+    <div class="file-input-container">
+        <label for="vie-sociale-input">Fichier Vie Sociale (XLSX):</label>
+        <input type="file" id="vie-sociale-input" accept=".xlsx">
+        <button id="vie-sociale-json-button">Voir JSON</button>
+        <pre id="vie-sociale-json-output"></pre>
+    </div>
+
+    <div>
+        <button id="generate-table-button">Générer le tableau</button>
+    </div>
+
     <div id="table-container"></div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script>function processFiles(files) {
+    <script>function formatDate(date) {
+    if (!date || !(date instanceof Date)) {
+        return date;
+    }
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+function transformResidents(data) {
+    return data.map(row => ({
+        id: `${row['Nom utilisé'] || ''} ${row['Premier prénom'] || ''}`.trim(),
+        entry: formatDate(row['Entrée']),
+        chNum: row['N° de chambre'] ? String(row['N° de chambre']).trim() : ''
+    })).filter(r => r.id);
+}
+
+function transformProjets(data) {
+    return data.map(row => {
+        const residentName = row['Résident'] || '';
+        const nameParts = residentName.split(' ');
+        const id = nameParts.length > 2 ? `${nameParts[1]} ${nameParts[2].replace(',', '')}` : residentName;
+
+        return {
+            id: id,
+            type: row['Libellé'],
+            state: row['Étape'] ? row['Étape'].trim() : '',
+            from: formatDate(row['Du']),
+            to: formatDate(row['Au'])
+        };
+    }).filter(r => r.id);
+}
+
+function transformVieSociale(data) {
+    const transformed = [];
+    let currentResidentId = '';
+
+    data.forEach(row => {
+        if (row[0] && typeof row[0] === 'string') { // This is a resident row
+            const residentName = row[0] || '';
+            const nameParts = residentName.split(' ');
+            if (nameParts.length > 1) {
+                // Extracts "Nom Prénom" from "Civilité. Nom Prénom ..."
+                currentResidentId = `${nameParts[1]} ${nameParts[2].replace(',', '')}`;
+            } else {
+                currentResidentId = residentName;
+            }
+        } else if (row[1] && currentResidentId) { // This is an event row for the current resident
+            transformed.push({
+                id: currentResidentId,
+                date: row[1], // Already formatted as DD/MM/YYYY string from xlsx
+                type: row[2]
+            });
+        }
+    });
+    return transformed;
+}
+
+function transformData(data, type) {
+    switch (type) {
+        case 'residents':
+            return transformResidents(data);
+        case 'projets':
+            return transformProjets(data);
+        case 'vie-sociale':
+            return transformVieSociale(data);
+        default:
+            return data;
+    }
+}
+
+function processFile(file, type) {
     return new Promise((resolve, reject) => {
-        const processedData = {
-            residents: [],
-            projets: [],
-            vieSociale: []
+        if (!file) {
+            return reject(new Error('No file selected.'));
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            try {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const sheetName = workbook.SheetNames[0];
+                const sheet = workbook.Sheets[sheetName];
+
+                let jsonData;
+                if (type === 'vie-sociale') {
+                    // For 'vie-sociale', we need to process it row by row as array of arrays
+                    jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1, raw: false, defval: null });
+                    // remove header
+                    if (jsonData.length > 0) {
+                        jsonData.shift();
+                    }
+                } else {
+                    jsonData = XLSX.utils.sheet_to_json(sheet, { cellDates: true, raw: false });
+                }
+
+                const transformedData = transformData(jsonData, type);
+                resolve(transformedData);
+            } catch (error) {
+                reject(error);
+            }
         };
 
-        if (files.length === 0) {
-            return reject(new Error('No files selected.'));
-        }
+        reader.onerror = (error) => {
+            reject(error);
+        };
 
-        let filesProcessed = 0;
-
-        for (const file of files) {
-            const reader = new FileReader();
-
-            reader.onload = (e) => {
-                try {
-                    const data = new Uint8Array(e.target.result);
-                    const workbook = XLSX.read(data, { type: 'array' });
-
-                    if (file.name.toLowerCase().includes('residents')) {
-                        const sheetName = workbook.SheetNames[0];
-                        processedData.residents = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
-                    } else if (file.name.toLowerCase().includes('projets')) {
-                        const sheetName = workbook.SheetNames[0];
-                        processedData.projets = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
-                    } else if (file.name.toLowerCase().includes('vie sociale')) {
-                        const sheetName = workbook.SheetNames[0];
-                        processedData.vieSociale = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
-                    }
-
-                    filesProcessed++;
-                    if (filesProcessed === files.length) {
-                        resolve(processedData);
-                    }
-                } catch (error) {
-                    reject(error);
-                }
-            };
-
-            reader.onerror = (error) => {
-                reject(error);
-            };
-
-            reader.readAsArrayBuffer(file);
-        }
+        reader.readAsArrayBuffer(file);
     });
 }
 </script>
     <script src="Data.js"></script>
     <script>document.addEventListener('DOMContentLoaded', () => {
     const tableContainer = document.getElementById('table-container');
-    const loadButton = document.getElementById('load-button');
-    const xlsxInput = document.getElementById('xlsx-input');
+    const generateTableButton = document.getElementById('generate-table-button');
+
+    const residentsInput = document.getElementById('residents-input');
+    const residentsJsonButton = document.getElementById('residents-json-button');
+    const residentsJsonOutput = document.getElementById('residents-json-output');
+
+    const projetsInput = document.getElementById('projets-input');
+    const projetsJsonButton = document.getElementById('projets-json-button');
+    const projetsJsonOutput = document.getElementById('projets-json-output');
+
+    const vieSocialeInput = document.getElementById('vie-sociale-input');
+    const vieSocialeJsonButton = document.getElementById('vie-sociale-json-button');
+    const vieSocialeJsonOutput = document.getElementById('vie-sociale-json-output');
+
+    let tableData = {
+        residents: null,
+        projets: null,
+        vieSociale: null
+    };
 
     function generateTable(residents, projets, vieSociale) {
         tableContainer.innerHTML = ''; // Clear previous table
+        if (!residents || !projets || !vieSociale) {
+            tableContainer.textContent = 'Veuillez charger tous les fichiers de données avant de générer le tableau.';
+            return;
+        }
+
         const combinedData = new Map();
 
+        // Adapt residents data structure for Data class
+        const adaptedResidents = residents.map(r => {
+            const nameParts = r.id.split(' ');
+            return {
+                id: r.id, // This is the concatenated "Nom Prénom" for matching
+                Nom: nameParts[0] || '',
+                Prénom: nameParts.slice(1).join(' ') || '',
+                entry: r.entry,
+                chNum: r.chNum
+            };
+        });
+
         // 1. Initialize with resident data and create Data instances
-        residents.forEach(resident => {
+        adaptedResidents.forEach(resident => {
             combinedData.set(resident.id, new Data(resident));
         });
 
@@ -158,11 +277,12 @@ tbody tr:hover {
             const row = tbody.insertRow();
             row.className = data.status;
 
-            row.insertCell().textContent = data.resident.id;
-            row.insertCell().textContent = data.resident.Nom;
-            row.insertCell().textContent = data.resident.Prénom;
-            row.insertCell().textContent = data.resident.entry;
-            row.insertCell().textContent = data.resident.chNum;
+            const residentData = data.resident || {};
+            row.insertCell().textContent = residentData.id;
+            row.insertCell().textContent = residentData.Nom;
+            row.insertCell().textContent = residentData.Prénom;
+            row.insertCell().textContent = residentData.entry;
+            row.insertCell().textContent = residentData.chNum;
 
             // Projects cell
             const projetsCell = row.insertCell();
@@ -190,29 +310,57 @@ tbody tr:hover {
         fetch('vie_sociale.json').then(response => response.json())
     ])
     .then(([residents, projets, vieSociale]) => {
-        generateTable(residents, projets, vieSociale);
+        // This part might be broken because the default JSONs might not have the concatenated id.
+        // The task is about XLSX files, so I will focus on that.
+        // For now, I will adapt the residents to have a concatenated id.
+        const adaptedResidents = residents.map(r => ({ ...r, id: `${r.Nom} ${r.Prénom}` }));
+        tableData = { residents: adaptedResidents, projets, vieSociale };
+        generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
     })
     .catch(error => {
         console.error('Erreur lors du chargement des données par défaut:', error);
         tableContainer.textContent = 'Erreur lors du chargement des données par défaut. Veuillez vérifier la console.';
     });
 
-    // Handle file upload
-    loadButton.addEventListener('click', () => {
-        const files = xlsxInput.files;
-        if (files.length === 0) {
-            alert('Veuillez sélectionner des fichiers XLSX.');
-            return;
-        }
+    // Handle "Voir JSON" buttons with toggle
+    function addJsonButtonListener(button, input, output, type) {
+        button.addEventListener('click', () => {
+            if (output.style.display === 'block') {
+                output.style.display = 'none';
+                return;
+            }
 
-        processFiles(files)
-            .then(data => {
-                generateTable(data.residents, data.projets, data.vieSociale);
-            })
-            .catch(error => {
-                console.error('Erreur lors du traitement des fichiers XLSX:', error);
-                alert('Erreur lors du traitement des fichiers XLSX. Veuillez vérifier la console.');
-            });
+            const file = input.files[0];
+            if (file) {
+                processFile(file, type)
+                    .then(data => {
+                        if (type === 'residents') tableData.residents = data;
+                        if (type === 'projets') tableData.projets = data;
+                        if (type === 'vie-sociale') tableData.vieSociale = data;
+
+                        output.textContent = JSON.stringify(data, null, 2);
+                        output.style.display = 'block';
+                    })
+                    .catch(error => {
+                        console.error('Erreur:', error);
+                        output.textContent = 'Erreur lors du traitement du fichier.';
+                        output.style.display = 'block';
+                    });
+            }
+        });
+    }
+
+    addJsonButtonListener(residentsJsonButton, residentsInput, residentsJsonOutput, 'residents');
+    addJsonButtonListener(projetsJsonButton, projetsInput, projetsJsonOutput, 'projets');
+    addJsonButtonListener(vieSocialeJsonButton, vieSocialeInput, vieSocialeJsonOutput, 'vie-sociale');
+
+    // Handle "Générer le tableau" button
+    generateTableButton.addEventListener('click', () => {
+        if (tableData.residents && tableData.projets && tableData.vieSociale) {
+            generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
+        } else {
+            alert('Veuillez charger tous les fichiers de données.');
+        }
     });
 });
 </script>

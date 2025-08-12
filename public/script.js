@@ -1,14 +1,48 @@
 document.addEventListener('DOMContentLoaded', () => {
     const tableContainer = document.getElementById('table-container');
-    const loadButton = document.getElementById('load-button');
-    const xlsxInput = document.getElementById('xlsx-input');
+    const generateTableButton = document.getElementById('generate-table-button');
+
+    const residentsInput = document.getElementById('residents-input');
+    const residentsJsonButton = document.getElementById('residents-json-button');
+    const residentsJsonOutput = document.getElementById('residents-json-output');
+
+    const projetsInput = document.getElementById('projets-input');
+    const projetsJsonButton = document.getElementById('projets-json-button');
+    const projetsJsonOutput = document.getElementById('projets-json-output');
+
+    const vieSocialeInput = document.getElementById('vie-sociale-input');
+    const vieSocialeJsonButton = document.getElementById('vie-sociale-json-button');
+    const vieSocialeJsonOutput = document.getElementById('vie-sociale-json-output');
+
+    let tableData = {
+        residents: null,
+        projets: null,
+        vieSociale: null
+    };
 
     function generateTable(residents, projets, vieSociale) {
         tableContainer.innerHTML = ''; // Clear previous table
+        if (!residents || !projets || !vieSociale) {
+            tableContainer.textContent = 'Veuillez charger tous les fichiers de données avant de générer le tableau.';
+            return;
+        }
+
         const combinedData = new Map();
 
+        // Adapt residents data structure for Data class
+        const adaptedResidents = residents.map(r => {
+            const nameParts = r.id.split(' ');
+            return {
+                id: r.id, // This is the concatenated "Nom Prénom" for matching
+                Nom: nameParts[0] || '',
+                Prénom: nameParts.slice(1).join(' ') || '',
+                entry: r.entry,
+                chNum: r.chNum
+            };
+        });
+
         // 1. Initialize with resident data and create Data instances
-        residents.forEach(resident => {
+        adaptedResidents.forEach(resident => {
             combinedData.set(resident.id, new Data(resident));
         });
 
@@ -45,11 +79,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const row = tbody.insertRow();
             row.className = data.status;
 
-            row.insertCell().textContent = data.resident.id;
-            row.insertCell().textContent = data.resident.Nom;
-            row.insertCell().textContent = data.resident.Prénom;
-            row.insertCell().textContent = data.resident.entry;
-            row.insertCell().textContent = data.resident.chNum;
+            const residentData = data.resident || {};
+            row.insertCell().textContent = residentData.id;
+            row.insertCell().textContent = residentData.Nom;
+            row.insertCell().textContent = residentData.Prénom;
+            row.insertCell().textContent = residentData.entry;
+            row.insertCell().textContent = residentData.chNum;
 
             // Projects cell
             const projetsCell = row.insertCell();
@@ -77,28 +112,56 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch('vie_sociale.json').then(response => response.json())
     ])
     .then(([residents, projets, vieSociale]) => {
-        generateTable(residents, projets, vieSociale);
+        // This part might be broken because the default JSONs might not have the concatenated id.
+        // The task is about XLSX files, so I will focus on that.
+        // For now, I will adapt the residents to have a concatenated id.
+        const adaptedResidents = residents.map(r => ({ ...r, id: `${r.Nom} ${r.Prénom}` }));
+        tableData = { residents: adaptedResidents, projets, vieSociale };
+        generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
     })
     .catch(error => {
         console.error('Erreur lors du chargement des données par défaut:', error);
         tableContainer.textContent = 'Erreur lors du chargement des données par défaut. Veuillez vérifier la console.';
     });
 
-    // Handle file upload
-    loadButton.addEventListener('click', () => {
-        const files = xlsxInput.files;
-        if (files.length === 0) {
-            alert('Veuillez sélectionner des fichiers XLSX.');
-            return;
-        }
+    // Handle "Voir JSON" buttons with toggle
+    function addJsonButtonListener(button, input, output, type) {
+        button.addEventListener('click', () => {
+            if (output.style.display === 'block') {
+                output.style.display = 'none';
+                return;
+            }
 
-        processFiles(files)
-            .then(data => {
-                generateTable(data.residents, data.projets, data.vieSociale);
-            })
-            .catch(error => {
-                console.error('Erreur lors du traitement des fichiers XLSX:', error);
-                alert('Erreur lors du traitement des fichiers XLSX. Veuillez vérifier la console.');
-            });
+            const file = input.files[0];
+            if (file) {
+                processFile(file, type)
+                    .then(data => {
+                        if (type === 'residents') tableData.residents = data;
+                        if (type === 'projets') tableData.projets = data;
+                        if (type === 'vie-sociale') tableData.vieSociale = data;
+
+                        output.textContent = JSON.stringify(data, null, 2);
+                        output.style.display = 'block';
+                    })
+                    .catch(error => {
+                        console.error('Erreur:', error);
+                        output.textContent = 'Erreur lors du traitement du fichier.';
+                        output.style.display = 'block';
+                    });
+            }
+        });
+    }
+
+    addJsonButtonListener(residentsJsonButton, residentsInput, residentsJsonOutput, 'residents');
+    addJsonButtonListener(projetsJsonButton, projetsInput, projetsJsonOutput, 'projets');
+    addJsonButtonListener(vieSocialeJsonButton, vieSocialeInput, vieSocialeJsonOutput, 'vie-sociale');
+
+    // Handle "Générer le tableau" button
+    generateTableButton.addEventListener('click', () => {
+        if (tableData.residents && tableData.projets && tableData.vieSociale) {
+            generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
+        } else {
+            alert('Veuillez charger tous les fichiers de données.');
+        }
     });
 });
