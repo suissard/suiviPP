@@ -66,11 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
             { text: 'Prénom', sortable: true },
             { text: 'Date d\'entrée', sortable: true },
             { text: 'Chambre', sortable: true },
-            { text: 'Projets Signature (<1 an)', sortable: true },
-            { text: 'Projets Brouillon (<1 an)', sortable: true },
-            { text: 'PP et Consentement (<1 an)', sortable: true },
+            { text: 'Projets Signature', sortable: true },
+            { text: 'Projets Brouillon', sortable: true },
+            { text: 'PP et Consentement', sortable: true },
             { text: 'Bilan d\'intégration', sortable: true },
-            { text: 'Projet Médical (signé <1 an)', sortable: true }
+            { text: 'Projet Médical', sortable: true }
         ];
 
         headers.forEach((header, index) => {
@@ -135,15 +135,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const signatureProjetsCell = row.insertCell();
                 signatureProjetsCell.className = cellClasses;
-                signatureProjetsCell.textContent = data.signatureProjetsLessThanYear;
+                signatureProjetsCell.textContent = data.signatureProjetsCount;
 
                 const brouillonProjetsCell = row.insertCell();
                 brouillonProjetsCell.className = cellClasses;
-                brouillonProjetsCell.textContent = data.brouillonProjetsLessThanYear;
+                brouillonProjetsCell.textContent = data.brouillonProjetsCount;
 
                 const ppEtConsentementCell = row.insertCell();
                 ppEtConsentementCell.className = cellClasses;
-                ppEtConsentementCell.textContent = data.hasPpEtConsentementLessThanYear ? 'Oui' : 'Non';
+                ppEtConsentementCell.textContent = data.hasPpEtConsentement ? 'Oui' : 'Non';
 
                 const bilanIntegrationCell = row.insertCell();
                 bilanIntegrationCell.className = cellClasses;
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const medicalProjetCell = row.insertCell();
                 medicalProjetCell.className = cellClasses;
-                medicalProjetCell.textContent = data.hasMedicalProjetInSignatureLessThanYear ? 'Oui' : 'Non';
+                medicalProjetCell.textContent = data.hasMedicalProjet ? 'Oui' : 'Non';
             });
         }
 
@@ -186,24 +186,24 @@ document.addEventListener('DOMContentLoaded', () => {
                         valB = b.resident.chNum;
                         break;
                     case 5:
-                        valA = a.signatureProjetsLessThanYear;
-                        valB = b.signatureProjetsLessThanYear;
+                        valA = a.signatureProjetsCount;
+                        valB = b.signatureProjetsCount;
                         break;
                     case 6:
-                        valA = a.brouillonProjetsLessThanYear;
-                        valB = b.brouillonProjetsLessThanYear;
+                        valA = a.brouillonProjetsCount;
+                        valB = b.brouillonProjetsCount;
                         break;
                     case 7:
-                        valA = a.hasPpEtConsentementLessThanYear;
-                        valB = b.hasPpEtConsentementLessThanYear;
+                        valA = a.hasPpEtConsentement;
+                        valB = b.hasPpEtConsentement;
                         break;
                     case 8:
                         valA = a.hasBilanIntegration;
                         valB = b.hasBilanIntegration;
                         break;
                     case 9:
-                        valA = a.hasMedicalProjetInSignatureLessThanYear;
-                        valB = b.hasMedicalProjetInSignatureLessThanYear;
+                        valA = a.hasMedicalProjet;
+                        valB = b.hasMedicalProjet;
                         break;
                 }
 

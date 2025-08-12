@@ -6,1222 +6,1222 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "BMHBO Zwpoof",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "BMHBO Zwpoof",
       "type": "Bilan d’intégration",
-      "date": "2021-01-09T00:00:00.000Z"
+      "date": "09/01/2021"
     },
     {
       "id": "BMHBO Zwpoof",
       "type": "PP - Présentation et Consentement",
-      "date": "2021-01-09T00:00:00.000Z"
+      "date": "09/01/2021"
     },
     {
       "id": "CBDIFMJFS Nbve",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "CBDIFMJFS Nbve",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "CBSCFBV Kfbo",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-03-10T00:00:00.000Z"
+      "date": "10/03/2024"
     },
     {
       "id": "CBSCFBV Kfbo",
       "type": "Bilan d’intégration",
-      "date": "2023-08-03T00:00:00.000Z"
+      "date": "03/08/2023"
     },
     {
       "id": "CBSCFBV Kfbo",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-08-03T00:00:00.000Z"
+      "date": "03/08/2023"
     },
     {
       "id": "CBVEPVJO Nbsjf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-12-07T00:00:00.000Z"
+      "date": "07/12/2024"
     },
     {
       "id": "CBVEPVJO Nbsjf",
       "type": "Bilan d’intégration",
-      "date": "2024-12-07T00:00:00.000Z"
+      "date": "07/12/2024"
     },
     {
       "id": "CBVRVJO Nbsjf",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-07-02T00:00:00.000Z"
+      "date": "02/07/2023"
     },
     {
       "id": "CFUUFSJDI Kptjbof",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-06-06T00:00:00.000Z"
+      "date": "06/06/2023"
     },
     {
       "id": "CFUUFSJDI Kptjbof",
       "type": "Bilan d’intégration",
-      "date": "2023-01-06T00:00:00.000Z"
+      "date": "06/01/2023"
     },
     {
       "id": "CFUUFSJDI Kptjbof",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-01-06T00:00:00.000Z"
+      "date": "06/01/2023"
     },
     {
       "id": "CFUUFSJDI Kptjbof",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-02T00:00:00.000Z"
+      "date": "02/01/2022"
     },
     {
       "id": "CFUUFSJDI Kptjbof",
       "type": "Bilan d’intégration",
-      "date": "2022-01-02T00:00:00.000Z"
+      "date": "02/01/2022"
     },
     {
       "id": "CMBODIBSE Ojdpmf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "CMBODIFU Bmjfuuf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-08T00:00:00.000Z"
+      "date": "08/01/2024"
     },
     {
       "id": "CMBODIFU Bmjfuuf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-02T00:00:00.000Z"
+      "date": "02/01/2022"
     },
     {
       "id": "CMBSE Nbsjf Nbefmfjof",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-08T00:00:00.000Z"
+      "date": "08/01/2024"
     },
     {
       "id": "CMBSE Nbsjf Nbefmfjof",
       "type": "Bilan d’intégration",
-      "date": "2024-01-08T00:00:00.000Z"
+      "date": "08/01/2024"
     },
     {
       "id": "CMJOFBV Kfbo-Qbvm",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "CMJOFBV Kfbo-Qbvm",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "CMJOFBV Nbsjf-Mvdf",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "CMJOFBV Nbsjf-Mvdf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "CPJSPO Sfoff",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "CPJSPO Sfoff",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "CPOOFU Sfof",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "CPOOFU Sfof",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "CPOTFSHFOU Kbdrvfmjof",
       "type": "Entretien téléphonique ",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "CPVMMF Dibsmft",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "CPVMMF Kbdrvfmjof",
       "type": "Bilan d’intégration",
-      "date": "2024-06-05T00:00:00.000Z"
+      "date": "05/06/2024"
     },
     {
       "id": "CPVMMF Kbdrvfmjof",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-06-05T00:00:00.000Z"
+      "date": "05/06/2024"
     },
     {
       "id": "CPAFD Kfboof",
       "type": "Bilan d’intégration",
-      "date": "2025-05-03T00:00:00.000Z"
+      "date": "03/05/2025"
     },
     {
       "id": "CPAFD Kfboof",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "CSFOZ Boesf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "DBTFS Gmpsjoeb",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-11-04T00:00:00.000Z"
+      "date": "04/11/2024"
     },
     {
       "id": "DBTFS Gmpsjoeb",
       "type": "Bilan d’intégration",
-      "date": "2024-11-04T00:00:00.000Z"
+      "date": "04/11/2024"
     },
     {
       "id": "DMBVTTF Npojrvf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "DMBVTTF Npojrvf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-12-09T00:00:00.000Z"
+      "date": "09/12/2024"
     },
     {
       "id": "DMBVTTF Npojrvf",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-01-03T00:00:00.000Z"
+      "date": "03/01/2023"
     },
     {
       "id": "DMBVTTF Npojrvf",
       "type": "Bilan d’intégration",
-      "date": "2023-01-03T00:00:00.000Z"
+      "date": "03/01/2023"
     },
     {
       "id": "DMPBSFD Njdifmjof",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "DMPBSFD Njdifmjof",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "DPJGGFU Kfboojof",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "DPJGGFU Kfboojof",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "DPJGGFU Kfboojof",
       "type": "Bilan d’intégration",
-      "date": "2021-01-09T00:00:00.000Z"
+      "date": "09/01/2021"
     },
     {
       "id": "DPJGGFU Kfboojof",
       "type": "PP - Présentation et Consentement",
-      "date": "2021-01-09T00:00:00.000Z"
+      "date": "09/01/2021"
     },
     {
       "id": "DPOOPMMZ Kpio",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-10-06T00:00:00.000Z"
+      "date": "06/10/2024"
     },
     {
       "id": "DPOOPMMZ Kpio",
       "type": "Bilan d’intégration",
-      "date": "2023-01-02T00:00:00.000Z"
+      "date": "02/01/2023"
     },
     {
       "id": "DPOOPMMZ Kpio",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-01-02T00:00:00.000Z"
+      "date": "02/01/2023"
     },
     {
       "id": "DPSOV Kfbo",
       "type": "Entretien individuel",
-      "date": "2025-09-05T00:00:00.000Z"
+      "date": "05/09/2025"
     },
     {
       "id": "DPSOV Kfbo",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-02-09T00:00:00.000Z"
+      "date": "09/02/2024"
     },
     {
       "id": "DPSOV Kfbo",
       "type": "Bilan d’intégration",
-      "date": "2024-02-09T00:00:00.000Z"
+      "date": "09/02/2024"
     },
     {
       "id": "DSVTTPO Kpfm",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-02T00:00:00.000Z"
+      "date": "02/01/2024"
     },
     {
       "id": "DVTVNBOP Svepmqi",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "DVTVNBOP Svepmqi",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "EBOFU Hfpshfuuf",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "EBOFU Hfpshfuuf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "EBWJE Sbznpoef",
       "type": "PP - Présentation et Consentement",
-      "date": "2025-06-03T00:00:00.000Z"
+      "date": "03/06/2025"
     },
     {
       "id": "EBWJE-CFMMPVBSE Nbsjf-Cfbusjdf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-09-12T00:00:00.000Z"
+      "date": "12/09/2024"
     },
     {
       "id": "EBWJE-CFMMPVBSE Nbsjf-Cfbusjdf",
       "type": "Bilan d’intégration",
-      "date": "2024-09-12T00:00:00.000Z"
+      "date": "12/09/2024"
     },
     {
       "id": "EBWJE-CFMMPVBSE Nbsjf-Cfbusjdf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-05-12T00:00:00.000Z"
+      "date": "12/05/2024"
     },
     {
       "id": "EPVBSDIF Njdifmmf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "EPVBSDIF Njdifmmf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "EPVNFSD Cfsusboef",
       "type": "Entretien téléphonique ",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "EVCSFVJM Kbdrvft",
       "type": "PP - Présentation et Consentement",
-      "date": "2025-06-02T00:00:00.000Z"
+      "date": "02/06/2025"
     },
     {
       "id": "EVMBD Ojdpmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-12-09T00:00:00.000Z"
+      "date": "09/12/2024"
     },
     {
       "id": "EVMBD Ojdpmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-12-07T00:00:00.000Z"
+      "date": "07/12/2024"
     },
     {
       "id": "EVMBD Ojdpmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-03T00:00:00.000Z"
+      "date": "03/01/2022"
     },
     {
       "id": "EVMBD Ojdpmf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-03T00:00:00.000Z"
+      "date": "03/01/2022"
     },
     {
       "id": "GJTDIFS Ifmfof",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-08-02T00:00:00.000Z"
+      "date": "02/08/2023"
     },
     {
       "id": "GPOUFOBZ Dmbvefuuf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "GPOUFOBZ Dmbvefuuf",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "GPOUFOBZ Dmbvefuuf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "HBEJPVY Kbdrvft",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-01T00:00:00.000Z"
+      "date": "01/01/2022"
     },
     {
       "id": "HBMMF Kfbo",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-11-07T00:00:00.000Z"
+      "date": "07/11/2024"
     },
     {
       "id": "HBMMF Kfbo",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "12/01/2022"
     },
     {
       "id": "HBMMF Kfbo",
       "type": "Bilan d’intégration",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "12/01/2022"
     },
     {
       "id": "HPEBS Njdifmf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "HPEBS Njdifmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "12/01/2022"
     },
     {
       "id": "HPEBS Njdifmf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "12/01/2022"
     },
     {
       "id": "HPJAFU Nbshvfsjuf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "HPJAFU Nbshvfsjuf",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-08-03T00:00:00.000Z"
+      "date": "03/08/2023"
     },
     {
       "id": "HPJAFU Nbshvfsjuf",
       "type": "Entretien individuel",
-      "date": "2021-10-11T00:00:00.000Z"
+      "date": "11/10/2021"
     },
     {
       "id": "HSBGGPVJMMFSF Zwpoof",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "HSBGGPVJMMFSF Zwpoof",
       "type": "Bilan d’intégration",
-      "date": "2023-01-08T00:00:00.000Z"
+      "date": "08/01/2023"
     },
     {
       "id": "HVFIFOOFVD Nbsjf",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "HVFIFOOFVD Nbsjf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "HVFSJO Dmbvef",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "HVFSJO Dmbvef",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "11/01/2022"
     },
     {
       "id": "HVJMMFU Kfboof",
       "type": "Entretien résident/aidant principal",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "HVJMMFU Kfboof",
       "type": "Entretien résident/aidant principal",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "HVJMMFU Kfboof",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "12/01/2022"
     },
     {
       "id": "HVJMMFU Kfboof",
       "type": "Bilan d’intégration",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "12/01/2022"
     },
     {
       "id": "HVJMMPUJO Kptjbof",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-05-08T00:00:00.000Z"
+      "date": "08/05/2024"
     },
     {
       "id": "HVJMMPUJO Kptjbof",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "11/01/2022"
     },
     {
       "id": "HVJMMPUJO Kptjbof",
       "type": "Bilan d’intégration",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "11/01/2022"
     },
     {
       "id": "IBMHBOE Npojrvf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-11-07T00:00:00.000Z"
+      "date": "07/11/2024"
     },
     {
       "id": "IBMHBOE Npojrvf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "10/01/2022"
     },
     {
       "id": "IBMMFSZ Ebojfmf",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "IBMMFSZ Ebojfmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-02T00:00:00.000Z"
+      "date": "02/01/2024"
     },
     {
       "id": "IBSEZ Uifsftf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "10/01/2022"
     },
     {
       "id": "IBSEZ Uifsftf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "10/01/2022"
     },
     {
       "id": "IFSBSE Nbsjf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "IFSBSE Nbsjf",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "IFSSNBOO Kfbo-Dmbvef",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-05-09T00:00:00.000Z"
+      "date": "09/05/2024"
     },
     {
       "id": "IFSSNBOO Kfbo-Dmbvef",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "10/01/2022"
     },
     {
       "id": "IFSSNBOO Kfbo-Dmbvef",
       "type": "Bilan d’intégration",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "10/01/2022"
     },
     {
       "id": "IFSWF Nbsjf-Bohf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "11/01/2022"
     },
     {
       "id": "IFSWF Nbsjf-Bohf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "11/01/2022"
     },
     {
       "id": "IFSWPDIF Boesf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "IFSWPDIF Boesf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "IJWFSU Nbsd",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "IJWFSU Nbsd",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "IJWFSU Nbsd",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-08-08T00:00:00.000Z"
+      "date": "08/08/2024"
     },
     {
       "id": "IPMJO Njdifm",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "IPMJO Njdifm",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "IVHVFOJO Hfsbse",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "IVHVFOJO Hfsbse",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-01-10T00:00:00.000Z"
+      "date": "10/01/2023"
     },
     {
       "id": "IVHVFOJO Hfsbse",
       "type": "Bilan d’intégration",
-      "date": "2023-01-10T00:00:00.000Z"
+      "date": "10/01/2023"
     },
     {
       "id": "KPTTP Boob",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-07-11T00:00:00.000Z"
+      "date": "11/07/2024"
     },
     {
       "id": "KPTTP Boob",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "KPTTP Boob",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-02T00:00:00.000Z"
+      "date": "02/01/2024"
     },
     {
       "id": "KPASPMBOE Bnfmjf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-08-08T00:00:00.000Z"
+      "date": "08/08/2024"
     },
     {
       "id": "KVMMJFO Spcfsu",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "KVMMJFO Spcfsu",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "MBHBZF Cmbodif",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "MBHBZF Cmbodif",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "MBNZ Boesff",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "MBOESJBV Zwft",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "MBOESJBV Zwft",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "MBVOBJT Kbdrvfmjof",
       "type": "Bilan d’intégration",
-      "date": "2024-12-12T00:00:00.000Z"
+      "date": "12/12/2024"
     },
     {
       "id": "MBVOBJT Kbdrvfmjof",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-12-12T00:00:00.000Z"
+      "date": "12/12/2024"
     },
     {
       "id": "MFCMPJT Tpmbohf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "MFCMPJT Tpmbohf",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "MFCMPJT Tpmbohf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "MFDBSQFOUJFS Efojtf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "MFDBSQFOUJFS Efojtf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "10/01/2022"
     },
     {
       "id": "LE EJHBCFM Ojdpmf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "MFGFWSF Hjmcfsuf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "MFGFWSF Hjmcfsuf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "11/01/2022"
     },
     {
       "id": "MFGFWSF Hjmcfsuf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "11/01/2022"
     },
     {
       "id": "MFHPVJD Dpmfuuf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "MFHPVJD Dpmfuuf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "MFHPVJD Dpmfuuf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "11/01/2022"
     },
     {
       "id": "MFHPVJD Dpmfuuf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "11/01/2022"
     },
     {
       "id": "LE HSBOE Nbsjf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "11/01/2022"
     },
     {
       "id": "LE MFBOOFD Zwpoof",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "LE MFBOOFD Zwpoof",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "LE OFTUPVS Hfsbse",
       "type": "Bilan d’intégration",
-      "date": "2024-09-11T00:00:00.000Z"
+      "date": "11/09/2024"
     },
     {
       "id": "LE OFTUPVS Hfsbse",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-07-11T00:00:00.000Z"
+      "date": "11/07/2024"
     },
     {
       "id": "MPJSBU Efojtf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-08-08T00:00:00.000Z"
+      "date": "08/08/2024"
     },
     {
       "id": "MPJSBU Efojtf",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "MPJSBU Efojtf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "NBHVBJO Efojtf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "NBHVBJO Efojtf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "12/01/2022"
     },
     {
       "id": "NBHVBJO Efojtf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "12/01/2022"
     },
     {
       "id": "NBIF Boof-Nbsjf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "NBIF Boof-Nbsjf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "10/01/2022"
     },
     {
       "id": "NBIF Nbvsjdf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-04T00:00:00.000Z"
+      "date": "04/01/2024"
     },
     {
       "id": "NBMQFM Efojtf",
       "type": "PP - Présentation et Consentement",
-      "date": "2025-07-08T00:00:00.000Z"
+      "date": "08/07/2025"
     },
     {
       "id": "NBTTFOPU Njdifmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-05-08T00:00:00.000Z"
+      "date": "08/05/2024"
     },
     {
       "id": "NBTTFOPU Njdifmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "12/01/2022"
     },
     {
       "id": "NBTTFOPU Njdifmf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "12/01/2022"
     },
     {
       "id": "NFUBZFS Zwfuuf",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "NFUBZFS Zwfuuf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "NFUSP Bohfmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-05-09T00:00:00.000Z"
+      "date": "09/05/2024"
     },
     {
       "id": "NFVOJFS Gsbodpjtf",
       "type": "PP - Présentation et Consentement",
-      "date": "2025-06-02T00:00:00.000Z"
+      "date": "02/06/2025"
     },
     {
       "id": "NPSFBV Nbsjf",
       "type": "Bilan d’intégration",
-      "date": "2024-08-11T00:00:00.000Z"
+      "date": "11/08/2024"
     },
     {
       "id": "NPSFBV Nbsjf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-07-11T00:00:00.000Z"
+      "date": "11/07/2024"
     },
     {
       "id": "NPSJDFU Boojdl",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-03-06T00:00:00.000Z"
+      "date": "06/03/2024"
     },
     {
       "id": "NPSJDFU Boojdl",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "12/01/2022"
     },
     {
       "id": "NPSJDFU Boojdl",
       "type": "Bilan d’intégration",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "12/01/2022"
     },
     {
       "id": "NPSJO Nbsjf-Dmbvef",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "NPSPZ Boesff",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "NPSPZ Boesff",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-03T00:00:00.000Z"
+      "date": "03/01/2022"
     },
     {
       "id": "NVDDIJFMMJ Nbsjf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "NVDDIJFMMJ Nbsjf",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "OPFM Tjnpoof",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "OPFM Tjnpoof",
       "type": "Bilan d’intégration",
-      "date": "2024-11-07T00:00:00.000Z"
+      "date": "07/11/2024"
     },
     {
       "id": "OPFM Tjnpoof",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-11-07T00:00:00.000Z"
+      "date": "07/11/2024"
     },
     {
       "id": "QBVHBN Kfboojof",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-12-12T00:00:00.000Z"
+      "date": "12/12/2024"
     },
     {
       "id": "QBVHBN Kfboojof",
       "type": "Bilan d’intégration",
-      "date": "2024-12-12T00:00:00.000Z"
+      "date": "12/12/2024"
     },
     {
       "id": "QBVHBN Kfboojof",
       "type": "Bilan d’intégration",
-      "date": "2024-12-12T00:00:00.000Z"
+      "date": "12/12/2024"
     },
     {
       "id": "QJDIFMJO Bsmfuuf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "QJDIFMJO Bsmfuuf",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "QJFSSPO Cfsobefuuf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-03-06T00:00:00.000Z"
+      "date": "06/03/2024"
     },
     {
       "id": "QJFSSPO Cfsobefuuf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "12/01/2022"
     },
     {
       "id": "QJFSSPO Cfsobefuuf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "12/01/2022"
     },
     {
       "id": "QPVMOBJT Ojdpmf",
       "type": "Bilan d’intégration",
-      "date": "2024-11-03T00:00:00.000Z"
+      "date": "03/11/2024"
     },
     {
       "id": "QPVMOBJT Ojdpmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-03T00:00:00.000Z"
+      "date": "03/01/2024"
     },
     {
       "id": "RVFOOFWJMMF Nbsdfmmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-02-08T00:00:00.000Z"
+      "date": "08/02/2023"
     },
     {
       "id": "RVFOOFWJMMF Nbsdfmmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2017-01-06T00:00:00.000Z"
+      "date": "06/01/2017"
     },
     {
       "id": "RVFOOFWJMMF Nbsdfmmf",
       "type": "Bilan d’intégration",
-      "date": "2017-01-06T00:00:00.000Z"
+      "date": "06/01/2017"
     },
     {
       "id": "SFEVSFBV Qbvm",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "SFOEFST Kfboojof",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-08T00:00:00.000Z"
+      "date": "08/01/2024"
     },
     {
       "id": "SFOEFST Kfboojof",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "SFOEFST Kfboojof",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "SJNNFM Hjtfmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "10/01/2022"
     },
     {
       "id": "SJNNFM Hjtfmf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "10/01/2022"
     },
     {
       "id": "SPCFSU Guy",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "SPCFSU Guy",
       "type": "PP - Présentation et Consentement",
-      "date": "2025-12-06T00:00:00.000Z"
+      "date": "06/12/2025"
     },
     {
       "id": "SPCJRVFU Zwfuuf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-12-09T00:00:00.000Z"
+      "date": "09/12/2024"
     },
     {
       "id": "SPCJRVFU Zwfuuf",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-06-03T00:00:00.000Z"
+      "date": "03/06/2023"
     },
     {
       "id": "SPCJRVFU Zwfuuf",
       "type": "Bilan d’intégration",
-      "date": "2023-06-03T00:00:00.000Z"
+      "date": "03/06/2023"
     },
     {
       "id": "SPHFS Mvdjfoof",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-08-03T00:00:00.000Z"
+      "date": "03/08/2023"
     },
     {
       "id": "SPTQBSU Hfofwjfwf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "SPTQBSU Hfofwjfwf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "SPVTTFMPU Njdifm",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "SPVTTFMPU Njdifm",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "SPVTTFMPU Njdifm",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "10/01/2022"
     },
     {
       "id": "SPVTTFMPU Njdifm",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "SPVTTFMPU Njdifm",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "TBVSFM Kfboojof",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-05-08T00:00:00.000Z"
+      "date": "08/05/2024"
     },
     {
       "id": "TBVSFM Kfboojof",
       "type": "Bilan d’intégration",
-      "date": "2024-05-08T00:00:00.000Z"
+      "date": "08/05/2024"
     },
     {
       "id": "TFSPU Kfboojof",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "TFSPU Kfboojof",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "UBOSFU Nbsujof",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "UBOSFU Nbsujof",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "UFTTJFS Efojtf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "UFTTJFS Efojtf",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-09-02T00:00:00.000Z"
+      "date": "02/09/2023"
     },
     {
       "id": "UFTTJFS Efojtf",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "UFYJFS Boesff",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "UFYJFS Boesff",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "USVDIPO-CBSUFT Kfbo",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "UVGGFU Qjfssf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-03-10T00:00:00.000Z"
+      "date": "10/03/2024"
     },
     {
       "id": "UVGGFU Qjfssf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-03-10T00:00:00.000Z"
+      "date": "10/03/2024"
     },
     {
       "id": "UVGGFU Qjfssf",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "UVGGFU Qjfssf",
       "type": "Bilan d’intégration",
-      "date": "2022-06-12T00:00:00.000Z"
+      "date": "12/06/2022"
     },
     {
       "id": "WBMFSZ Sfoff",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-05T00:00:00.000Z"
+      "date": "05/01/2024"
     },
     {
       "id": "WBOEFSOPUUF Boojl",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "WBOEFSOPUUF Boojl",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "WJHOBVE Cfsobse",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-08T00:00:00.000Z"
+      "date": "08/01/2024"
     },
     {
       "id": "WJHOBVE Cfsobse",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-05T00:00:00.000Z"
+      "date": "05/01/2022"
     },
     {
       "id": "WPMFPO Uifsftf",
       "type": "PP - Présentation et Consentement",
-      "date": "2025-09-01T00:00:00.000Z"
+      "date": "01/09/2025"
     },
     {
       "id": "XJBNF Kfbo-Dmbvef",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-10-10T00:00:00.000Z"
+      "date": "10/10/2024"
     },
     {
       "id": "XJBNF Kfbo-Dmbvef",
       "type": "Bilan d’intégration",
-      "date": "2024-10-10T00:00:00.000Z"
+      "date": "10/10/2024"
     },
     {
       "id": "XJBNF Nbsjf-Uifsftf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-10-10T00:00:00.000Z"
+      "date": "10/10/2024"
     },
     {
       "id": "XJBNF Nbsjf-Uifsftf",
       "type": "Bilan d’intégration",
-      "date": "2024-10-10T00:00:00.000Z"
+      "date": "10/10/2024"
     },
     {
       "id": "XJCBVY Fmjtbcfui",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "XJCBVY Fmjtbcfui",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "XJCBVY Hfsbse",
       "type": "Bilan d’intégration",
-      "date": null
+      "date": "Invalid Date"
     },
     {
       "id": "XJCBVY Hfsbse",
       "type": "PP - Présentation et Consentement",
-      "date": null
+      "date": "Invalid Date"
     }
   ]
 }"
