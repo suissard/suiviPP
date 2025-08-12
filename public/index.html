@@ -4,37 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de Suivi des Résidents</title>
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body>
-    <h1>Tableau de Suivi des Résidents</h1>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto p-8">
+        <h1 class="text-4xl font-bold text-center mb-8">Tableau de Suivi des Résidents</h1>
 
-    <div class="file-input-container">
-        <label for="residents-input">Fichier Résidents (XLSX):</label>
-        <input type="file" id="residents-input" accept=".xlsx">
-        <button id="residents-json-button">Voir JSON</button>
-        <pre id="residents-json-output"></pre>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <label for="residents-input" class="block text-lg font-medium text-gray-700 mb-2">Fichier Résidents (XLSX):</label>
+                <input type="file" id="residents-input" accept=".xlsx" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
+                <button id="residents-json-button" class="mt-4 bg-violet-500 text-white px-4 py-2 rounded-md hover:bg-violet-600">Voir JSON</button>
+                <pre id="residents-json-output" class="mt-4 bg-gray-50 p-4 rounded-md overflow-x-auto"></pre>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <label for="projets-input" class="block text-lg font-medium text-gray-700 mb-2">Fichier Projets (XLSX):</label>
+                <input type="file" id="projets-input" accept=".xlsx" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
+                <button id="projets-json-button" class="mt-4 bg-violet-500 text-white px-4 py-2 rounded-md hover:bg-violet-600">Voir JSON</button>
+                <pre id="projets-json-output" class="mt-4 bg-gray-50 p-4 rounded-md overflow-x-auto"></pre>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <label for="vie-sociale-input" class="block text-lg font-medium text-gray-700 mb-2">Fichier Vie Sociale (XLSX):</label>
+                <input type="file" id="vie-sociale-input" accept=".xlsx" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
+                <button id="vie-sociale-json-button" class="mt-4 bg-violet-500 text-white px-4 py-2 rounded-md hover:bg-violet-600">Voir JSON</button>
+                <pre id="vie-sociale-json-output" class="mt-4 bg-gray-50 p-4 rounded-md overflow-x-auto"></pre>
+            </div>
+        </div>
+
+        <div class="mt-8 text-center">
+            <button id="generate-table-button" class="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 text-lg">Générer le tableau</button>
+        </div>
+
+        <div id="table-container" class="mt-8 bg-white p-6 rounded-lg shadow-md"></div>
     </div>
-
-    <div class="file-input-container">
-        <label for="projets-input">Fichier Projets (XLSX):</label>
-        <input type="file" id="projets-input" accept=".xlsx">
-        <button id="projets-json-button">Voir JSON</button>
-        <pre id="projets-json-output"></pre>
-    </div>
-
-    <div class="file-input-container">
-        <label for="vie-sociale-input">Fichier Vie Sociale (XLSX):</label>
-        <input type="file" id="vie-sociale-input" accept=".xlsx">
-        <button id="vie-sociale-json-button">Voir JSON</button>
-        <pre id="vie-sociale-json-output"></pre>
-    </div>
-
-    <div>
-        <button id="generate-table-button">Générer le tableau</button>
-    </div>
-
-    <div id="table-container"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="excel-processor.js"></script>

@@ -50,43 +50,73 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 4. Generate the table
         const table = document.createElement('table');
+        table.className = 'min-w-full divide-y divide-gray-200';
 
         // Table header
         const thead = table.createTHead();
+        thead.className = 'bg-gray-50';
         const headerRow = thead.insertRow();
         const headers = ['ID', 'Nom', 'Prénom', 'Date d\'entrée', 'Chambre', 'Projets', 'Vie Sociale'];
         headers.forEach(headerText => {
             const th = document.createElement('th');
+            th.className = 'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider';
             th.textContent = headerText;
             headerRow.appendChild(th);
         });
 
         // Table body
         const tbody = table.createTBody();
+        tbody.className = 'bg-white divide-y divide-gray-200';
         combinedData.forEach(data => {
             const row = tbody.insertRow();
-            row.className = data.status;
 
-            row.insertCell().textContent = data.resident.id;
-            row.insertCell().textContent = data.resident.Nom;
-            row.insertCell().textContent = data.resident.Prénom;
-            row.insertCell().textContent = data.resident.entry;
-            row.insertCell().textContent = data.resident.chNum;
+            // Apply status colors
+            if (data.status === 'success') {
+                row.className = 'bg-green-100';
+            } else if (data.status === 'warning') {
+                row.className = 'bg-yellow-100';
+            } else if (data.status === 'error') {
+                row.className = 'bg-red-100';
+            }
+
+            const cellClasses = 'px-6 py-4 whitespace-nowrap text-sm text-gray-900';
+
+            const idCell = row.insertCell();
+            idCell.className = cellClasses;
+            idCell.textContent = data.resident.id;
+
+            const nomCell = row.insertCell();
+            nomCell.className = cellClasses;
+            nomCell.textContent = data.resident.Nom;
+
+            const prenomCell = row.insertCell();
+            prenomCell.className = cellClasses;
+            prenomCell.textContent = data.resident.Prénom;
+
+            const entryCell = row.insertCell();
+            entryCell.className = cellClasses;
+            entryCell.textContent = data.resident.entry;
+
+            const chNumCell = row.insertCell();
+            chNumCell.className = cellClasses;
+            chNumCell.textContent = data.resident.chNum;
 
             // Projects cell
             const projetsCell = row.insertCell();
+            projetsCell.className = cellClasses;
             projetsCell.innerHTML = data.projets.map(p =>
-                `<b>Type:</b> ${p.type}<br>
-                 <b>État:</b> ${p.state}<br>
-                 <b>Du:</b> ${p.from} <b>Au:</b> ${p.to}`
-            ).join('<hr style="margin: 5px 0;">');
+                `<div class="mb-2"><b>Type:</b> ${p.type}</div>
+                 <div class="mb-2"><b>État:</b> ${p.state}</div>
+                 <div><b>Du:</b> ${p.from} <b>Au:</b> ${p.to}</div>`
+            ).join('<hr class="my-2">');
 
             // Social life cell
             const vieSocialeCell = row.insertCell();
+            vieSocialeCell.className = cellClasses;
             vieSocialeCell.innerHTML = data.vieSociale.map(v =>
-                `<b>Motif:</b> ${v.type}<br>
-                 <b>Date:</b> ${v.date}`
-            ).join('<hr style="margin: 5px 0;">');
+                `<div class="mb-2"><b>Motif:</b> ${v.type}</div>
+                 <div><b>Date:</b> ${v.date}</div>`
+            ).join('<hr class="my-2">');
         });
 
         tableContainer.appendChild(table);
