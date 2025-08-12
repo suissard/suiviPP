@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const tableContainer = document.getElementById('table-container');
     const generateTableButton = document.getElementById('generate-table-button');
+    const printTableButton = document.getElementById('print-table-button');
 
     const residentsInput = document.getElementById('residents-input');
     const residentsJsonButton = document.getElementById('residents-json-button');
@@ -320,5 +321,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 tableContainer.textContent = 'Erreur lors du traitement des fichiers.';
                 loadingIndicator.classList.add('hidden');
             });
+    });
+
+    printTableButton.addEventListener('click', () => {
+        window.print();
     });
 });

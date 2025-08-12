@@ -1,0 +1,36 @@
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #table-container, #table-container * {
+        visibility: visible;
+    }
+
+    #table-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+
+    @page {
+        size: A4 portrait;
+        margin: 1cm;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        font-size: 10pt;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+}
