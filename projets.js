@@ -44,8 +44,8 @@ function processProjets(filePath) {
       "id": extractName(row["Résident"]),
       "type": row["Libellé"],
       "state": row["Étape"],
-      "from": row["Du"],
-      "to": row["Au"]
+      "from": new Date(row["Du"]),
+      "to": new Date(row["Au"])
     }))
   };
 
