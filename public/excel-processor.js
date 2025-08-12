@@ -43,11 +43,11 @@ function processResidentsFile(file) {
                 const data = new Uint8Array(e.target.result);
                 const workbook = XLSX.read(data, { type: 'array' });
                 const sheetName = workbook.SheetNames[0];
-                const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+                const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { cellDates: true });
 
                 const formattedData = jsonData.map(row => ({
                     "id": extractName(row["Résident"]),
-                    "entry": row["Entrée"],
+                    "entry": row["Entrée"] ? row["Entrée"].toLocaleDateString('fr-FR') : null,
                     "chNum": row["N° de chambre"]
                 }));
 
@@ -87,14 +87,14 @@ function processProjetsFile(file) {
                 const data = new Uint8Array(e.target.result);
                 const workbook = XLSX.read(data, { type: 'array' });
                 const sheetName = workbook.SheetNames[0];
-                const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+                const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { cellDates: true });
 
                 const formattedData = jsonData.map(row => ({
                     "id": extractName(row["Résident"]),
                     "type": row["Libellé"],
                     "state": row["Étape"],
-                    "from": row["Du"],
-                    "to": row["Au"]
+                    "from": row["Du"] ? row["Du"].toLocaleDateString('fr-FR') : null,
+                    "to": row["Au"] ? row["Au"].toLocaleDateString('fr-FR') : null
                 }));
 
                 resolve(formattedData);
@@ -122,10 +122,10 @@ function processVieSocialeFile(file) {
         reader.onload = (e) => {
             try {
                 const data = new Uint8Array(e.target.result);
-                const workbook = XLSX.read(data, { type: 'array' });
+                const workbook = XLSX.read(data, { type: 'array', cellDates: true });
                 const sheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[sheetName];
-                const sheetData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                const sheetData = XLSX.utils.sheet_to_json(worksheet, { header: 1, raw: false });
 
                 const formattedData = [];
                 let currentResident = null;
@@ -139,7 +139,7 @@ function processVieSocialeFile(file) {
                         formattedData.push({
                             "id": currentResident,
                             "type": row[2], // "motif" is in the third column
-                            "date": row[1]  // "date" is in the second column
+                            "date": row[1] ? row[1].toLocaleDateString('fr-FR') : null  // "date" is in the second column
                         });
                     }
                 }

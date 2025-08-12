@@ -26,32 +26,23 @@ class Data {
         return 'warning';
     }
 
-    get signatureProjetsLessThanYear() {
-        const oneYearAgo = new Date();
-        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-        return this.projets.filter(p => p.state === 'Signature' && new Date(p.from) >= oneYearAgo).length;
+    get signatureProjetsCount() {
+        return this.projets.filter(p => p.state === 'Signature').length;
     }
 
-    get brouillonProjetsLessThanYear() {
-        const oneYearAgo = new Date();
-        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-        return this.projets.filter(p => p.state === 'Brouillon' && new Date(p.from) >= oneYearAgo).length;
+    get brouillonProjetsCount() {
+        return this.projets.filter(p => p.state === 'Brouillon').length;
     }
 
-    get hasPpEtConsentementLessThanYear() {
-        const oneYearAgo = new Date();
-        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-        return this.vieSociale.some(v => v.type === 'Pp et consentement' && new Date(v.date) >= oneYearAgo);
+    get hasPpEtConsentement() {
+        return this.vieSociale.some(v => v.type === 'PP - Présentation et Consentement');
     }
 
     get hasBilanIntegration() {
         return this.vieSociale.some(v => v.type === 'Bilan d\'intégration');
     }
 
-    get hasMedicalProjetInSignatureLessThanYear() {
-        const oneYearAgo = new Date();
-        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-        const signatureProjets = this.projets.filter(p => p.state === 'Signature' && new Date(p.from) >= oneYearAgo);
-        return signatureProjets.some(p => p.type === 'Médical');
+    get hasMedicalProjet() {
+        return this.projets.some(p => p.type === 'Prise en charge médicale');
     }
 }
