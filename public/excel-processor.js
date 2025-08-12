@@ -65,6 +65,15 @@ function processResidentsFile(file) {
     });
 }
 
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        extractName,
+        processResidentsFile,
+        processProjetsFile,
+        processVieSocialeFile,
+    };
+}
+
 function processProjetsFile(file) {
     return new Promise((resolve, reject) => {
         if (!file) {
