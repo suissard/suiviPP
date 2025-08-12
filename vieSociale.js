@@ -1,6 +1,38 @@
 // This file will process the Vie sociale.xlsx file.
 const xlsx = require('xlsx');
 
+function extractName(fullName) {
+  if (!fullName) {
+    return '';
+  }
+
+  let processedName = String(fullName);
+
+  // Remove titles like "Mme.", "M.", "MR"
+  processedName = processedName.replace(/^(Mme|M|MR)\.?\s+/, '');
+
+  // Stop at "Née"
+  const neeIndex = processedName.indexOf('Née');
+  if (neeIndex > -1) {
+    processedName = processedName.substring(0, neeIndex);
+  }
+
+  // Stop at a comma, which often separates other names
+  const commaIndex = processedName.indexOf(',');
+  if (commaIndex > -1) {
+    processedName = processedName.substring(0, commaIndex);
+  }
+
+  // Stop at parenthesis
+  const parenthesisIndex = processedName.indexOf('(');
+  if (parenthesisIndex > -1) {
+    processedName = processedName.substring(0, parenthesisIndex);
+  }
+
+  // Trim any remaining whitespace
+  return processedName.trim();
+}
+
 function processVieSociale(filePath) {
   const workbook = xlsx.readFile(filePath);
   const sheetName = workbook.SheetNames[0];
@@ -17,7 +49,7 @@ function processVieSociale(filePath) {
     const row = data[i];
     // Resident name is in the first column and the rest are empty
     if (row[0] && row[1] === undefined) {
-      currentResident = row[0];
+      currentResident = extractName(row[0]);
     } else if (currentResident && row[1] && row[2]) { // Make sure date and type are not empty
       formattedData["Vie Sociale"].push({
         "id": currentResident,

@@ -81,7 +81,7 @@ function processProjetsFile(file) {
                 const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
 
                 const formattedData = jsonData.map(row => ({
-                    "id": row["Résident"],
+                    "id": extractName(row["Résident"]),
                     "type": row["Libellé"],
                     "state": row["Étape"],
                     "from": row["Du"],
@@ -125,7 +125,7 @@ function processVieSocialeFile(file) {
                     const row = sheetData[i];
                     // Resident name is in the first column and the rest are empty
                     if (row[0] && row[1] === undefined) {
-                        currentResident = row[0];
+                        currentResident = extractName(row[0]);
                     } else if (currentResident && row[1] && row[2]) { // Make sure date and type are not empty
                         formattedData.push({
                             "id": currentResident,
