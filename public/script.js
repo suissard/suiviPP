@@ -1,10 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
     const tableContainer = document.getElementById('table-container');
-    const loadButton = document.getElementById('load-button');
-    const xlsxInput = document.getElementById('xlsx-input');
+    const generateTableButton = document.getElementById('generate-table-button');
+
+    const residentsInput = document.getElementById('residents-input');
+    const residentsJsonButton = document.getElementById('residents-json-button');
+    const residentsJsonOutput = document.getElementById('residents-json-output');
+
+    const projetsInput = document.getElementById('projets-input');
+    const projetsJsonButton = document.getElementById('projets-json-button');
+    const projetsJsonOutput = document.getElementById('projets-json-output');
+
+    const vieSocialeInput = document.getElementById('vie-sociale-input');
+    const vieSocialeJsonButton = document.getElementById('vie-sociale-json-button');
+    const vieSocialeJsonOutput = document.getElementById('vie-sociale-json-output');
+
+    let tableData = {
+        residents: null,
+        projets: null,
+        vieSociale: null
+    };
 
     function generateTable(residents, projets, vieSociale) {
         tableContainer.innerHTML = ''; // Clear previous table
+        if (!residents || !projets || !vieSociale) {
+            tableContainer.textContent = 'Veuillez charger tous les fichiers de données avant de générer le tableau.';
+            return;
+        }
+
         const combinedData = new Map();
 
         // 1. Initialize with resident data and create Data instances
@@ -77,28 +99,62 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch('vie_sociale.json').then(response => response.json())
     ])
     .then(([residents, projets, vieSociale]) => {
-        generateTable(residents, projets, vieSociale);
+        tableData = { residents, projets, vieSociale };
+        generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
     })
     .catch(error => {
         console.error('Erreur lors du chargement des données par défaut:', error);
         tableContainer.textContent = 'Erreur lors du chargement des données par défaut. Veuillez vérifier la console.';
     });
 
-    // Handle file upload
-    loadButton.addEventListener('click', () => {
-        const files = xlsxInput.files;
-        if (files.length === 0) {
-            alert('Veuillez sélectionner des fichiers XLSX.');
-            return;
+    // Handle "Voir JSON" buttons
+    residentsJsonButton.addEventListener('click', () => {
+        const file = residentsInput.files[0];
+        if (file) {
+            processFile(file)
+                .then(data => {
+                    tableData.residents = data;
+                    residentsJsonOutput.textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    residentsJsonOutput.textContent = 'Erreur lors du traitement du fichier.';
+                });
         }
+    });
 
-        processFiles(files)
-            .then(data => {
-                generateTable(data.residents, data.projets, data.vieSociale);
-            })
-            .catch(error => {
-                console.error('Erreur lors du traitement des fichiers XLSX:', error);
-                alert('Erreur lors du traitement des fichiers XLSX. Veuillez vérifier la console.');
-            });
+    projetsJsonButton.addEventListener('click', () => {
+        const file = projetsInput.files[0];
+        if (file) {
+            processFile(file)
+                .then(data => {
+                    tableData.projets = data;
+                    projetsJsonOutput.textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    projetsJsonOutput.textContent = 'Erreur lors du traitement du fichier.';
+                });
+        }
+    });
+
+    vieSocialeJsonButton.addEventListener('click', () => {
+        const file = vieSocialeInput.files[0];
+        if (file) {
+            processFile(file)
+                .then(data => {
+                    tableData.vieSociale = data;
+                    vieSocialeJsonOutput.textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    vieSocialeJsonOutput.textContent = 'Erreur lors du traitement du fichier.';
+                });
+        }
+    });
+
+    // Handle "Générer le tableau" button
+    generateTableButton.addEventListener('click', () => {
+        generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
     });
 });
