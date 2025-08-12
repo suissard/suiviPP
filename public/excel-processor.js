@@ -1,3 +1,35 @@
+function extractName(fullName) {
+  if (!fullName) {
+    return '';
+  }
+
+  let processedName = String(fullName);
+
+  // Remove titles like "Mme.", "M.", "MR"
+  processedName = processedName.replace(/^(Mme|M|MR)\.?\s+/, '');
+
+  // Stop at "Née"
+  const neeIndex = processedName.indexOf('Née');
+  if (neeIndex > -1) {
+    processedName = processedName.substring(0, neeIndex);
+  }
+
+  // Stop at a comma, which often separates other names
+  const commaIndex = processedName.indexOf(',');
+  if (commaIndex > -1) {
+    processedName = processedName.substring(0, commaIndex);
+  }
+
+  // Stop at parenthesis
+  const parenthesisIndex = processedName.indexOf('(');
+  if (parenthesisIndex > -1) {
+    processedName = processedName.substring(0, parenthesisIndex);
+  }
+
+  // Trim any remaining whitespace
+  return processedName.trim();
+}
+
 function processResidentsFile(file) {
     return new Promise((resolve, reject) => {
         if (!file) {
@@ -14,7 +46,7 @@ function processResidentsFile(file) {
                 const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
 
                 const formattedData = jsonData.map(row => ({
-                    "id": row["Résident"],
+                    "id": extractName(row["Résident"]),
                     "entry": row["Entrée"],
                     "chNum": row["N° de chambre"]
                 }));

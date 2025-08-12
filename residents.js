@@ -1,6 +1,38 @@
 // This file will process the Residents.xlsx file.
 const xlsx = require('xlsx');
 
+function extractName(fullName) {
+  if (!fullName) {
+    return '';
+  }
+
+  let processedName = String(fullName);
+
+  // Remove titles like "Mme.", "M.", "MR"
+  processedName = processedName.replace(/^(Mme|M|MR)\.?\s+/, '');
+
+  // Stop at "Née"
+  const neeIndex = processedName.indexOf('Née');
+  if (neeIndex > -1) {
+    processedName = processedName.substring(0, neeIndex);
+  }
+
+  // Stop at a comma, which often separates other names
+  const commaIndex = processedName.indexOf(',');
+  if (commaIndex > -1) {
+    processedName = processedName.substring(0, commaIndex);
+  }
+
+  // Stop at parenthesis
+  const parenthesisIndex = processedName.indexOf('(');
+  if (parenthesisIndex > -1) {
+    processedName = processedName.substring(0, parenthesisIndex);
+  }
+
+  // Trim any remaining whitespace
+  return processedName.trim();
+}
+
 function processResidents(filePath) {
   const workbook = xlsx.readFile(filePath);
   const sheetName = workbook.SheetNames[0];
@@ -9,7 +41,7 @@ function processResidents(filePath) {
 
   const formattedData = {
     "Résidents": data.map(row => ({
-      "id": row["Résident"],
+      "id": extractName(row["Résident"]),
       "entry": row["Entrée"],
       "chNum": row["N° de chambre"]
     }))

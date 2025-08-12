@@ -4,372 +4,372 @@ exports[`processResidents > should process the residents file correctly and matc
 "{
   "Résidents": [
     {
-      "id": "Mme. BMHBO Zwpoof Née DMFNFOU Zwpoof, Boesff (F)",
+      "id": "BMHBO Zwpoof",
       "entry": 44392,
       "chNum": "032       "
     },
     {
-      "id": "Mme. CBDIFMJFS Nbve Née CBVEPVJO Nbve (F)",
+      "id": "CBDIFMJFS Nbve",
       "entry": 44095,
       "chNum": "136       "
     },
     {
-      "id": "M. CBSCFBV Kfbo, Sphfs, Bmcfsu (H)",
+      "id": "CBSCFBV Kfbo",
       "entry": 43592,
       "chNum": "124       "
     },
     {
-      "id": "Mme. CBVEPVJO Nbsjf Née LE MAO Nbsjf, Mpvjtf (F)",
+      "id": "CBVEPVJO Nbsjf",
       "entry": 45444,
       "chNum": "137       "
     },
     {
-      "id": "Mme. CFUUFSJDI Kptjbof Née IBNFMJO Kptjbof, Qbvmfuuf (F)",
+      "id": "CFUUFSJDI Kptjbof",
       "entry": 45051,
       "chNum": "127       "
     },
     {
-      "id": "Mme. CMBODIBSE Ojdpmf Née NPSJAPU Ojdpmf (F)",
+      "id": "CMBODIBSE Ojdpmf",
       "entry": 45747,
       "chNum": "112B      "
     },
     {
-      "id": "Mme. CMBODIFU Bmjfuuf Née BWJBU Bmjfuuf, Mfpof, Tvaboof (F)",
+      "id": "CMBODIFU Bmjfuuf",
       "entry": 44587,
       "chNum": "114       "
     },
     {
-      "id": "Mme. CMBSE Nbsjf Nbefmfjof Née CMBSE Nbsjf, Nbefmfjof, Kfboof (F)",
+      "id": "CMBSE Nbsjf Nbefmfjof",
       "entry": 44600,
       "chNum": "016       "
     },
     {
-      "id": "Mme. CMJOFBV Nbsjf-Mvdf Née GY Nbsjf-Mvdf (F)",
+      "id": "CMJOFBV Nbsjf-Mvdf",
       "entry": 45782,
       "chNum": "134       "
     },
     {
-      "id": "M. CMJOFBV Kfbo-Qbvm (-)",
+      "id": "CMJOFBV Kfbo-Qbvm",
       "entry": 45782,
       "chNum": "133       "
     },
     {
-      "id": "Mme. CPJSPO Sfoff Née HVJAJPV Sfoff (F)",
+      "id": "CPJSPO Sfoff",
       "entry": 45077,
       "chNum": "120       "
     },
     {
-      "id": "M. CPOOFU Sfof, Mfpo, Hbtupo (H)",
+      "id": "CPOOFU Sfof",
       "entry": 45386,
       "chNum": "139       "
     },
     {
-      "id": "Mme. CPVMMF Kbdrvfmjof Née CJEFBV Kbdrvfmjof (F)",
+      "id": "CPVMMF Kbdrvfmjof",
       "entry": 45334,
       "chNum": "006       "
     },
     {
-      "id": "M. CPVMMF Dibsmft, Fnjmf, Nbsdfm, Nbsjf (H)",
+      "id": "CPVMMF Dibsmft",
       "entry": 45729,
       "chNum": "146       "
     },
     {
-      "id": "Mme. CPAFD Kfboof Née WBSJO Kfboof (F)",
+      "id": "CPAFD Kfboof",
       "entry": 45693,
       "chNum": "135       "
     },
     {
-      "id": "Mme. DBTFS Gmpsjoeb (F)",
+      "id": "DBTFS Gmpsjoeb",
       "entry": 45371,
       "chNum": "014       "
     },
     {
-      "id": "Mme. DMBVTTF Npojrvf Née MBWPJOF Npojrvf (F)",
+      "id": "DMBVTTF Npojrvf",
       "entry": 44908,
       "chNum": "126       "
     },
     {
-      "id": "Mme. DPJGGFU Kfboojof Née PHFS Kfbojof, Kptfuuf (F)",
+      "id": "DPJGGFU Kfboojof",
       "entry": 44438,
       "chNum": "008       "
     },
     {
-      "id": "M. DPSOV Kfbo, Njdifm (H)",
+      "id": "DPSOV Kfbo",
       "entry": 42193,
       "chNum": 147
     },
     {
-      "id": "Mme. EBOFU Hfpshfuuf Née QFSSJFS Hfpshfuuf, Nbsjf, Dmbjsf (F)",
+      "id": "EBOFU Hfpshfuuf",
       "entry": 45714,
       "chNum": "142       "
     },
     {
-      "id": "Mme. EBWJE-CFMMPVBSE Nbsjf-Cfbusjdf Née HVJMMPO Nbsjf-Cfbusjdf (F)",
+      "id": "EBWJE-CFMMPVBSE Nbsjf-Cfbusjdf",
       "entry": 45605,
       "chNum": "125       "
     },
     {
-      "id": "Mme. EVMBD Ojdpmf Née CSFUJO Ojdpmf, Efojtf (F)",
+      "id": "EVMBD Ojdpmf",
       "entry": 44603,
       "chNum": "115       "
     },
     {
-      "id": "Mme. GPOUFOBZ Dmbvefuuf Née QPJTTPO Dmbvefuuf, Sptf, Boob, Tvaboof (F)",
+      "id": "GPOUFOBZ Dmbvefuuf",
       "entry": 44828,
       "chNum": "004       "
     },
     {
-      "id": "M. HBMMF Kfbo (H)",
+      "id": "HBMMF Kfbo",
       "entry": 44195,
       "chNum": "104       "
     },
     {
-      "id": "Mme. HPEBS Njdifmf Née XPSNT Njdifmf, Dbnjmmf (F)",
+      "id": "HPEBS Njdifmf",
       "entry": 41989,
       "chNum": "020       "
     },
     {
-      "id": "Mme. HSBGGPVJMMFSF Zwpoof Née OBSE Zwpoof, Nbsdfmmf, Mfpoof, Kbdrvfmjof (F)",
+      "id": "HSBGGPVJMMFSF Zwpoof",
       "entry": 45103,
       "chNum": "024       "
     },
     {
-      "id": "Mme. HVFIFOOFVD Nbsjf Née BSJO Nbsjf, Gsbodpjtf (F)",
+      "id": "HVFIFOOFVD Nbsjf",
       "entry": 45824,
       "chNum": "128       "
     },
     {
-      "id": "Mme. HVJMMFU Kfboof Née QBTRVJFS Kfboof, Nbsjf, Mpvjtf, Fnjmjfoof (F)",
+      "id": "HVJMMFU Kfboof",
       "entry": 42699,
       "chNum": "022       "
     },
     {
-      "id": "Mme. HVJMMPUJO Kptjbof Née OFWPVY Kptjbof, Nbuijmef, Nbsjf (F)",
+      "id": "HVJMMPUJO Kptjbof",
       "entry": 43305,
       "chNum": "112A      "
     },
     {
-      "id": "Mme. IBMMFSZ Ebojfmf Née RVFNCSF Ebojfmf, Pefuuf (F)",
+      "id": "IBMMFSZ Ebojfmf",
       "entry": 45293,
       "chNum": "145       "
     },
     {
-      "id": "Mme. IBSEZ Uifsftf Née BVCSZ Uifsftf (F)",
+      "id": "IBSEZ Uifsftf",
       "entry": 43627,
       "chNum": "117       "
     },
     {
-      "id": "Mme. IFSBSE Nbsjf Née DPSOV Nbsjf, Gsbodpjtf (F)",
+      "id": "IFSBSE Nbsjf",
       "entry": 45636,
       "chNum": "029       "
     },
     {
-      "id": "M. IFSSNBOO Kfbo-Dmbvef, Boesf, Eftjsf, Dibsmft (H)",
+      "id": "IFSSNBOO Kfbo-Dmbvef",
       "entry": 44434,
       "chNum": "026       "
     },
     {
-      "id": "Mme. IFSWF Nbsjf-Bohf Née IPSSFBV Nbsjf, Bohf, Kfboof, Kptfqif (F)",
+      "id": "IFSWF Nbsjf-Bohf",
       "entry": 44427,
       "chNum": "105       "
     },
     {
-      "id": "M. IJWFSU Nbsd, Mpvjt (H)",
+      "id": "IJWFSU Nbsd",
       "entry": 45490,
       "chNum": "011       "
     },
     {
-      "id": "M. IPMJO Njdifm, Fsoftu (H)",
+      "id": "IPMJO Njdifm",
       "entry": 45751,
       "chNum": "106       "
     },
     {
-      "id": "M. IVHVFOJO Hfsbse (H)",
+      "id": "IVHVFOJO Hfsbse",
       "entry": 44963,
       "chNum": "118       "
     },
     {
-      "id": "M. KVMMJFO Spcfsu, Bmcfsu (H)",
+      "id": "KVMMJFO Spcfsu",
       "entry": 45645,
       "chNum": "101       "
     },
     {
-      "id": "M. MBOESJBV Zwft (H)",
+      "id": "MBOESJBV Zwft",
       "entry": 45344,
       "chNum": "023       "
     },
     {
-      "id": "Mme. MBVOBJT Kbdrvfmjof Née QPJSBVMU Kbdrvfmjof, Bmcfsujof, Fnnb (F)",
+      "id": "MBVOBJT Kbdrvfmjof",
       "entry": 45608,
       "chNum": "009       "
     },
     {
-      "id": "Mme. MFCMPJT Tpmbohf Née QJOTPOOFBV Tpmbohf (-)",
+      "id": "MFCMPJT Tpmbohf",
       "entry": 45146,
       "chNum": "107       "
     },
     {
-      "id": "Mme. LE EJHBCFM Ojdpmf Née QPSUPMFBV Ojdpmf (F)",
+      "id": "LE EJHBCFM Ojdpmf",
       "entry": 45743,
       "chNum": "130       "
     },
     {
-      "id": "Mme. MFGFWSF Hjmcfsuf Née QSPJTZ Hjmcfsuf, Kvmjfuuf, Dmbsb (F)",
+      "id": "MFGFWSF Hjmcfsuf",
       "entry": 43248,
       "chNum": "017       "
     },
     {
-      "id": "Mme. MFHPVJD Dpmfuuf Née EVPU Dpmfuuf, Spmboef, Fvhfojf (F)",
+      "id": "MFHPVJD Dpmfuuf",
       "entry": 43286,
       "chNum": "119       "
     },
     {
-      "id": "Mme. LE MFBOOFD Zwpoof Née UBUUFWJO Zwpoof (F)",
+      "id": "LE MFBOOFD Zwpoof",
       "entry": 45439,
       "chNum": "031       "
     },
     {
-      "id": "M. LE OFTUPVS Hfsbse, Kfbo (H)",
+      "id": "LE OFTUPVS Hfsbse",
       "entry": 45561,
       "chNum": "131       "
     },
     {
-      "id": "Mme. LE SPVHF DE SVTVOBO Sfkbof Née GBMPVSE Sfkbof (-)",
+      "id": "LE SPVHF DE SVTVOBO Sfkbof",
       "entry": 45860,
       "chNum": "144       "
     },
     {
-      "id": "Mme. NBHVBJO Efojtf Née UIPVJO Efojtf (F)",
+      "id": "NBHVBJO Efojtf",
       "entry": 42632,
       "chNum": "143       "
     },
     {
-      "id": "Mme. NBIF Boof-Nbsjf Née QPVAPVMMJD Boof-Nbsjf, Uifsftf (F)",
+      "id": "NBIF Boof-Nbsjf",
       "entry": 44413,
       "chNum": "018       "
     },
     {
-      "id": "Mme. NBMQFM Efojtf Née QPMPOJ Efojtf, Bohfmf (F)",
+      "id": "NBMQFM Efojtf",
       "entry": 45810,
       "chNum": "138       "
     },
     {
-      "id": "Mme. NBTTFOPU Njdifmf Née GFKBSE Njdifmf (F)",
+      "id": "NBTTFOPU Njdifmf",
       "entry": 43968,
       "chNum": "027       "
     },
     {
-      "id": "Mme. NFUBZFS Zwfuuf Née QSPTU Zwfuuf (F)",
+      "id": "NFUBZFS Zwfuuf",
       "entry": 45765,
       "chNum": "010       "
     },
     {
-      "id": "Mme. NFVOJFS Gsbodpjtf Née MFNBJUSF Gsbodpjtf (F)",
+      "id": "NFVOJFS Gsbodpjtf",
       "entry": 45604,
       "chNum": "002       "
     },
     {
-      "id": "Mme. NPSFBV Nbsjf Née OPUUFMMFU Nbsjf (F)",
+      "id": "NPSFBV Nbsjf",
       "entry": 45556,
       "chNum": "005       "
     },
     {
-      "id": "Mme. NPSJDFU Boojdl Née UBDPOOF Boojdl, Hfpshfuuf, Hbcsjfmmf (F)",
+      "id": "NPSJDFU Boojdl",
       "entry": 44403,
       "chNum": "015       "
     },
     {
-      "id": "Mme. NPSJO Nbsjf-Dmbvef Née BODFMJO Nbsjf-Dmbvef, Mvdjf (-)",
+      "id": "NPSJO Nbsjf-Dmbvef",
       "entry": 45659,
       "chNum": "129       "
     },
     {
-      "id": "Mme. OPFM Tjnpoof Née BMMBJO Tjnpoof, Gsbodpjtf (F)",
+      "id": "OPFM Tjnpoof",
       "entry": 45443,
       "chNum": "12 B      "
     },
     {
-      "id": "Mme. QBVHBN Kfboojof Née GMPDI Kfboojof, Gsbodpjtf (F)",
+      "id": "QBVHBN Kfboojof",
       "entry": 45576,
       "chNum": "030       "
     },
     {
-      "id": "Mme. QJFSSPO Cfsobefuuf Née EFMBWFVWF Cfsobefuuf (F)",
+      "id": "QJFSSPO Cfsobefuuf",
       "entry": 44176,
       "chNum": "108       "
     },
     {
-      "id": "Mme. QPVMOBJT Ojdpmf Née QBZT Ojdpmf, Gsbodf (F)",
+      "id": "QPVMOBJT Ojdpmf",
       "entry": 45268,
       "chNum": "111       "
     },
     {
-      "id": "Mme. RVFOOFWJMMF Nbsdfmmf Née IPVJTTF Nbsdfmmf, Ifosjfuuf, Nbsjf (F)",
+      "id": "RVFOOFWJMMF Nbsdfmmf",
       "entry": 42865,
       "chNum": "116       "
     },
     {
-      "id": "Mme. SFOEFST Kfboojof (F)",
+      "id": "SFOEFST Kfboojof",
       "entry": 44711,
       "chNum": "019       "
     },
     {
-      "id": "M. SPCFSU Guy (H)",
+      "id": "SPCFSU Guy",
       "entry": 45791,
       "chNum": "001       "
     },
     {
-      "id": "Mme. SPCJRVFU Zwfuuf Née EFQFSDFOBJSF Zwfuuf (F)",
+      "id": "SPCJRVFU Zwfuuf",
       "entry": 44897,
       "chNum": "025       "
     },
     {
-      "id": "M. SPVTTFMPU Njdifm (H)",
+      "id": "SPVTTFMPU Njdifm",
       "entry": 44112,
       "chNum": "12A       "
     },
     {
-      "id": "Mme. TBVSFM Kfboojof Née QPUEFWJO Kfboojof, Ebojfmf, Bmjdf (F)",
+      "id": "TBVSFM Kfboojof",
       "entry": 44820,
       "chNum": "122       "
     },
     {
-      "id": "Mme. TFSPU Kfboojof, Zwpoof, Nbsjf (F)",
+      "id": "TFSPU Kfboojof",
       "entry": 45706,
       "chNum": "121       "
     },
     {
-      "id": "Mme. UBOSFU Nbsujof Née NPTTFU Nbsujof (F)",
+      "id": "UBOSFU Nbsujof",
       "entry": 45740,
       "chNum": "148       "
     },
     {
-      "id": "Mme. UFTTJFS Efojtf Née MFNBJSF Efojtf, Fmjtbcfui (F)",
+      "id": "UFTTJFS Efojtf",
       "entry": 44310,
       "chNum": "003       "
     },
     {
-      "id": "Mme. UFYJFS Boesff Née IBMHBOE Boesff (-)",
+      "id": "UFYJFS Boesff",
       "entry": 45736,
       "chNum": "103       "
     },
     {
-      "id": "M. UVGGFU Qjfssf (H)",
+      "id": "UVGGFU Qjfssf",
       "entry": 44844,
       "chNum": "102       "
     },
     {
-      "id": "Mme. WBOEFSOPUUF Boojl Née EFMPVDIF Boojl, Efojtf (F)",
+      "id": "WBOEFSOPUUF Boojl",
       "entry": 45370,
       "chNum": "007       "
     },
     {
-      "id": "M. XJBNF Kfbo-Dmbvef, Hbtupo, Boesf (H)",
+      "id": "XJBNF Kfbo-Dmbvef",
       "entry": 45554,
       "chNum": "140       "
     },
     {
-      "id": "Mme. XJBNF Nbsjf-Uifsftf Née SPNBOHJO Nbsjf-Uifsftf, Ifmfof (F)",
+      "id": "XJBNF Nbsjf-Uifsftf",
       "entry": 45554,
       "chNum": "141       "
     }
