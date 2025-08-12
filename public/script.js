@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function generateTable(residents, projets, vieSociale) {
+        console.log('Generating table with:', { residents, projets, vieSociale });
         tableContainer.innerHTML = ''; // Clear previous table
         if (!residents || !projets || !vieSociale) {
             tableContainer.textContent = 'Veuillez charger tous les fichiers de données avant de générer le tableau.';
@@ -278,6 +279,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle "Générer le tableau" button
     generateTableButton.addEventListener('click', () => {
-        generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
+        const loadingIndicator = document.getElementById('loading-indicator');
+        loadingIndicator.classList.remove('hidden');
+
+        const filePromises = [];
+
+        if (residentsInput.files[0]) {
+            filePromises.push(processResidentsFile(residentsInput.files[0]).then(data => {
+                tableData.residents = data;
+            }));
+        }
+        if (projetsInput.files[0]) {
+            filePromises.push(processProjetsFile(projetsInput.files[0]).then(data => {
+                tableData.projets = data;
+            }));
+        }
+        if (vieSocialeInput.files[0]) {
+            filePromises.push(processVieSocialeFile(vieSocialeInput.files[0]).then(data => {
+                tableData.vieSociale = data;
+            }));
+        }
+
+        Promise.all(filePromises)
+            .then(() => {
+                // Use a short timeout to allow the UI to update and show the loading indicator
+                setTimeout(() => {
+                    try {
+                        generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
+                    } catch (error) {
+                        console.error('Erreur lors de la génération du tableau:', error);
+                        tableContainer.textContent = 'Une erreur est survenue lors de la génération du tableau.';
+                    } finally {
+                        loadingIndicator.classList.add('hidden');
+                    }
+                }, 50);
+            })
+            .catch(error => {
+                console.error('Erreur lors du traitement des fichiers:', error);
+                tableContainer.textContent = 'Erreur lors du traitement des fichiers.';
+                loadingIndicator.classList.add('hidden');
+            });
     });
 });
