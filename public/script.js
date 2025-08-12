@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const tableContainer = document.getElementById('table-container');
     const generateTableButton = document.getElementById('generate-table-button');
+    const printTableButton = document.getElementById('print-table-button');
 
     const residentsInput = document.getElementById('residents-input');
     const residentsJsonButton = document.getElementById('residents-json-button');
@@ -48,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 combinedData.get(event.id).addVieSociale(event);
             }
         });
+        console.log('combinedData', combinedData);
 
         // 4. Generate the table
         console.log('combinedData', combinedData);
@@ -59,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         thead.className = 'bg-gray-50';
         const headerRow = thead.insertRow();
         const headers = [
+            { text: 'ID', sortable: true },
             { text: 'Nom', sortable: true },
             { text: 'Prénom', sortable: true },
             { text: 'Date d\'entrée', sortable: true },
@@ -86,6 +89,14 @@ document.addEventListener('DOMContentLoaded', () => {
         tbody.className = 'bg-white divide-y divide-gray-200';
         let sortedData = Array.from(combinedData.values());
 
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
         function renderTable(dataToRender) {
             tbody.innerHTML = ''; // Clear existing rows
             dataToRender.forEach(data => {
@@ -100,7 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     row.className = 'bg-red-100';
                 }
 
-                const cellClasses = 'px-6 py-4 whitespace-nowrap text-sm text-gray-900';
+                const cellClasses = 'px-6 py-4 whitespace-nownowrap text-sm text-gray-900';
+
+                const idCell = row.insertCell();
+                idCell.className = cellClasses;
+                idCell.textContent = data.resident.id;
 
                 const nomCell = row.insertCell();
                 nomCell.className = cellClasses;
@@ -112,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const entryCell = row.insertCell();
                 entryCell.className = cellClasses;
-                entryCell.textContent = data.resident.entry;
+                entryCell.textContent = formatDate(data.resident.entry);
 
                 const chNumCell = row.insertCell();
                 chNumCell.className = cellClasses;
@@ -151,38 +166,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 switch (columnIndex) {
                     case 0:
+                        valA = a.resident.id;
+                        valB = b.resident.id;
+                        break;
+                    case 1:
                         valA = a.resident.Nom;
                         valB = b.resident.Nom;
                         break;
-                    case 1:
+                    case 2:
                         valA = a.resident.Prénom;
                         valB = b.resident.Prénom;
                         break;
-                    case 2:
+                    case 3:
                         valA = new Date(a.resident.entry);
                         valB = new Date(b.resident.entry);
                         break;
-                    case 3:
+                    case 4:
                         valA = a.resident.chNum;
                         valB = b.resident.chNum;
                         break;
-                    case 4:
+                    case 5:
                         valA = a.signatureProjetsCount;
                         valB = b.signatureProjetsCount;
                         break;
-                    case 5:
+                    case 6:
                         valA = a.brouillonProjetsCount;
                         valB = b.brouillonProjetsCount;
                         break;
-                    case 6:
+                    case 7:
                         valA = a.hasPpEtConsentement;
                         valB = b.hasPpEtConsentement;
                         break;
-                    case 7:
+                    case 8:
                         valA = a.hasBilanIntegration;
                         valB = b.hasBilanIntegration;
                         break;
-                    case 8:
+                    case 9:
                         valA = a.hasMedicalProjet;
                         valB = b.hasMedicalProjet;
                         break;
@@ -320,5 +339,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 tableContainer.textContent = 'Erreur lors du traitement des fichiers.';
                 loadingIndicator.classList.add('hidden');
             });
+    });
+
+    printTableButton.addEventListener('click', () => {
+        window.print();
     });
 });
