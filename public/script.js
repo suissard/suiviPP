@@ -7,26 +7,22 @@ document.addEventListener('DOMContentLoaded', () => {
         tableContainer.innerHTML = ''; // Clear previous table
         const combinedData = new Map();
 
-        // 1. Initialize with resident data
+        // 1. Initialize with resident data and create Data instances
         residents.forEach(resident => {
-            combinedData.set(resident.id, {
-                ...resident,
-                projets: [],
-                vieSociale: []
-            });
+            combinedData.set(resident.id, new Data(resident));
         });
 
         // 2. Add projects to residents
         projets.forEach(projet => {
             if (combinedData.has(projet.id)) {
-                combinedData.get(projet.id).projets.push(projet);
+                combinedData.get(projet.id).addProjet(projet);
             }
         });
 
         // 3. Add social life events to residents
         vieSociale.forEach(event => {
             if (combinedData.has(event.id)) {
-                combinedData.get(event.id).vieSociale.push(event);
+                combinedData.get(event.id).addVieSociale(event);
             }
         });
 
@@ -45,18 +41,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Table body
         const tbody = table.createTBody();
-        combinedData.forEach(resident => {
+        combinedData.forEach(data => {
             const row = tbody.insertRow();
+            row.className = data.status;
 
-            row.insertCell().textContent = resident.id;
-            row.insertCell().textContent = resident.Nom;
-            row.insertCell().textContent = resident.Prénom;
-            row.insertCell().textContent = resident.entry;
-            row.insertCell().textContent = resident.chNum;
+            row.insertCell().textContent = data.resident.id;
+            row.insertCell().textContent = data.resident.Nom;
+            row.insertCell().textContent = data.resident.Prénom;
+            row.insertCell().textContent = data.resident.entry;
+            row.insertCell().textContent = data.resident.chNum;
 
             // Projects cell
             const projetsCell = row.insertCell();
-            projetsCell.innerHTML = resident.projets.map(p =>
+            projetsCell.innerHTML = data.projets.map(p =>
                 `<b>Type:</b> ${p.type}<br>
                  <b>État:</b> ${p.state}<br>
                  <b>Du:</b> ${p.from} <b>Au:</b> ${p.to}`
@@ -64,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Social life cell
             const vieSocialeCell = row.insertCell();
-            vieSocialeCell.innerHTML = resident.vieSociale.map(v =>
+            vieSocialeCell.innerHTML = data.vieSociale.map(v =>
                 `<b>Motif:</b> ${v.type}<br>
                  <b>Date:</b> ${v.date}`
             ).join('<hr style="margin: 5px 0;">');
