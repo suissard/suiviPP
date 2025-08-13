@@ -37,9 +37,29 @@ function toISODateString(date) {
     if (!date) {
         return null;
     }
-    // Handle both Date objects and date strings
-    const d = date instanceof Date ? date : new Date(date);
 
+    let d;
+    if (date instanceof Date) {
+        d = date;
+    } else if (typeof date === 'string' && date.includes('/')) {
+        const parts = date.split('/');
+        if (parts.length === 3) {
+            // Assuming DD/MM/YYYY
+            const day = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10) - 1; // Month is 0-indexed
+            const year = parseInt(parts[2], 10);
+            d = new Date(Date.UTC(year, month, day));
+        } else {
+            d = new Date(date); // Fallback for other string formats
+        }
+    } else if (typeof date === 'number') {
+        // It could be an Excel serial number. The xlsx library should have converted it with cellDates:true,
+        // but as a fallback, we can try to convert it.
+        d = new Date(Date.UTC(0, 0, date - 1));
+    }
+    else {
+        d = new Date(date); // Fallback for other types
+    }
     // Check if the date is valid
     if (isNaN(d.getTime())) {
         return null;
