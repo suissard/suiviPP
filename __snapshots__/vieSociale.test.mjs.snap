@@ -11,12 +11,12 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "BMHBO Zwpoof",
       "type": "Bilan d’intégration",
-      "date": "2021-01-09T00:00:00.000Z"
+      "date": "2021-01-09"
     },
     {
       "id": "BMHBO Zwpoof",
       "type": "PP - Présentation et Consentement",
-      "date": "2021-01-09T00:00:00.000Z"
+      "date": "2021-01-09"
     },
     {
       "id": "CBDIFMJFS Nbve",
@@ -31,57 +31,57 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "CBSCFBV Kfbo",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-03-10T00:00:00.000Z"
+      "date": "2024-03-10"
     },
     {
       "id": "CBSCFBV Kfbo",
       "type": "Bilan d’intégration",
-      "date": "2023-08-03T00:00:00.000Z"
+      "date": "2023-08-03"
     },
     {
       "id": "CBSCFBV Kfbo",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-08-03T00:00:00.000Z"
+      "date": "2023-08-03"
     },
     {
       "id": "CBVEPVJO Nbsjf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-12-07T00:00:00.000Z"
+      "date": "2024-12-07"
     },
     {
       "id": "CBVEPVJO Nbsjf",
       "type": "Bilan d’intégration",
-      "date": "2024-12-07T00:00:00.000Z"
+      "date": "2024-12-07"
     },
     {
       "id": "CBVRVJO Nbsjf",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-07-02T00:00:00.000Z"
+      "date": "2023-07-02"
     },
     {
       "id": "CFUUFSJDI Kptjbof",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-06-06T00:00:00.000Z"
+      "date": "2023-06-06"
     },
     {
       "id": "CFUUFSJDI Kptjbof",
       "type": "Bilan d’intégration",
-      "date": "2023-01-06T00:00:00.000Z"
+      "date": "2023-01-06"
     },
     {
       "id": "CFUUFSJDI Kptjbof",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-01-06T00:00:00.000Z"
+      "date": "2023-01-06"
     },
     {
       "id": "CFUUFSJDI Kptjbof",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-02T00:00:00.000Z"
+      "date": "2022-01-02"
     },
     {
       "id": "CFUUFSJDI Kptjbof",
       "type": "Bilan d’intégration",
-      "date": "2022-01-02T00:00:00.000Z"
+      "date": "2022-01-02"
     },
     {
       "id": "CMBODIBSE Ojdpmf",
@@ -91,22 +91,22 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "CMBODIFU Bmjfuuf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-08T00:00:00.000Z"
+      "date": "2024-01-08"
     },
     {
       "id": "CMBODIFU Bmjfuuf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-02T00:00:00.000Z"
+      "date": "2022-01-02"
     },
     {
       "id": "CMBSE Nbsjf Nbefmfjof",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-08T00:00:00.000Z"
+      "date": "2024-01-08"
     },
     {
       "id": "CMBSE Nbsjf Nbefmfjof",
       "type": "Bilan d’intégration",
-      "date": "2024-01-08T00:00:00.000Z"
+      "date": "2024-01-08"
     },
     {
       "id": "CMJOFBV Kfbo-Qbvm",
@@ -161,17 +161,17 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "CPVMMF Kbdrvfmjof",
       "type": "Bilan d’intégration",
-      "date": "2024-06-05T00:00:00.000Z"
+      "date": "2024-06-05"
     },
     {
       "id": "CPVMMF Kbdrvfmjof",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-06-05T00:00:00.000Z"
+      "date": "2024-06-05"
     },
     {
       "id": "CPAFD Kfboof",
       "type": "Bilan d’intégration",
-      "date": "2025-05-03T00:00:00.000Z"
+      "date": "2025-05-03"
     },
     {
       "id": "CPAFD Kfboof",
@@ -186,12 +186,12 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "DBTFS Gmpsjoeb",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-11-04T00:00:00.000Z"
+      "date": "2024-11-04"
     },
     {
       "id": "DBTFS Gmpsjoeb",
       "type": "Bilan d’intégration",
-      "date": "2024-11-04T00:00:00.000Z"
+      "date": "2024-11-04"
     },
     {
       "id": "DMBVTTF Npojrvf",
@@ -201,17 +201,17 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "DMBVTTF Npojrvf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-12-09T00:00:00.000Z"
+      "date": "2024-12-09"
     },
     {
       "id": "DMBVTTF Npojrvf",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-01-03T00:00:00.000Z"
+      "date": "2023-01-03"
     },
     {
       "id": "DMBVTTF Npojrvf",
       "type": "Bilan d’intégration",
-      "date": "2023-01-03T00:00:00.000Z"
+      "date": "2023-01-03"
     },
     {
       "id": "DMPBSFD Njdifmjof",
@@ -236,47 +236,47 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "DPJGGFU Kfboojof",
       "type": "Bilan d’intégration",
-      "date": "2021-01-09T00:00:00.000Z"
+      "date": "2021-01-09"
     },
     {
       "id": "DPJGGFU Kfboojof",
       "type": "PP - Présentation et Consentement",
-      "date": "2021-01-09T00:00:00.000Z"
+      "date": "2021-01-09"
     },
     {
       "id": "DPOOPMMZ Kpio",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-10-06T00:00:00.000Z"
+      "date": "2024-10-06"
     },
     {
       "id": "DPOOPMMZ Kpio",
       "type": "Bilan d’intégration",
-      "date": "2023-01-02T00:00:00.000Z"
+      "date": "2023-01-02"
     },
     {
       "id": "DPOOPMMZ Kpio",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-01-02T00:00:00.000Z"
+      "date": "2023-01-02"
     },
     {
       "id": "DPSOV Kfbo",
       "type": "Entretien individuel",
-      "date": "2025-09-05T00:00:00.000Z"
+      "date": "2025-09-05"
     },
     {
       "id": "DPSOV Kfbo",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-02-09T00:00:00.000Z"
+      "date": "2024-02-09"
     },
     {
       "id": "DPSOV Kfbo",
       "type": "Bilan d’intégration",
-      "date": "2024-02-09T00:00:00.000Z"
+      "date": "2024-02-09"
     },
     {
       "id": "DSVTTPO Kpfm",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-02T00:00:00.000Z"
+      "date": "2024-01-02"
     },
     {
       "id": "DVTVNBOP Svepmqi",
@@ -301,22 +301,22 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "EBWJE Sbznpoef",
       "type": "PP - Présentation et Consentement",
-      "date": "2025-06-03T00:00:00.000Z"
+      "date": "2025-06-03"
     },
     {
       "id": "EBWJE-CFMMPVBSE Nbsjf-Cfbusjdf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-09-12T00:00:00.000Z"
+      "date": "2024-09-12"
     },
     {
       "id": "EBWJE-CFMMPVBSE Nbsjf-Cfbusjdf",
       "type": "Bilan d’intégration",
-      "date": "2024-09-12T00:00:00.000Z"
+      "date": "2024-09-12"
     },
     {
       "id": "EBWJE-CFMMPVBSE Nbsjf-Cfbusjdf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-05-12T00:00:00.000Z"
+      "date": "2024-05-12"
     },
     {
       "id": "EPVBSDIF Njdifmmf",
@@ -336,32 +336,32 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "EVCSFVJM Kbdrvft",
       "type": "PP - Présentation et Consentement",
-      "date": "2025-06-02T00:00:00.000Z"
+      "date": "2025-06-02"
     },
     {
       "id": "EVMBD Ojdpmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-12-09T00:00:00.000Z"
+      "date": "2024-12-09"
     },
     {
       "id": "EVMBD Ojdpmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-12-07T00:00:00.000Z"
+      "date": "2024-12-07"
     },
     {
       "id": "EVMBD Ojdpmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-03T00:00:00.000Z"
+      "date": "2022-01-03"
     },
     {
       "id": "EVMBD Ojdpmf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-03T00:00:00.000Z"
+      "date": "2022-01-03"
     },
     {
       "id": "GJTDIFS Ifmfof",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-08-02T00:00:00.000Z"
+      "date": "2023-08-02"
     },
     {
       "id": "GPOUFOBZ Dmbvefuuf",
@@ -381,22 +381,22 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "HBEJPVY Kbdrvft",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-01T00:00:00.000Z"
+      "date": "2022-01-01"
     },
     {
       "id": "HBMMF Kfbo",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-11-07T00:00:00.000Z"
+      "date": "2024-11-07"
     },
     {
       "id": "HBMMF Kfbo",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "2022-01-12"
     },
     {
       "id": "HBMMF Kfbo",
       "type": "Bilan d’intégration",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "2022-01-12"
     },
     {
       "id": "HPEBS Njdifmf",
@@ -406,12 +406,12 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "HPEBS Njdifmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "2022-01-12"
     },
     {
       "id": "HPEBS Njdifmf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "2022-01-12"
     },
     {
       "id": "HPJAFU Nbshvfsjuf",
@@ -421,12 +421,12 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "HPJAFU Nbshvfsjuf",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-08-03T00:00:00.000Z"
+      "date": "2023-08-03"
     },
     {
       "id": "HPJAFU Nbshvfsjuf",
       "type": "Entretien individuel",
-      "date": "2021-10-11T00:00:00.000Z"
+      "date": "2021-10-11"
     },
     {
       "id": "HSBGGPVJMMFSF Zwpoof",
@@ -436,7 +436,7 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "HSBGGPVJMMFSF Zwpoof",
       "type": "Bilan d’intégration",
-      "date": "2023-01-08T00:00:00.000Z"
+      "date": "2023-01-08"
     },
     {
       "id": "HVFIFOOFVD Nbsjf",
@@ -456,7 +456,7 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "HVFSJO Dmbvef",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "2022-01-11"
     },
     {
       "id": "HVJMMFU Kfboof",
@@ -471,37 +471,37 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "HVJMMFU Kfboof",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "2022-01-12"
     },
     {
       "id": "HVJMMFU Kfboof",
       "type": "Bilan d’intégration",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "2022-01-12"
     },
     {
       "id": "HVJMMPUJO Kptjbof",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-05-08T00:00:00.000Z"
+      "date": "2024-05-08"
     },
     {
       "id": "HVJMMPUJO Kptjbof",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "2022-01-11"
     },
     {
       "id": "HVJMMPUJO Kptjbof",
       "type": "Bilan d’intégration",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "2022-01-11"
     },
     {
       "id": "IBMHBOE Npojrvf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-11-07T00:00:00.000Z"
+      "date": "2024-11-07"
     },
     {
       "id": "IBMHBOE Npojrvf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "2022-01-10"
     },
     {
       "id": "IBMMFSZ Ebojfmf",
@@ -511,17 +511,17 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "IBMMFSZ Ebojfmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-02T00:00:00.000Z"
+      "date": "2024-01-02"
     },
     {
       "id": "IBSEZ Uifsftf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "2022-01-10"
     },
     {
       "id": "IBSEZ Uifsftf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "2022-01-10"
     },
     {
       "id": "IFSBSE Nbsjf",
@@ -536,27 +536,27 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "IFSSNBOO Kfbo-Dmbvef",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-05-09T00:00:00.000Z"
+      "date": "2024-05-09"
     },
     {
       "id": "IFSSNBOO Kfbo-Dmbvef",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "2022-01-10"
     },
     {
       "id": "IFSSNBOO Kfbo-Dmbvef",
       "type": "Bilan d’intégration",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "2022-01-10"
     },
     {
       "id": "IFSWF Nbsjf-Bohf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "2022-01-11"
     },
     {
       "id": "IFSWF Nbsjf-Bohf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "2022-01-11"
     },
     {
       "id": "IFSWPDIF Boesf",
@@ -581,7 +581,7 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "IJWFSU Nbsd",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-08-08T00:00:00.000Z"
+      "date": "2024-08-08"
     },
     {
       "id": "IPMJO Njdifm",
@@ -601,17 +601,17 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "IVHVFOJO Hfsbse",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-01-10T00:00:00.000Z"
+      "date": "2023-01-10"
     },
     {
       "id": "IVHVFOJO Hfsbse",
       "type": "Bilan d’intégration",
-      "date": "2023-01-10T00:00:00.000Z"
+      "date": "2023-01-10"
     },
     {
       "id": "KPTTP Boob",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-07-11T00:00:00.000Z"
+      "date": "2024-07-11"
     },
     {
       "id": "KPTTP Boob",
@@ -621,12 +621,12 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "KPTTP Boob",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-02T00:00:00.000Z"
+      "date": "2024-01-02"
     },
     {
       "id": "KPASPMBOE Bnfmjf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-08-08T00:00:00.000Z"
+      "date": "2024-08-08"
     },
     {
       "id": "KVMMJFO Spcfsu",
@@ -666,12 +666,12 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "MBVOBJT Kbdrvfmjof",
       "type": "Bilan d’intégration",
-      "date": "2024-12-12T00:00:00.000Z"
+      "date": "2024-12-12"
     },
     {
       "id": "MBVOBJT Kbdrvfmjof",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-12-12T00:00:00.000Z"
+      "date": "2024-12-12"
     },
     {
       "id": "MFCMPJT Tpmbohf",
@@ -696,7 +696,7 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "MFDBSQFOUJFS Efojtf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "2022-01-10"
     },
     {
       "id": "LE EJHBCFM Ojdpmf",
@@ -711,12 +711,12 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "MFGFWSF Hjmcfsuf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "2022-01-11"
     },
     {
       "id": "MFGFWSF Hjmcfsuf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "2022-01-11"
     },
     {
       "id": "MFHPVJD Dpmfuuf",
@@ -731,17 +731,17 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "MFHPVJD Dpmfuuf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "2022-01-11"
     },
     {
       "id": "MFHPVJD Dpmfuuf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "2022-01-11"
     },
     {
       "id": "LE HSBOE Nbsjf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-11T00:00:00.000Z"
+      "date": "2022-01-11"
     },
     {
       "id": "LE MFBOOFD Zwpoof",
@@ -756,17 +756,17 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "LE OFTUPVS Hfsbse",
       "type": "Bilan d’intégration",
-      "date": "2024-09-11T00:00:00.000Z"
+      "date": "2024-09-11"
     },
     {
       "id": "LE OFTUPVS Hfsbse",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-07-11T00:00:00.000Z"
+      "date": "2024-07-11"
     },
     {
       "id": "MPJSBU Efojtf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-08-08T00:00:00.000Z"
+      "date": "2024-08-08"
     },
     {
       "id": "MPJSBU Efojtf",
@@ -786,12 +786,12 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "NBHVBJO Efojtf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "2022-01-12"
     },
     {
       "id": "NBHVBJO Efojtf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "2022-01-12"
     },
     {
       "id": "NBIF Boof-Nbsjf",
@@ -801,32 +801,32 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "NBIF Boof-Nbsjf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "2022-01-10"
     },
     {
       "id": "NBIF Nbvsjdf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-04T00:00:00.000Z"
+      "date": "2024-01-04"
     },
     {
       "id": "NBMQFM Efojtf",
       "type": "PP - Présentation et Consentement",
-      "date": "2025-07-08T00:00:00.000Z"
+      "date": "2025-07-08"
     },
     {
       "id": "NBTTFOPU Njdifmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-05-08T00:00:00.000Z"
+      "date": "2024-05-08"
     },
     {
       "id": "NBTTFOPU Njdifmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "2022-01-12"
     },
     {
       "id": "NBTTFOPU Njdifmf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "2022-01-12"
     },
     {
       "id": "NFUBZFS Zwfuuf",
@@ -841,37 +841,37 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "NFUSP Bohfmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-05-09T00:00:00.000Z"
+      "date": "2024-05-09"
     },
     {
       "id": "NFVOJFS Gsbodpjtf",
       "type": "PP - Présentation et Consentement",
-      "date": "2025-06-02T00:00:00.000Z"
+      "date": "2025-06-02"
     },
     {
       "id": "NPSFBV Nbsjf",
       "type": "Bilan d’intégration",
-      "date": "2024-08-11T00:00:00.000Z"
+      "date": "2024-08-11"
     },
     {
       "id": "NPSFBV Nbsjf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-07-11T00:00:00.000Z"
+      "date": "2024-07-11"
     },
     {
       "id": "NPSJDFU Boojdl",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-03-06T00:00:00.000Z"
+      "date": "2024-03-06"
     },
     {
       "id": "NPSJDFU Boojdl",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "2022-01-12"
     },
     {
       "id": "NPSJDFU Boojdl",
       "type": "Bilan d’intégration",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "2022-01-12"
     },
     {
       "id": "NPSJO Nbsjf-Dmbvef",
@@ -886,7 +886,7 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "NPSPZ Boesff",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-03T00:00:00.000Z"
+      "date": "2022-01-03"
     },
     {
       "id": "NVDDIJFMMJ Nbsjf",
@@ -906,27 +906,27 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "OPFM Tjnpoof",
       "type": "Bilan d’intégration",
-      "date": "2024-11-07T00:00:00.000Z"
+      "date": "2024-11-07"
     },
     {
       "id": "OPFM Tjnpoof",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-11-07T00:00:00.000Z"
+      "date": "2024-11-07"
     },
     {
       "id": "QBVHBN Kfboojof",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-12-12T00:00:00.000Z"
+      "date": "2024-12-12"
     },
     {
       "id": "QBVHBN Kfboojof",
       "type": "Bilan d’intégration",
-      "date": "2024-12-12T00:00:00.000Z"
+      "date": "2024-12-12"
     },
     {
       "id": "QBVHBN Kfboojof",
       "type": "Bilan d’intégration",
-      "date": "2024-12-12T00:00:00.000Z"
+      "date": "2024-12-12"
     },
     {
       "id": "QJDIFMJO Bsmfuuf",
@@ -941,42 +941,42 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "QJFSSPO Cfsobefuuf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-03-06T00:00:00.000Z"
+      "date": "2024-03-06"
     },
     {
       "id": "QJFSSPO Cfsobefuuf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "2022-01-12"
     },
     {
       "id": "QJFSSPO Cfsobefuuf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-12T00:00:00.000Z"
+      "date": "2022-01-12"
     },
     {
       "id": "QPVMOBJT Ojdpmf",
       "type": "Bilan d’intégration",
-      "date": "2024-11-03T00:00:00.000Z"
+      "date": "2024-11-03"
     },
     {
       "id": "QPVMOBJT Ojdpmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-03T00:00:00.000Z"
+      "date": "2024-01-03"
     },
     {
       "id": "RVFOOFWJMMF Nbsdfmmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-02-08T00:00:00.000Z"
+      "date": "2023-02-08"
     },
     {
       "id": "RVFOOFWJMMF Nbsdfmmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2017-01-06T00:00:00.000Z"
+      "date": "2017-01-06"
     },
     {
       "id": "RVFOOFWJMMF Nbsdfmmf",
       "type": "Bilan d’intégration",
-      "date": "2017-01-06T00:00:00.000Z"
+      "date": "2017-01-06"
     },
     {
       "id": "SFEVSFBV Qbvm",
@@ -986,7 +986,7 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "SFOEFST Kfboojof",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-08T00:00:00.000Z"
+      "date": "2024-01-08"
     },
     {
       "id": "SFOEFST Kfboojof",
@@ -1001,12 +1001,12 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "SJNNFM Hjtfmf",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "2022-01-10"
     },
     {
       "id": "SJNNFM Hjtfmf",
       "type": "Bilan d’intégration",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "2022-01-10"
     },
     {
       "id": "SPCFSU Guy",
@@ -1016,27 +1016,27 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "SPCFSU Guy",
       "type": "PP - Présentation et Consentement",
-      "date": "2025-12-06T00:00:00.000Z"
+      "date": "2025-12-06"
     },
     {
       "id": "SPCJRVFU Zwfuuf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-12-09T00:00:00.000Z"
+      "date": "2024-12-09"
     },
     {
       "id": "SPCJRVFU Zwfuuf",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-06-03T00:00:00.000Z"
+      "date": "2023-06-03"
     },
     {
       "id": "SPCJRVFU Zwfuuf",
       "type": "Bilan d’intégration",
-      "date": "2023-06-03T00:00:00.000Z"
+      "date": "2023-06-03"
     },
     {
       "id": "SPHFS Mvdjfoof",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-08-03T00:00:00.000Z"
+      "date": "2023-08-03"
     },
     {
       "id": "SPTQBSU Hfofwjfwf",
@@ -1061,7 +1061,7 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "SPVTTFMPU Njdifm",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-10T00:00:00.000Z"
+      "date": "2022-01-10"
     },
     {
       "id": "SPVTTFMPU Njdifm",
@@ -1076,12 +1076,12 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "TBVSFM Kfboojof",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-05-08T00:00:00.000Z"
+      "date": "2024-05-08"
     },
     {
       "id": "TBVSFM Kfboojof",
       "type": "Bilan d’intégration",
-      "date": "2024-05-08T00:00:00.000Z"
+      "date": "2024-05-08"
     },
     {
       "id": "TFSPU Kfboojof",
@@ -1111,7 +1111,7 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "UFTTJFS Efojtf",
       "type": "PP - Présentation et Consentement",
-      "date": "2023-09-02T00:00:00.000Z"
+      "date": "2023-09-02"
     },
     {
       "id": "UFTTJFS Efojtf",
@@ -1136,12 +1136,12 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "UVGGFU Qjfssf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-03-10T00:00:00.000Z"
+      "date": "2024-03-10"
     },
     {
       "id": "UVGGFU Qjfssf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-03-10T00:00:00.000Z"
+      "date": "2024-03-10"
     },
     {
       "id": "UVGGFU Qjfssf",
@@ -1151,12 +1151,12 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "UVGGFU Qjfssf",
       "type": "Bilan d’intégration",
-      "date": "2022-06-12T00:00:00.000Z"
+      "date": "2022-06-12"
     },
     {
       "id": "WBMFSZ Sfoff",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-05T00:00:00.000Z"
+      "date": "2024-01-05"
     },
     {
       "id": "WBOEFSOPUUF Boojl",
@@ -1171,37 +1171,37 @@ exports[`processVieSociale > should process the vie sociale file correctly and m
     {
       "id": "WJHOBVE Cfsobse",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-01-08T00:00:00.000Z"
+      "date": "2024-01-08"
     },
     {
       "id": "WJHOBVE Cfsobse",
       "type": "PP - Présentation et Consentement",
-      "date": "2022-01-05T00:00:00.000Z"
+      "date": "2022-01-05"
     },
     {
       "id": "WPMFPO Uifsftf",
       "type": "PP - Présentation et Consentement",
-      "date": "2025-09-01T00:00:00.000Z"
+      "date": "2025-09-01"
     },
     {
       "id": "XJBNF Kfbo-Dmbvef",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-10-10T00:00:00.000Z"
+      "date": "2024-10-10"
     },
     {
       "id": "XJBNF Kfbo-Dmbvef",
       "type": "Bilan d’intégration",
-      "date": "2024-10-10T00:00:00.000Z"
+      "date": "2024-10-10"
     },
     {
       "id": "XJBNF Nbsjf-Uifsftf",
       "type": "PP - Présentation et Consentement",
-      "date": "2024-10-10T00:00:00.000Z"
+      "date": "2024-10-10"
     },
     {
       "id": "XJBNF Nbsjf-Uifsftf",
       "type": "Bilan d’intégration",
-      "date": "2024-10-10T00:00:00.000Z"
+      "date": "2024-10-10"
     },
     {
       "id": "XJCBVY Fmjtbcfui",

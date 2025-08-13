@@ -33,16 +33,34 @@ function extractName(fullName) {
   return processedName.trim();
 }
 
+function toISODateString(date) {
+    if (!date) {
+        return null;
+    }
+    // Handle both Date objects and date strings
+    const d = date instanceof Date ? date : new Date(date);
+
+    // Check if the date is valid
+    if (isNaN(d.getTime())) {
+        return null;
+    }
+
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
 function processResidents(filePath) {
   const workbook = xlsx.readFile(filePath);
   const sheetName = workbook.SheetNames[0];
   const worksheet = workbook.Sheets[sheetName];
-  const data = xlsx.utils.sheet_to_json(worksheet);
+  const data = xlsx.utils.sheet_to_json(worksheet, { cellDates: true });
 
   const formattedData = {
     "Résidents": data.map(row => ({
       "id": extractName(row["Résident"]),
-      "entry": row["Entrée"],
+      "entry": toISODateString(row["Entrée"]),
       "chNum": row["N° de chambre"]
     }))
   };

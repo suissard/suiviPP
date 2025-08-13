@@ -33,11 +33,29 @@ function extractName(fullName) {
   return processedName.trim();
 }
 
+function toISODateString(date) {
+    if (!date) {
+        return null;
+    }
+    // Handle both Date objects and date strings
+    const d = date instanceof Date ? date : new Date(date);
+
+    // Check if the date is valid
+    if (isNaN(d.getTime())) {
+        return null;
+    }
+
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
 function processVieSociale(filePath) {
-  const workbook = xlsx.readFile(filePath);
+  const workbook = xlsx.readFile(filePath, { cellDates: true });
   const sheetName = workbook.SheetNames[0];
   const worksheet = workbook.Sheets[sheetName];
-  const data = xlsx.utils.sheet_to_json(worksheet, { header: 1 });
+  const data = xlsx.utils.sheet_to_json(worksheet, { header: 1, raw: false });
 
   const formattedData = {
     "Vie Sociale": []
@@ -54,7 +72,7 @@ function processVieSociale(filePath) {
       formattedData["Vie Sociale"].push({
         "id": currentResident,
         "type": row[2], // "motif" is in the third column
-        "date": new Date(row[1])  // "date" is in the second column
+        "date": toISODateString(row[1])  // "date" is in the second column
       });
     }
   }
