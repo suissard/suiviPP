@@ -26,12 +26,49 @@ class Data {
         return 'warning';
     }
 
+    get projectsCount() {
+        return this.projets.length;
+    }
+
     get signatureProjetsCount() {
         return this.projets.filter(p => p.state === 'Signature').length;
     }
 
     get brouillonProjetsCount() {
         return this.projets.filter(p => p.state === 'Brouillon').length;
+    }
+
+    get projectsByStatus() {
+        const today = new Date();
+        const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+
+        const statusCounts = {
+            signedLastYear: 0,
+            onGoing: 0,
+            finished: 0,
+            future: 0,
+            draft: this.brouillonProjetsCount,
+            signed: this.signatureProjetsCount,
+        };
+
+        this.projets.forEach(p => {
+            const fromDate = new Date(p.from);
+
+            if (p.state === 'Signature' && fromDate >= oneYearAgo) {
+                statusCounts.signedLastYear++;
+            }
+            if (p.state === 'En cours') {
+                statusCounts.onGoing++;
+            }
+            if (p.state === 'Terminé') {
+                statusCounts.finished++;
+            }
+            if (p.state === 'À venir') {
+                statusCounts.future++;
+            }
+        });
+
+        return statusCounts;
     }
 
     get hasPpEtConsentement() {
