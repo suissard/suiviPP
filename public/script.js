@@ -1,15 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     const tableContainer = document.getElementById('table-container');
-    const generateTableButton = document.getElementById('generate-table-button');
     const printTableButton = document.getElementById('print-table-button');
 
     const residentsInput = document.getElementById('residents-input');
     const projetsInput = document.getElementById('projets-input');
     const vieSocialeInput = document.getElementById('vie-sociale-input');
-
-    const residentsValidationIndicator = document.getElementById('residents-validation-indicator');
-    const projetsValidationIndicator = document.getElementById('projets-validation-indicator');
-    const vieSocialeValidationIndicator = document.getElementById('vie-sociale-validation-indicator');
 
     let tableData = {
         residents: null,
@@ -52,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // 4. Generate the table
+        console.log('combinedData:', combinedData);
         const table = document.createElement('table');
         table.className = 'min-w-full divide-y divide-gray-200';
 
@@ -247,14 +243,21 @@ document.addEventListener('DOMContentLoaded', () => {
         tableContainer.textContent = 'Erreur lors du chargement des données par défaut. Veuillez vérifier la console.';
     });
 
-    function setValidationIndicator(indicator, isValid) {
-        indicator.textContent = isValid ? '✅' : '❌';
+    function setValidationIndicator(input, isValid) {
+        const parentDiv = input.parentElement.parentElement;
+        parentDiv.classList.remove('bg-green-100', 'bg-red-100');
+        if (isValid === true) {
+            parentDiv.classList.add('bg-green-100');
+        } else if (isValid === false) {
+            parentDiv.classList.add('bg-red-100');
+        }
     }
 
-    async function handleFileSelect(event, type, processor, indicator) {
+    async function handleFileSelect(event, type, processor) {
         const file = event.target.files[0];
+        const input = event.target;
         if (!file) {
-            setValidationIndicator(indicator, false);
+            setValidationIndicator(input, false);
             files[type] = null;
             return;
         }
@@ -264,70 +267,25 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(`JSON pour ${type}:`, data);
             tableData[type] = data;
             files[type] = file;
-            setValidationIndicator(indicator, true);
-            tryGenerateTable();
+            setValidationIndicator(input, true);
+            checkAndGenerateTable();
         } catch (error) {
             console.error(`Erreur de traitement du fichier pour ${type}:`, error);
-            setValidationIndicator(indicator, false);
+            setValidationIndicator(input, false);
             files[type] = null;
         }
     }
 
-    residentsInput.addEventListener('change', (e) => handleFileSelect(e, 'residents', processResidentsFile, residentsValidationIndicator));
-    projetsInput.addEventListener('change', (e) => handleFileSelect(e, 'projets', processProjetsFile, projetsValidationIndicator));
-    vieSocialeInput.addEventListener('change', (e) => handleFileSelect(e, 'vieSociale', processVieSocialeFile, vieSocialeValidationIndicator));
+    residentsInput.addEventListener('change', (e) => handleFileSelect(e, 'residents', processResidentsFile));
+    projetsInput.addEventListener('change', (e) => handleFileSelect(e, 'projets', processProjetsFile));
+    vieSocialeInput.addEventListener('change', (e) => handleFileSelect(e, 'vieSociale', processVieSocialeFile));
 
 
-    function tryGenerateTable() {
-        if (files.residents && files.projets && files.vieSociale) {
-            generateTableButton.click();
+    function checkAndGenerateTable() {
+        if (tableData.residents && tableData.projets && tableData.vieSociale) {
+            generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
         }
     }
-
-    // Handle "Générer le tableau" button
-    generateTableButton.addEventListener('click', () => {
-        generateTableButton.disabled = true;
-        generateTableButton.textContent = 'Génération en cours...';
-
-        const filePromises = [];
-
-        if (files.residents) {
-            filePromises.push(processResidentsFile(files.residents).then(data => {
-                tableData.residents = data;
-            }));
-        }
-        if (files.projets) {
-            filePromises.push(processProjetsFile(files.projets).then(data => {
-                tableData.projets = data;
-            }));
-        }
-        if (files.vieSociale) {
-            filePromises.push(processVieSocialeFile(files.vieSociale).then(data => {
-                tableData.vieSociale = data;
-            }));
-        }
-
-        Promise.all(filePromises)
-            .then(() => {
-                setTimeout(() => {
-                    try {
-                        generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
-                    } catch (error) {
-                        console.error('Erreur lors de la génération du tableau:', error);
-                        tableContainer.textContent = 'Une erreur est survenue lors de la génération du tableau.';
-                    } finally {
-                        generateTableButton.disabled = false;
-                        generateTableButton.textContent = 'Générer le tableau';
-                    }
-                }, 50);
-            })
-            .catch(error => {
-                console.error('Erreur lors du traitement des fichiers:', error);
-                tableContainer.textContent = 'Erreur lors du traitement des fichiers.';
-                generateTableButton.disabled = false;
-                generateTableButton.textContent = 'Générer le tableau';
-            });
-    });
 
     printTableButton.addEventListener('click', () => {
         window.print();
