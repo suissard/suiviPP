@@ -30,6 +30,16 @@ function extractName(fullName) {
   return processedName.trim();
 }
 
+function toISODateString(date) {
+    if (!date || !(date instanceof Date)) {
+        return null;
+    }
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
 function processResidentsFile(file) {
     return new Promise((resolve, reject) => {
         if (!file) {
@@ -47,7 +57,7 @@ function processResidentsFile(file) {
 
                 const formattedData = jsonData.map(row => ({
                     "id": extractName(row["Résident"]),
-                    "entry": row["Entrée"] ? row["Entrée"].toLocaleDateString('fr-FR') : null,
+                    "entry": toISODateString(row["Entrée"]),
                     "chNum": row["N° de chambre"]
                 }));
 
@@ -93,8 +103,8 @@ function processProjetsFile(file) {
                     "id": extractName(row["Résident"]),
                     "type": row["Libellé"],
                     "state": row["Étape"],
-                    "from": row["Du"] ? row["Du"].toLocaleDateString('fr-FR') : null,
-                    "to": row["Au"] ? row["Au"].toLocaleDateString('fr-FR') : null
+                    "from": toISODateString(row["Du"]),
+                    "to": toISODateString(row["Au"])
                 }));
 
                 resolve(formattedData);
@@ -139,7 +149,7 @@ function processVieSocialeFile(file) {
                         formattedData.push({
                             "id": currentResident,
                             "type": row[2], // "motif" is in the third column
-                            "date": row[1] ? row[1].toLocaleDateString('fr-FR') : null  // "date" is in the second column
+                            "date": toISODateString(row[1])  // "date" is in the second column
                         });
                     }
                 }

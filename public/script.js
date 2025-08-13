@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function generateTable(residents, projets, vieSociale) {
-        console.log('Generating table with:', { residents, projets, vieSociale });
         tableContainer.innerHTML = ''; // Clear previous table
         if (!residents || !projets || !vieSociale) {
             tableContainer.textContent = 'Veuillez charger tous les fichiers de données avant de générer le tableau.';
@@ -49,10 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 combinedData.get(event.id).addVieSociale(event);
             }
         });
-        console.log('combinedData', combinedData);
 
         // 4. Generate the table
-        console.log('combinedData', combinedData);
         const table = document.createElement('table');
         table.className = 'min-w-full divide-y divide-gray-200';
 
@@ -62,12 +59,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const headerRow = thead.insertRow();
         const headers = [
             { text: 'ID', sortable: true },
-            { text: 'Nom', sortable: true },
-            { text: 'Prénom', sortable: true },
             { text: 'Date d\'entrée', sortable: true },
             { text: 'Chambre', sortable: true },
-            { text: 'Projets Signature', sortable: true },
-            { text: 'Projets Brouillon', sortable: true },
+            { text: 'Projets (total)', sortable: true },
+            { text: 'Projets signés (-1 an)', sortable: true },
+            { text: 'Projets en cours', sortable: true },
+            { text: 'Projets terminés', sortable: true },
+            { text: 'Projets à venir', sortable: true },
             { text: 'PP et Consentement', sortable: true },
             { text: 'Bilan d\'intégration', sortable: true },
             { text: 'Projet Médical', sortable: true }
@@ -117,14 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 idCell.className = cellClasses;
                 idCell.textContent = data.resident.id;
 
-                const nomCell = row.insertCell();
-                nomCell.className = cellClasses;
-                nomCell.textContent = data.resident.Nom;
-
-                const prenomCell = row.insertCell();
-                prenomCell.className = cellClasses;
-                prenomCell.textContent = data.resident.Prénom;
-
                 const entryCell = row.insertCell();
                 entryCell.className = cellClasses;
                 entryCell.textContent = formatDate(data.resident.entry);
@@ -133,13 +123,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 chNumCell.className = cellClasses;
                 chNumCell.textContent = data.resident.chNum;
 
-                const signatureProjetsCell = row.insertCell();
-                signatureProjetsCell.className = cellClasses;
-                signatureProjetsCell.textContent = data.signatureProjetsCount;
+                const projectsTotalCell = row.insertCell();
+                projectsTotalCell.className = cellClasses;
+                projectsTotalCell.textContent = data.projectsCount;
 
-                const brouillonProjetsCell = row.insertCell();
-                brouillonProjetsCell.className = cellClasses;
-                brouillonProjetsCell.textContent = data.brouillonProjetsCount;
+                const signedLastYearCell = row.insertCell();
+                signedLastYearCell.className = cellClasses;
+                signedLastYearCell.textContent = data.projectsByStatus.signedLastYear;
+
+                const onGoingCell = row.insertCell();
+                onGoingCell.className = cellClasses;
+                onGoingCell.textContent = data.projectsByStatus.onGoing;
+
+                const finishedCell = row.insertCell();
+                finishedCell.className = cellClasses;
+                finishedCell.textContent = data.projectsByStatus.finished;
+
+                const futureCell = row.insertCell();
+                futureCell.className = cellClasses;
+                futureCell.textContent = data.projectsByStatus.future;
 
                 const ppEtConsentementCell = row.insertCell();
                 ppEtConsentementCell.className = cellClasses;
@@ -170,38 +172,42 @@ document.addEventListener('DOMContentLoaded', () => {
                         valB = b.resident.id;
                         break;
                     case 1:
-                        valA = a.resident.Nom;
-                        valB = b.resident.Nom;
-                        break;
-                    case 2:
-                        valA = a.resident.Prénom;
-                        valB = b.resident.Prénom;
-                        break;
-                    case 3:
                         valA = new Date(a.resident.entry);
                         valB = new Date(b.resident.entry);
                         break;
-                    case 4:
+                    case 2:
                         valA = a.resident.chNum;
                         valB = b.resident.chNum;
                         break;
+                    case 3:
+                        valA = a.projectsCount;
+                        valB = b.projectsCount;
+                        break;
+                    case 4:
+                        valA = a.projectsByStatus.signedLastYear;
+                        valB = b.projectsByStatus.signedLastYear;
+                        break;
                     case 5:
-                        valA = a.signatureProjetsCount;
-                        valB = b.signatureProjetsCount;
+                        valA = a.projectsByStatus.onGoing;
+                        valB = b.projectsByStatus.onGoing;
                         break;
                     case 6:
-                        valA = a.brouillonProjetsCount;
-                        valB = b.brouillonProjetsCount;
+                        valA = a.projectsByStatus.finished;
+                        valB = b.projectsByStatus.finished;
                         break;
                     case 7:
+                        valA = a.projectsByStatus.future;
+                        valB = b.projectsByStatus.future;
+                        break;
+                    case 8:
                         valA = a.hasPpEtConsentement;
                         valB = b.hasPpEtConsentement;
                         break;
-                    case 8:
+                    case 9:
                         valA = a.hasBilanIntegration;
                         valB = b.hasBilanIntegration;
                         break;
-                    case 9:
+                    case 10:
                         valA = a.hasMedicalProjet;
                         valB = b.hasMedicalProjet;
                         break;
