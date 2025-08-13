@@ -33,11 +33,50 @@ function extractName(fullName) {
   return processedName.trim();
 }
 
+function toISODateString(date) {
+    if (!date) {
+        return null;
+    }
+
+    let d;
+    if (date instanceof Date) {
+        d = date;
+    } else if (typeof date === 'string' && date.includes('/')) {
+        const parts = date.split('/');
+        if (parts.length === 3) {
+            // Assuming DD/MM/YYYY
+            const day = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10) - 1; // Month is 0-indexed
+            const year = parseInt(parts[2], 10);
+            d = new Date(Date.UTC(year, month, day));
+        } else {
+            d = new Date(date); // Fallback for other string formats
+        }
+    } else if (typeof date === 'number') {
+        // It could be an Excel serial number. The xlsx library should have converted it with cellDates:true,
+        // but as a fallback, we can try to convert it.
+        d = new Date(Date.UTC(0, 0, date - 1));
+    }
+    else {
+        d = new Date(date); // Fallback for other types
+    }
+
+    // Check if the date is valid
+    if (isNaN(d.getTime())) {
+        return null;
+    }
+
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
 function processVieSociale(filePath) {
-  const workbook = xlsx.readFile(filePath);
+  const workbook = xlsx.readFile(filePath, { cellDates: true });
   const sheetName = workbook.SheetNames[0];
   const worksheet = workbook.Sheets[sheetName];
-  const data = xlsx.utils.sheet_to_json(worksheet, { header: 1 });
+  const data = xlsx.utils.sheet_to_json(worksheet, { header: 1, raw: false });
 
   const formattedData = {
     "Vie Sociale": []
@@ -54,7 +93,7 @@ function processVieSociale(filePath) {
       formattedData["Vie Sociale"].push({
         "id": currentResident,
         "type": row[2], // "motif" is in the third column
-        "date": new Date(row[1])  // "date" is in the second column
+        "date": toISODateString(row[1])  // "date" is in the second column
       });
     }
   }
