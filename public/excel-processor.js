@@ -55,6 +55,13 @@ function processResidentsFile(file) {
                 const sheetName = workbook.SheetNames[0];
                 const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { cellDates: true });
 
+                if (jsonData.length > 0) {
+                    const firstRow = jsonData[0];
+                    if (!('Résident' in firstRow && 'Entrée' in firstRow && 'N° de chambre' in firstRow)) {
+                        return reject(new Error('Le fichier Résidents ne contient pas les colonnes attendues.'));
+                    }
+                }
+
                 const formattedData = jsonData.map(row => ({
                     "id": extractName(row["Résident"]),
                     "entry": toISODateString(row["Entrée"]),
@@ -99,6 +106,13 @@ function processProjetsFile(file) {
                 const sheetName = workbook.SheetNames[0];
                 const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { cellDates: true });
 
+                if (jsonData.length > 0) {
+                    const firstRow = jsonData[0];
+                    if (!('Résident' in firstRow && 'Libellé' in firstRow && 'Étape' in firstRow && 'Du' in firstRow && 'Au' in firstRow)) {
+                        return reject(new Error('Le fichier Projets ne contient pas les colonnes attendues.'));
+                    }
+                }
+
                 const formattedData = jsonData.map(row => ({
                     "id": extractName(row["Résident"]),
                     "type": row["Libellé"],
@@ -137,6 +151,10 @@ function processVieSocialeFile(file) {
                 const worksheet = workbook.Sheets[sheetName];
                 const sheetData = XLSX.utils.sheet_to_json(worksheet, { header: 1, raw: false });
 
+                if (sheetData.length < 2) {
+                    return reject(new Error('Le fichier Vie Sociale ne contient pas de données.'));
+                }
+
                 const formattedData = [];
                 let currentResident = null;
                 // Start from 1 to skip header row
@@ -152,6 +170,10 @@ function processVieSocialeFile(file) {
                             "date": toISODateString(row[1])  // "date" is in the second column
                         });
                     }
+                }
+
+                if (formattedData.length === 0) {
+                    return reject(new Error("Aucune donnée valide n'a été trouvée dans le fichier Vie Sociale."));
                 }
 
                 resolve(formattedData);

@@ -4,22 +4,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const printTableButton = document.getElementById('print-table-button');
 
     const residentsInput = document.getElementById('residents-input');
-    const residentsJsonButton = document.getElementById('residents-json-button');
-    const residentsJsonOutput = document.getElementById('residents-json-output');
-
     const projetsInput = document.getElementById('projets-input');
-    const projetsJsonButton = document.getElementById('projets-json-button');
-    const projetsJsonOutput = document.getElementById('projets-json-output');
-
     const vieSocialeInput = document.getElementById('vie-sociale-input');
-    const vieSocialeJsonButton = document.getElementById('vie-sociale-json-button');
-    const vieSocialeJsonOutput = document.getElementById('vie-sociale-json-output');
+
+    const residentsValidationIndicator = document.getElementById('residents-validation-indicator');
+    const projetsValidationIndicator = document.getElementById('projets-validation-indicator');
+    const vieSocialeValidationIndicator = document.getElementById('vie-sociale-validation-indicator');
 
     let tableData = {
         residents: null,
         projets: null,
         vieSociale: null
     };
+
+    let files = {
+        residents: null,
+        projets: null,
+        vieSociale: null
+    }
 
     function generateTable(residents, projets, vieSociale) {
         tableContainer.innerHTML = ''; // Clear previous table
@@ -245,90 +247,68 @@ document.addEventListener('DOMContentLoaded', () => {
         tableContainer.textContent = 'Erreur lors du chargement des données par défaut. Veuillez vérifier la console.';
     });
 
-    // Handle "Voir JSON" buttons
-    residentsJsonButton.addEventListener('click', () => {
-        if (residentsJsonOutput.textContent) {
-            residentsJsonOutput.textContent = '';
-            return;
-        }
-        const file = residentsInput.files[0];
-        if (file) {
-            processResidentsFile(file)
-                .then(data => {
-                    tableData.residents = data;
-                    residentsJsonOutput.textContent = JSON.stringify(data, null, 2);
-                })
-                .catch(error => {
-                    console.error('Erreur:', error);
-                    residentsJsonOutput.textContent = 'Erreur lors du traitement du fichier.';
-                });
-        }
-    });
+    function setValidationIndicator(indicator, isValid) {
+        indicator.textContent = isValid ? '✅' : '❌';
+    }
 
-    projetsJsonButton.addEventListener('click', () => {
-        if (projetsJsonOutput.textContent) {
-            projetsJsonOutput.textContent = '';
+    async function handleFileSelect(event, type, processor, indicator) {
+        const file = event.target.files[0];
+        if (!file) {
+            setValidationIndicator(indicator, false);
+            files[type] = null;
             return;
         }
-        const file = projetsInput.files[0];
-        if (file) {
-            processProjetsFile(file)
-                .then(data => {
-                    tableData.projets = data;
-                    projetsJsonOutput.textContent = JSON.stringify(data, null, 2);
-                })
-                .catch(error => {
-                    console.error('Erreur:', error);
-                    projetsJsonOutput.textContent = 'Erreur lors du traitement du fichier.';
-                });
-        }
-    });
 
-    vieSocialeJsonButton.addEventListener('click', () => {
-        if (vieSocialeJsonOutput.textContent) {
-            vieSocialeJsonOutput.textContent = '';
-            return;
+        try {
+            const data = await processor(file);
+            console.log(`JSON pour ${type}:`, data);
+            tableData[type] = data;
+            files[type] = file;
+            setValidationIndicator(indicator, true);
+            tryGenerateTable();
+        } catch (error) {
+            console.error(`Erreur de traitement du fichier pour ${type}:`, error);
+            setValidationIndicator(indicator, false);
+            files[type] = null;
         }
-        const file = vieSocialeInput.files[0];
-        if (file) {
-            processVieSocialeFile(file)
-                .then(data => {
-                    tableData.vieSociale = data;
-                    vieSocialeJsonOutput.textContent = JSON.stringify(data, null, 2);
-                })
-                .catch(error => {
-                    console.error('Erreur:', error);
-                    vieSocialeJsonOutput.textContent = 'Erreur lors du traitement du fichier.';
-                });
+    }
+
+    residentsInput.addEventListener('change', (e) => handleFileSelect(e, 'residents', processResidentsFile, residentsValidationIndicator));
+    projetsInput.addEventListener('change', (e) => handleFileSelect(e, 'projets', processProjetsFile, projetsValidationIndicator));
+    vieSocialeInput.addEventListener('change', (e) => handleFileSelect(e, 'vieSociale', processVieSocialeFile, vieSocialeValidationIndicator));
+
+
+    function tryGenerateTable() {
+        if (files.residents && files.projets && files.vieSociale) {
+            generateTableButton.click();
         }
-    });
+    }
 
     // Handle "Générer le tableau" button
     generateTableButton.addEventListener('click', () => {
-        const loadingIndicator = document.getElementById('loading-indicator');
-        loadingIndicator.classList.remove('hidden');
+        generateTableButton.disabled = true;
+        generateTableButton.textContent = 'Génération en cours...';
 
         const filePromises = [];
 
-        if (residentsInput.files[0]) {
-            filePromises.push(processResidentsFile(residentsInput.files[0]).then(data => {
+        if (files.residents) {
+            filePromises.push(processResidentsFile(files.residents).then(data => {
                 tableData.residents = data;
             }));
         }
-        if (projetsInput.files[0]) {
-            filePromises.push(processProjetsFile(projetsInput.files[0]).then(data => {
+        if (files.projets) {
+            filePromises.push(processProjetsFile(files.projets).then(data => {
                 tableData.projets = data;
             }));
         }
-        if (vieSocialeInput.files[0]) {
-            filePromises.push(processVieSocialeFile(vieSocialeInput.files[0]).then(data => {
+        if (files.vieSociale) {
+            filePromises.push(processVieSocialeFile(files.vieSociale).then(data => {
                 tableData.vieSociale = data;
             }));
         }
 
         Promise.all(filePromises)
             .then(() => {
-                // Use a short timeout to allow the UI to update and show the loading indicator
                 setTimeout(() => {
                     try {
                         generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
@@ -336,14 +316,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         console.error('Erreur lors de la génération du tableau:', error);
                         tableContainer.textContent = 'Une erreur est survenue lors de la génération du tableau.';
                     } finally {
-                        loadingIndicator.classList.add('hidden');
+                        generateTableButton.disabled = false;
+                        generateTableButton.textContent = 'Générer le tableau';
                     }
                 }, 50);
             })
             .catch(error => {
                 console.error('Erreur lors du traitement des fichiers:', error);
                 tableContainer.textContent = 'Erreur lors du traitement des fichiers.';
-                loadingIndicator.classList.add('hidden');
+                generateTableButton.disabled = false;
+                generateTableButton.textContent = 'Générer le tableau';
             });
     });
 
