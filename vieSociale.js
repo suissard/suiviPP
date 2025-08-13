@@ -60,7 +60,6 @@ function toISODateString(date) {
     else {
         d = new Date(date); // Fallback for other types
     }
-
     // Check if the date is valid
     if (isNaN(d.getTime())) {
         return null;
