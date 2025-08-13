@@ -62,11 +62,18 @@ function processResidentsFile(file) {
                     }
                 }
 
-                const formattedData = jsonData.map(row => ({
-                    "id": extractName(row["Résident"]),
-                    "entry": toISODateString(row["Entrée"]),
-                    "chNum": row["N° de chambre"]
-                }));
+                const formattedData = jsonData.map(row => {
+                    let entryDate = row["Entrée"];
+                    if (typeof entryDate === 'number') {
+                        // Excel date is a number of days since 1900-01-01
+                        entryDate = new Date(Math.round((entryDate - 25569) * 86400 * 1000));
+                    }
+                    return {
+                        "id": extractName(row["Résident"]),
+                        "entry": toISODateString(entryDate),
+                        "chNum": row["N° de chambre"]
+                    };
+                });
 
                 resolve(formattedData);
             } catch (error) {
