@@ -59,11 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
             { text: 'ID', sortable: true },
             { text: 'Date d\'entrée', sortable: true },
             { text: 'Chambre', sortable: true },
-            { text: 'Projets (total)', sortable: true },
             { text: 'Projets signés (-1 an)', sortable: true },
-            { text: 'Projets en cours', sortable: true },
-            { text: 'Projets terminés', sortable: true },
-            { text: 'Projets à venir', sortable: true },
+            { text: 'Projets Brouillon de moins d\'un an', sortable: true },
             { text: 'PP et Consentement', sortable: true },
             { text: 'Bilan d\'intégration', sortable: true },
             { text: 'Projet Médical', sortable: true }
@@ -121,25 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 chNumCell.className = cellClasses;
                 chNumCell.textContent = data.resident.chNum;
 
-                const projectsTotalCell = row.insertCell();
-                projectsTotalCell.className = cellClasses;
-                projectsTotalCell.textContent = data.projectsCount;
-
                 const signedLastYearCell = row.insertCell();
                 signedLastYearCell.className = cellClasses;
                 signedLastYearCell.textContent = data.projectsByStatus.signedLastYear;
 
-                const onGoingCell = row.insertCell();
-                onGoingCell.className = cellClasses;
-                onGoingCell.textContent = data.projectsByStatus.onGoing;
-
-                const finishedCell = row.insertCell();
-                finishedCell.className = cellClasses;
-                finishedCell.textContent = data.projectsByStatus.finished;
-
-                const futureCell = row.insertCell();
-                futureCell.className = cellClasses;
-                futureCell.textContent = data.projectsByStatus.future;
+                const draftLastYearCell = row.insertCell();
+                draftLastYearCell.className = cellClasses;
+                draftLastYearCell.textContent = data.draftProjectsLastYear;
 
                 const ppEtConsentementCell = row.insertCell();
                 ppEtConsentementCell.className = cellClasses;
@@ -178,34 +163,22 @@ document.addEventListener('DOMContentLoaded', () => {
                         valB = b.resident.chNum;
                         break;
                     case 3:
-                        valA = a.projectsCount;
-                        valB = b.projectsCount;
-                        break;
-                    case 4:
                         valA = a.projectsByStatus.signedLastYear;
                         valB = b.projectsByStatus.signedLastYear;
                         break;
+                    case 4:
+                        valA = a.draftProjectsLastYear;
+                        valB = b.draftProjectsLastYear;
+                        break;
                     case 5:
-                        valA = a.projectsByStatus.onGoing;
-                        valB = b.projectsByStatus.onGoing;
-                        break;
-                    case 6:
-                        valA = a.projectsByStatus.finished;
-                        valB = b.projectsByStatus.finished;
-                        break;
-                    case 7:
-                        valA = a.projectsByStatus.future;
-                        valB = b.projectsByStatus.future;
-                        break;
-                    case 8:
                         valA = a.hasPpEtConsentement;
                         valB = b.hasPpEtConsentement;
                         break;
-                    case 9:
+                    case 6:
                         valA = a.hasBilanIntegration;
                         valB = b.hasBilanIntegration;
                         break;
-                    case 10:
+                    case 7:
                         valA = a.hasMedicalProjet;
                         valB = b.hasMedicalProjet;
                         break;

@@ -50,6 +50,15 @@ class Data {
         return this.projets.filter(p => p.state && p.state.trim() === 'Brouillon').length;
     }
 
+    get draftProjectsLastYear() {
+        const today = new Date();
+        const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+        return this.projets.filter(p => {
+            if (!p.state || p.state.trim() !== 'Brouillon') return false;
+            return p.from && p.from >= oneYearAgo;
+        }).length;
+    }
+
     get projectsByStatus() {
         const today = new Date();
         const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
