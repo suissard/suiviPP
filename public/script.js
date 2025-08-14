@@ -245,11 +245,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setValidationIndicator(input, isValid) {
         const parentDiv = input.parentElement.parentElement;
-        parentDiv.classList.remove('bg-green-100', 'bg-red-100');
+        parentDiv.classList.remove('bg-white', 'bg-green-100', 'bg-red-100');
         if (isValid === true) {
             parentDiv.classList.add('bg-green-100');
         } else if (isValid === false) {
             parentDiv.classList.add('bg-red-100');
+        } else {
+            parentDiv.classList.add('bg-white');
         }
     }
 
@@ -257,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const file = event.target.files[0];
         const input = event.target;
         if (!file) {
-            setValidationIndicator(input, false);
+            setValidationIndicator(input, null);
             files[type] = null;
             return;
         }
