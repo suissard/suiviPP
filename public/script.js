@@ -85,8 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
         tbody.className = 'bg-white divide-y divide-gray-200';
         let sortedData = Array.from(combinedData.values());
 
-        function formatDate(dateString) {
-            const date = new Date(dateString);
+        function formatDate(date) {
+            if (!date) return '';
             const day = String(date.getDate()).padStart(2, '0');
             const month = String(date.getMonth() + 1).padStart(2, '0');
             const year = date.getFullYear();
@@ -170,8 +170,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         valB = b.resident.id;
                         break;
                     case 1:
-                        valA = new Date(a.resident.entry);
-                        valB = new Date(b.resident.entry);
+                        valA = a.resident.entry;
+                        valB = b.resident.entry;
                         break;
                     case 2:
                         valA = a.resident.chNum;
