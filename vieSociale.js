@@ -89,10 +89,14 @@ function processVieSociale(filePath) {
     if (row[0] && row[1] === undefined) {
       currentResident = extractName(row[0]);
     } else if (currentResident && row[1] && row[2]) { // Make sure date and type are not empty
+      const date = toISODateString(row[1]);
+      if (!date) {
+        console.error(`Date manquante pour l'événement "${row[2]}" du résident "${currentResident}"`);
+      }
       formattedData["Vie Sociale"].push({
         "id": currentResident,
         "type": row[2], // "motif" is in the third column
-        "date": toISODateString(row[1])  // "date" is in the second column
+        "date": date
       });
     }
   }

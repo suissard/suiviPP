@@ -91,6 +91,12 @@ function processProjets(filePath) {
   const formattedData = {
     "Projets": data.map(row => {
       const from = toISODateString(row["Du"]);
+      if (!from) {
+        console.error(`Date "Du" manquante pour le projet "${row["Libellé"]}" du résident "${row["Résident"]}"`);
+      }
+      if (!row["Au"]) {
+        console.error(`Date "Au" manquante pour le projet "${row["Libellé"]}" du résident "${row["Résident"]}"`);
+      }
       const to = toISODateString(row["Au"], from);
       return {
         "id": extractName(row["Résident"]),
