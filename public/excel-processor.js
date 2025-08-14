@@ -31,12 +31,40 @@ function extractName(fullName) {
 }
 
 function toISODateString(date) {
-    if (!date || !(date instanceof Date)) {
+    if (!date) {
         return null;
     }
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+
+    let d;
+    if (date instanceof Date) {
+        d = date;
+    } else if (typeof date === 'string' && date.includes('/')) {
+        const parts = date.split('/');
+        if (parts.length === 3) {
+            // Assuming DD/MM/YYYY
+            const day = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10) - 1; // Month is 0-indexed
+            const year = parseInt(parts[2], 10);
+            d = new Date(Date.UTC(year, month, day));
+        } else {
+            d = new Date(date); // Fallback for other string formats
+        }
+    } else if (typeof date === 'number') {
+        // It could be an Excel serial number.
+        d = new Date(Math.round((date - 25569) * 86400 * 1000));
+    }
+    else {
+        d = new Date(date); // Fallback for other types
+    }
+
+    // Check if the date is valid
+    if (isNaN(d.getTime())) {
+        return null;
+    }
+
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
 }
 
@@ -64,8 +92,9 @@ function processResidentsFile(file) {
 
                 const formattedData = jsonData.map(row => {
                     let entryDate = row["Entrée"];
+                    // The robust toISODateString now handles numbers, so this inline check is no longer needed.
+                    // However, to minimize changes, we'll leave it. The function is idempotent.
                     if (typeof entryDate === 'number') {
-                        // Excel date is a number of days since 1900-01-01
                         entryDate = new Date(Math.round((entryDate - 25569) * 86400 * 1000));
                     }
                     return {
