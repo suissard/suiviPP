@@ -235,13 +235,11 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch('vie_sociale.json').then(response => response.json())
     ])
     .then(([residentsData, projetsData, vieSocialeData]) => {
-        console.log("Fetched data:", { residentsData, projetsData, vieSocialeData });
         tableData = {
             residents: residentsData['Résidents'],
             projets: projetsData['Projets'],
             vieSociale: vieSocialeData['Vie Sociale']
         };
-        console.log("Parsed tableData:", tableData);
         generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
     })
     .catch(error => {

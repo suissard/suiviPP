@@ -19,6 +19,9 @@ class Data {
     }
 
     addVieSociale(event) {
+        if (event.date) {
+            event.date = new Date(event.date);
+        }
         this.vieSociale.push(event);
     }
 
@@ -40,11 +43,11 @@ class Data {
     }
 
     get signatureProjetsCount() {
-        return this.projets.filter(p => p.state === 'Signature').length;
+        return this.projets.filter(p => p.state && p.state.trim() === 'Signature').length;
     }
 
     get brouillonProjetsCount() {
-        return this.projets.filter(p => p.state === 'Brouillon').length;
+        return this.projets.filter(p => p.state && p.state.trim() === 'Brouillon').length;
     }
 
     get projectsByStatus() {
@@ -61,16 +64,18 @@ class Data {
         };
 
         this.projets.forEach(p => {
-            if (p.state === 'Signature' && p.from >= oneYearAgo) {
+            if (!p.state) return;
+            const state = p.state.trim();
+            if (state === 'Signature' && p.from >= oneYearAgo) {
                 statusCounts.signedLastYear++;
             }
-            if (p.state === 'En cours') {
+            if (state === 'En cours') {
                 statusCounts.onGoing++;
             }
-            if (p.state === 'Terminé') {
+            if (state === 'Clôture') { // Corrected keyword
                 statusCounts.finished++;
             }
-            if (p.state === 'À venir') {
+            if (state === 'À venir') {
                 statusCounts.future++;
             }
         });
@@ -83,7 +88,7 @@ class Data {
     }
 
     get hasBilanIntegration() {
-        return this.vieSociale.some(v => v.type === 'Bilan d\'intégration');
+        return this.vieSociale.some(v => v.type === 'Bilan d’intégration');
     }
 
     get hasMedicalProjet() {
