@@ -65,7 +65,7 @@ function toISODateString(date, fromDateString = null) {
     } else if (typeof date === 'number') {
         // It could be an Excel serial number. The xlsx library should have converted it with cellDates:true,
         // but as a fallback, we can try to convert it.
-        d = new Date(Date.UTC(0, 0, date - 1));
+        d = new Date(Math.round((date - 25569) * 86400 * 1000));
     }
     else {
         d = new Date(date); // Fallback for other types
@@ -87,6 +87,15 @@ function processProjets(filePath) {
   const sheetName = workbook.SheetNames[0];
   const worksheet = workbook.Sheets[sheetName];
   const data = xlsx.utils.sheet_to_json(worksheet, { cellDates: true });
+
+  if (data.length > 0) {
+    const requiredColumns = ['Résident', 'Libellé', 'Étape', 'Du', 'Au'];
+    const firstRow = data[0];
+    const missingColumns = requiredColumns.filter(col => !(col in firstRow));
+    if (missingColumns.length > 0) {
+      throw new Error(`Le fichier Projets ne contient pas les colonnes attendues. Colonnes manquantes: ${missingColumns.join(', ')}`);
+    }
+  }
 
   const formattedData = {
     "Projets": data.map(row => {
