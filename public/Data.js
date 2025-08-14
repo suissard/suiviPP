@@ -1,20 +1,32 @@
 class Data {
     constructor(resident) {
         this.resident = resident;
+        if (this.resident.entry) {
+            this.resident.entry = new Date(this.resident.entry);
+        }
         this.projets = [];
         this.vieSociale = [];
     }
 
     addProjet(projet) {
+        if (projet.from) {
+            projet.from = new Date(projet.from);
+        }
+        if (projet.to) {
+            projet.to = new Date(projet.to);
+        }
         this.projets.push(projet);
     }
 
     addVieSociale(event) {
+        if (event.date) {
+            event.date = new Date(event.date);
+        }
         this.vieSociale.push(event);
     }
 
     get status() {
-        if (this.projets.some(p => p.state === 'En cours' && new Date(p.to) < new Date())) {
+        if (this.projets.some(p => p.state === 'En cours' && p.to < new Date())) {
             return 'error';
         }
         if (this.projets.length === 0) {
@@ -31,11 +43,11 @@ class Data {
     }
 
     get signatureProjetsCount() {
-        return this.projets.filter(p => p.state === 'Signature').length;
+        return this.projets.filter(p => p.state && p.state.trim() === 'Signature').length;
     }
 
     get brouillonProjetsCount() {
-        return this.projets.filter(p => p.state === 'Brouillon').length;
+        return this.projets.filter(p => p.state && p.state.trim() === 'Brouillon').length;
     }
 
     get projectsByStatus() {
@@ -52,18 +64,18 @@ class Data {
         };
 
         this.projets.forEach(p => {
-            const fromDate = new Date(p.from);
-
-            if (p.state === 'Signature' && fromDate >= oneYearAgo) {
+            if (!p.state) return;
+            const state = p.state.trim();
+            if (state === 'Signature' && p.from >= oneYearAgo) {
                 statusCounts.signedLastYear++;
             }
-            if (p.state === 'En cours') {
+            if (state === 'En cours') {
                 statusCounts.onGoing++;
             }
-            if (p.state === 'Terminé') {
+            if (state === 'Clôture') { // Corrected keyword
                 statusCounts.finished++;
             }
-            if (p.state === 'À venir') {
+            if (state === 'À venir') {
                 statusCounts.future++;
             }
         });
@@ -76,7 +88,7 @@ class Data {
     }
 
     get hasBilanIntegration() {
-        return this.vieSociale.some(v => v.type === 'Bilan d\'intégration');
+        return this.vieSociale.some(v => v.type === 'Bilan d’intégration');
     }
 
     get hasMedicalProjet() {

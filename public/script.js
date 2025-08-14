@@ -234,8 +234,12 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch('projets.json').then(response => response.json()),
         fetch('vie_sociale.json').then(response => response.json())
     ])
-    .then(([residents, projets, vieSociale]) => {
-        tableData = { residents, projets, vieSociale };
+    .then(([residentsData, projetsData, vieSocialeData]) => {
+        tableData = {
+            residents: residentsData['Résidents'],
+            projets: projetsData['Projets'],
+            vieSociale: vieSocialeData['Vie Sociale']
+        };
         generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
     })
     .catch(error => {
