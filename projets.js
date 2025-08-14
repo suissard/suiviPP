@@ -33,8 +33,18 @@ function extractName(fullName) {
   return processedName.trim();
 }
 
-function toISODateString(date) {
+function toISODateString(date, fromDateString = null) {
     if (!date) {
+        if (fromDateString) {
+            const fromDate = new Date(fromDateString);
+            if (!isNaN(fromDate.getTime())) {
+                fromDate.setFullYear(fromDate.getFullYear() + 1);
+                const year = fromDate.getFullYear();
+                const month = String(fromDate.getMonth() + 1).padStart(2, '0');
+                const day = String(fromDate.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
+        }
         return null;
     }
 
@@ -79,13 +89,17 @@ function processProjets(filePath) {
   const data = xlsx.utils.sheet_to_json(worksheet, { cellDates: true });
 
   const formattedData = {
-    "Projets": data.map(row => ({
-      "id": extractName(row["Résident"]),
-      "type": row["Libellé"],
-      "state": row["Étape"],
-      "from": toISODateString(row["Du"]),
-      "to": toISODateString(row["Au"])
-    }))
+    "Projets": data.map(row => {
+      const from = toISODateString(row["Du"]);
+      const to = toISODateString(row["Au"], from);
+      return {
+        "id": extractName(row["Résident"]),
+        "type": row["Libellé"],
+        "state": row["Étape"],
+        "from": from,
+        "to": to
+      };
+    })
   };
 
   return JSON.stringify(formattedData, null, 2);
