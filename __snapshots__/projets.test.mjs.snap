@@ -92,14 +92,14 @@ exports[`processProjets > should process the projets file correctly and match th
       "type": "altération des capacités cognitives",
       "state": " Brouillon",
       "from": "2017-10-26",
-      "to": null
+      "to": "2018-10-26"
     },
     {
       "id": "BOFMMJ Jsfof",
       "type": "altération des capacités cognitives",
       "state": " Brouillon",
       "from": "2017-10-26",
-      "to": null
+      "to": "2018-10-26"
     },
     {
       "id": "BSOPME Disjtujbof",
@@ -925,7 +925,7 @@ exports[`processProjets > should process the projets file correctly and match th
       "type": "Autonomie/sécurité",
       "state": " Signature",
       "from": "2025-01-23",
-      "to": null
+      "to": "2026-01-23"
     },
     {
       "id": "CSFOZ Boesf",
@@ -1982,7 +1982,7 @@ exports[`processProjets > should process the projets file correctly and match th
       "type": "Animation/liens sociaux et extérieurs",
       "state": " Signature",
       "from": "2025-02-06",
-      "to": null
+      "to": "2026-02-06"
     },
     {
       "id": "EVCSFVJM Kbdrvft",
@@ -4712,28 +4712,28 @@ exports[`processProjets > should process the projets file correctly and match th
       "type": "troubles du sommeil",
       "state": " Signature",
       "from": "2018-02-04",
-      "to": null
+      "to": "2019-02-04"
     },
     {
       "id": "LE HSBOE Nbsjf",
       "type": "troubles du sommeil",
       "state": " Signature",
       "from": "2018-02-04",
-      "to": null
+      "to": "2019-02-04"
     },
     {
       "id": "LE HSBOE Nbsjf",
       "type": "altération des capacités cognitives",
       "state": " Signature",
       "from": "2018-02-04",
-      "to": null
+      "to": "2019-02-04"
     },
     {
       "id": "LE HSBOE Nbsjf",
       "type": "altération des capacités cognitives",
       "state": " Signature",
       "from": "2018-02-04",
-      "to": null
+      "to": "2019-02-04"
     },
     {
       "id": "LE IFMMP Sfoff",
@@ -5657,7 +5657,7 @@ exports[`processProjets > should process the projets file correctly and match th
       "type": "Autonomie/sécurité",
       "state": " Signature",
       "from": "2024-11-21",
-      "to": null
+      "to": "2025-11-21"
     },
     {
       "id": "NVDDIJFMMJ Nbsjf",
