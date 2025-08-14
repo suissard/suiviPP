@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         thead.className = 'bg-gray-50';
         const headerRow = thead.insertRow();
         const headers = [
+            { text: 'Aide', sortable: false },
             { text: 'ID', sortable: true },
             { text: 'Date d\'entrée', sortable: true },
             { text: 'Chambre', sortable: true },
@@ -63,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { text: 'Projets Brouillon de moins d\'un an', sortable: true },
             { text: 'PP et Consentement', sortable: true },
             { text: 'Bilan d\'intégration', sortable: true },
-            { text: 'Projet Médical', sortable: true }
+            { text: 'Projet Médical (-1 an)', sortable: true }
         ];
 
         headers.forEach((header, index) => {
@@ -90,21 +91,36 @@ document.addEventListener('DOMContentLoaded', () => {
             return `${day}/${month}/${year}`;
         }
 
+        function applyStatusColor(element, status) {
+            if (status === 'error') {
+                element.classList.add('bg-red-200');
+            } else if (status === 'warning') {
+                element.classList.add('bg-yellow-200');
+            }
+        }
+
         function renderTable(dataToRender) {
             tbody.innerHTML = ''; // Clear existing rows
             dataToRender.forEach(data => {
                 const row = tbody.insertRow();
 
-                // Apply status colors
-                if (data.status === 'success') {
-                    row.className = 'bg-green-100';
+                // Apply row status colors
+                if (data.status === 'error') {
+                    row.className = 'bg-red-100';
                 } else if (data.status === 'warning') {
                     row.className = 'bg-yellow-100';
-                } else if (data.status === 'error') {
-                    row.className = 'bg-red-100';
                 }
 
                 const cellClasses = 'px-6 py-4 whitespace-nownowrap text-sm text-gray-900';
+
+                const helpCell = row.insertCell();
+                helpCell.className = cellClasses;
+                if (data.status === 'error' || data.status === 'warning') {
+                    const icon = document.createElement('span');
+                    icon.textContent = '❓';
+                    icon.title = data.statusReasons.join('\n');
+                    helpCell.appendChild(icon);
+                }
 
                 const idCell = row.insertCell();
                 idCell.className = cellClasses;
@@ -121,22 +137,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 const signedLastYearCell = row.insertCell();
                 signedLastYearCell.className = cellClasses;
                 signedLastYearCell.textContent = data.projectsByStatus.signedLastYear;
+                applyStatusColor(signedLastYearCell, data.signedProjectStatus);
+
 
                 const draftLastYearCell = row.insertCell();
                 draftLastYearCell.className = cellClasses;
                 draftLastYearCell.textContent = data.draftProjectsLastYear;
+                applyStatusColor(draftLastYearCell, data.draftProjectStatus);
 
                 const ppEtConsentementCell = row.insertCell();
                 ppEtConsentementCell.className = cellClasses;
                 ppEtConsentementCell.textContent = data.hasPpEtConsentement ? 'Oui' : 'Non';
+                applyStatusColor(ppEtConsentementCell, data.ppEtConsentementStatus);
+
 
                 const bilanIntegrationCell = row.insertCell();
                 bilanIntegrationCell.className = cellClasses;
                 bilanIntegrationCell.textContent = data.hasBilanIntegration ? 'Oui' : 'Non';
+                applyStatusColor(bilanIntegrationCell, data.bilanIntegrationStatus);
+
 
                 const medicalProjetCell = row.insertCell();
                 medicalProjetCell.className = cellClasses;
-                medicalProjetCell.textContent = data.hasMedicalProjet ? 'Oui' : 'Non';
+                medicalProjetCell.textContent = data.hasMedicalProjetLastYear ? 'Oui' : 'Non';
+                applyStatusColor(medicalProjetCell, data.medicalProjetLastYearStatus);
             });
         }
 
@@ -150,37 +174,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 let valA, valB;
 
                 switch (columnIndex) {
-                    case 0:
+                    case 1:
                         valA = a.resident.id;
                         valB = b.resident.id;
                         break;
-                    case 1:
+                    case 2:
                         valA = a.resident.entry;
                         valB = b.resident.entry;
                         break;
-                    case 2:
+                    case 3:
                         valA = a.resident.chNum;
                         valB = b.resident.chNum;
                         break;
-                    case 3:
+                    case 4:
                         valA = a.projectsByStatus.signedLastYear;
                         valB = b.projectsByStatus.signedLastYear;
                         break;
-                    case 4:
+                    case 5:
                         valA = a.draftProjectsLastYear;
                         valB = b.draftProjectsLastYear;
                         break;
-                    case 5:
+                    case 6:
                         valA = a.hasPpEtConsentement;
                         valB = b.hasPpEtConsentement;
                         break;
-                    case 6:
+                    case 7:
                         valA = a.hasBilanIntegration;
                         valB = b.hasBilanIntegration;
                         break;
-                    case 7:
-                        valA = a.hasMedicalProjet;
-                        valB = b.hasMedicalProjet;
+                    case 8:
+                        valA = a.hasMedicalProjetLastYear;
+                        valB = b.hasMedicalProjetLastYear;
                         break;
                 }
 

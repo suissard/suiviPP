@@ -26,16 +26,61 @@ class Data {
     }
 
     get status() {
-        if (this.projets.some(p => p.state === 'En cours' && p.to < new Date())) {
+        const statuses = [
+            this.signedProjectStatus,
+            this.draftProjectStatus,
+            this.ppEtConsentementStatus,
+            this.bilanIntegrationStatus,
+            this.medicalProjetLastYearStatus
+        ];
+
+        if (statuses.includes('error')) {
             return 'error';
         }
-        if (this.projets.length === 0) {
-            return 'success';
+        if (statuses.includes('warning')) {
+            return 'warning';
         }
-        if (this.projets.some(p => p.state === 'En cours' || p.state === 'À venir')) {
-            return 'success';
+        return 'success';
+    }
+
+    get statusReasons() {
+        const reasons = [];
+        if (this.signedProjectStatus === 'error') {
+            reasons.push('Le nombre de projets signés de moins d\'un an est inférieur à 3.');
         }
-        return 'warning';
+        if (this.draftProjectStatus === 'warning') {
+            reasons.push('Il y a des projets en état de brouillon de moins d\'un an.');
+        }
+        if (this.ppEtConsentementStatus === 'error') {
+            reasons.push('PP et consentement manquant.');
+        }
+        if (this.bilanIntegrationStatus === 'error') {
+            reasons.push('Bilan d\'intégration manquant.');
+        }
+        if (this.medicalProjetLastYearStatus === 'error') {
+            reasons.push('Projet médical de moins d\'un an manquant.');
+        }
+        return reasons;
+    }
+
+    get signedProjectStatus() {
+        return this.projectsByStatus.signedLastYear < 3 ? 'error' : 'normal';
+    }
+
+    get draftProjectStatus() {
+        return this.draftProjectsLastYear > 0 ? 'warning' : 'normal';
+    }
+
+    get ppEtConsentementStatus() {
+        return this.hasPpEtConsentement ? 'normal' : 'error';
+    }
+
+    get bilanIntegrationStatus() {
+        return this.hasBilanIntegration ? 'normal' : 'error';
+    }
+
+    get medicalProjetLastYearStatus() {
+        return this.hasMedicalProjetLastYear ? 'normal' : 'error';
     }
 
     get projectsCount() {
@@ -100,7 +145,13 @@ class Data {
         return this.vieSociale.some(v => v.type === 'Bilan d’intégration');
     }
 
-    get hasMedicalProjet() {
-        return this.projets.some(p => p.type === 'Prise en charge médicale');
+    get hasMedicalProjetLastYear() {
+        const today = new Date();
+        const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+        return this.projets.some(p => {
+            if (p.type !== 'Prise en charge médicale') return false;
+            // Assuming 'from' date should be within the last year
+            return p.from && p.from >= oneYearAgo;
+        });
     }
 }
