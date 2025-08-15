@@ -1,6 +1,9 @@
+// Entry point for the dashboard logic
 document.addEventListener('DOMContentLoaded', () => {
     const tableContainer = document.getElementById('table-container');
     const printTableButton = document.getElementById('print-table-button');
+    const filterErrorButton = document.getElementById('filter-error-button');
+    const filterWarningButton = document.getElementById('filter-warning-button');
 
     const residentsInput = document.getElementById('residents-input');
     const projetsInput = document.getElementById('projets-input');
@@ -17,6 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
         projets: null,
         vieSociale: null
     }
+
+    let currentFilter = null;
 
     function generateTable(residents, projets, vieSociale) {
         tableContainer.innerHTML = ''; // Clear previous table
@@ -82,6 +87,40 @@ document.addEventListener('DOMContentLoaded', () => {
         const tbody = table.createTBody();
         tbody.className = 'bg-white divide-y divide-gray-200';
         let sortedData = Array.from(combinedData.values());
+
+        if (currentFilter) {
+            sortedData = sortedData.filter(data => data.status === currentFilter);
+        }
+
+        function defaultSort(data) {
+            const statusOrder = { 'error': 1, 'warning': 2, 'success': 3 };
+
+            return data.sort((a, b) => {
+                // 1. Sort by status
+                const statusComparison = statusOrder[a.status] - statusOrder[b.status];
+                if (statusComparison !== 0) return statusComparison;
+
+                // 2. Sort by entry date (newest to oldest)
+                const entryComparison = b.resident.entry - a.resident.entry;
+                if (entryComparison !== 0) return entryComparison;
+
+                // 3. Sort by last project date (oldest to newest)
+                const lastProjectA = a.projets.length > 0 ? a.projets.reduce((latest, p) => p.from > latest ? p.from : latest, a.projets[0].from) : null;
+                const lastProjectB = b.projets.length > 0 ? b.projets.reduce((latest, p) => p.from > latest ? p.from : latest, b.projets[0].from) : null;
+
+                if (lastProjectA && lastProjectB) {
+                    return lastProjectA - lastProjectB;
+                } else if (lastProjectA) {
+                    return -1;
+                } else if (lastProjectB) {
+                    return 1;
+                }
+
+                return 0;
+            });
+        }
+
+        defaultSort(sortedData);
 
         function formatDate(date) {
             if (!date) return '';
@@ -292,5 +331,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     printTableButton.addEventListener('click', () => {
         window.print();
+    });
+
+    filterErrorButton.addEventListener('click', () => {
+        currentFilter = currentFilter === 'error' ? null : 'error';
+        generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
+    });
+
+    filterWarningButton.addEventListener('click', () => {
+        currentFilter = currentFilter === 'warning' ? null : 'warning';
+        generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
     });
 });
