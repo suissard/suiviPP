@@ -8,15 +8,12 @@
     }
 
     #table-container {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
+        position: static;
     }
 
     @page {
         size: A4 portrait;
-        margin: 1cm;
+        margin: 0.5cm;
     }
 
     table {
