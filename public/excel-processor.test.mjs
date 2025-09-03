@@ -59,32 +59,38 @@ describe('Excel file processors', () => {
         const filePath = path.join(process.cwd(), 'test', 'Residents.xlsx');
         const file = createFile(filePath);
         const result = await processResidentsFile(file);
-        expect(result).toEqual(expect.any(Array));
-        expect(result.length).toBeGreaterThan(0);
-        expect(result[0]).toHaveProperty('id');
-        expect(result[0]).toHaveProperty('entry');
-        expect(result[0]).toHaveProperty('chNum');
+        expect(result).toHaveProperty('data');
+        expect(result).toHaveProperty('successCount');
+        expect(result).toHaveProperty('errorCount');
+        expect(result.data.length).toBeGreaterThan(0);
+        expect(result.data[0]).toHaveProperty('id');
+        expect(result.data[0]).toHaveProperty('entry');
+        expect(result.data[0]).toHaveProperty('chNum');
     });
 
     it('should process the projets file correctly', async () => {
         const filePath = path.join(process.cwd(), 'test', 'Projets.xlsx');
         const file = createFile(filePath);
         const result = await processProjetsFile(file);
-        expect(result).toEqual(expect.any(Array));
-        expect(result.length).toBeGreaterThan(0);
-        expect(result[0]).toHaveProperty('id');
-        expect(result[0]).toHaveProperty('type');
-        expect(result[0]).toHaveProperty('state');
+        expect(result).toHaveProperty('data');
+        expect(result).toHaveProperty('successCount');
+        expect(result).toHaveProperty('errorCount');
+        expect(result.data.length).toBeGreaterThan(0);
+        expect(result.data[0]).toHaveProperty('id');
+        expect(result.data[0]).toHaveProperty('type');
+        expect(result.data[0]).toHaveProperty('state');
     });
 
     it('should process the vie sociale file correctly', async () => {
         const filePath = path.join(process.cwd(), 'test', 'Vie sociale.xlsx');
         const file = createFile(filePath);
         const result = await processVieSocialeFile(file);
-        expect(result).toEqual(expect.any(Array));
-        expect(result.length).toBeGreaterThan(0);
-        expect(result[0]).toHaveProperty('id');
-        expect(result[0]).toHaveProperty('type');
-        expect(result[0]).toHaveProperty('date');
+        expect(result).toHaveProperty('data');
+        expect(result).toHaveProperty('successCount');
+        expect(result).toHaveProperty('errorCount');
+        expect(result.data.length).toBeGreaterThan(0);
+        expect(result.data[0]).toHaveProperty('id');
+        expect(result.data[0]).toHaveProperty('type');
+        expect(result.data[0]).toHaveProperty('date');
     });
 });
