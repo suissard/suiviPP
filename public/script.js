@@ -101,20 +101,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const statusComparison = statusOrder[a.status] - statusOrder[b.status];
                 if (statusComparison !== 0) return statusComparison;
 
-                // 2. Sort by entry date (newest to oldest)
-                const entryComparison = b.resident.entry - a.resident.entry;
-                if (entryComparison !== 0) return entryComparison;
+                // 2. Sort by validitePp (oldest to newest)
+                const dateA = a.validitePp;
+                const dateB = b.validitePp;
 
-                // 3. Sort by last project date (oldest to newest)
-                const lastProjectA = a.projets.length > 0 ? a.projets.reduce((latest, p) => p.from > latest ? p.from : latest, a.projets[0].from) : null;
-                const lastProjectB = b.projets.length > 0 ? b.projets.reduce((latest, p) => p.from > latest ? p.from : latest, b.projets[0].from) : null;
-
-                if (lastProjectA && lastProjectB) {
-                    return lastProjectA - lastProjectB;
-                } else if (lastProjectA) {
-                    return -1;
-                } else if (lastProjectB) {
-                    return 1;
+                if (dateA && dateB) {
+                    return dateA.getTime() - dateB.getTime();
+                } else if (dateA) {
+                    return -1; // a has a date, b doesn't, so a comes first
+                } else if (dateB) {
+                    return 1; // b has a date, a doesn't, so b comes first
                 }
 
                 return 0;
