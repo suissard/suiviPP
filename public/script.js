@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
         thead.className = 'bg-gray-50';
         const headerRow = thead.insertRow();
         const headers = [
-            { text: 'Aide', sortable: false },
             { text: 'ID', sortable: true },
             { text: 'Date d\'entrée', sortable: true },
             { text: 'Chambre', sortable: true },
@@ -49,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         headers.forEach((header, index) => {
             const th = document.createElement('th');
-            th.className = 'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider';
+            th.className = 'px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider';
             th.textContent = header.text;
             if (header.sortable) {
                 th.style.cursor = 'pointer';
@@ -155,20 +154,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     row.className = 'bg-yellow-100';
                 }
 
-                const cellClasses = 'px-6 py-4 whitespace-nownowrap text-sm text-gray-900';
-
-                const helpCell = row.insertCell();
-                helpCell.className = cellClasses;
-                if (data.status === 'error' || data.status === 'warning') {
-                    const icon = document.createElement('span');
-                    icon.textContent = '❓';
-                    icon.title = data.statusReasons.join('\n');
-                    helpCell.appendChild(icon);
-                }
+                const cellClasses = 'px-2 py-1 whitespace-nownowrap text-sm text-gray-900';
 
                 const idCell = row.insertCell();
                 idCell.className = cellClasses;
                 idCell.textContent = data.resident.id;
+                if (data.status === 'error' || data.status === 'warning') {
+                    const icon = document.createElement('span');
+                    icon.textContent = ' ❓';
+                    icon.title = data.statusReasons.join('\n');
+                    idCell.appendChild(icon);
+                }
 
                 const entryCell = row.insertCell();
                 entryCell.className = cellClasses;
