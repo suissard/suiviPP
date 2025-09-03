@@ -16,24 +16,24 @@
                 <label for="residents-input" class="block text-lg font-medium text-gray-700 mb-2">Fichier Résidents (XLSX):</label>
                 <div class="flex items-center">
                     <input type="file" id="residents-input" accept=".xlsx" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
-                    <span id="residents-validation-indicator" class="ml-2"></span>
                 </div>
+                <div id="residents-file-info" class="text-sm mt-2"></div>
             </div>
 
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <label for="projets-input" class="block text-lg font-medium text-gray-700 mb-2">Fichier Projets (XLSX):</label>
                 <div class="flex items-center">
                     <input type="file" id="projets-input" accept=".xlsx" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
-                    <span id="projets-validation-indicator" class="ml-2"></span>
                 </div>
+                <div id="projets-file-info" class="text-sm mt-2"></div>
             </div>
 
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <label for="vie-sociale-input" class="block text-lg font-medium text-gray-700 mb-2">Fichier Vie Sociale (XLSX):</label>
                 <div class="flex items-center">
                     <input type="file" id="vie-sociale-input" accept=".xlsx" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
-                    <span id="vie-sociale-validation-indicator" class="ml-2"></span>
                 </div>
+                <div id="vie-sociale-file-info" class="text-sm mt-2"></div>
             </div>
         </div>
 
@@ -140,21 +140,35 @@ function processResidentsFile(file) {
                     }
                 }
 
-                const formattedData = jsonData.map(row => {
-                    let entryDate = row["Entrée"];
-                    // The robust toISODateString now handles numbers, so this inline check is no longer needed.
-                    // However, to minimize changes, we'll leave it. The function is idempotent.
-                    if (typeof entryDate === 'number') {
-                        entryDate = new Date(Math.round((entryDate - 25569) * 86400 * 1000));
+                let successCount = 0;
+                let errorCount = 0;
+                const formattedData = [];
+
+                jsonData.forEach(row => {
+                    try {
+                        let entryDate = row["Entrée"];
+                        if (typeof entryDate === 'number') {
+                            entryDate = new Date(Math.round((entryDate - 25569) * 86400 * 1000));
+                        }
+
+                        const resident = {
+                            "id": extractName(row["Résident"]),
+                            "entry": toISODateString(entryDate),
+                            "chNum": row["N° de chambre"]
+                        };
+
+                        if (!resident.id || !resident.entry || !resident.chNum) {
+                            throw new Error("Missing required fields for resident.");
+                        }
+
+                        formattedData.push(resident);
+                        successCount++;
+                    } catch (error) {
+                        errorCount++;
                     }
-                    return {
-                        "id": extractName(row["Résident"]),
-                        "entry": toISODateString(entryDate),
-                        "chNum": row["N° de chambre"]
-                    };
                 });
 
-                resolve(formattedData);
+                resolve({ data: formattedData, successCount, errorCount });
             } catch (error) {
                 reject(error);
             }
@@ -199,15 +213,32 @@ function processProjetsFile(file) {
                     }
                 }
 
-                const formattedData = jsonData.map(row => ({
-                    "id": extractName(row["Résident"]),
-                    "type": row["Libellé"],
-                    "state": row["Étape"],
-                    "from": toISODateString(row["Du"]),
-                    "to": toISODateString(row["Au"])
-                }));
+                let successCount = 0;
+                let errorCount = 0;
+                const formattedData = [];
 
-                resolve(formattedData);
+                jsonData.forEach(row => {
+                    try {
+                        const projet = {
+                            "id": extractName(row["Résident"]),
+                            "type": row["Libellé"],
+                            "state": row["Étape"],
+                            "from": toISODateString(row["Du"]),
+                            "to": toISODateString(row["Au"])
+                        };
+
+                        if (!projet.id || !projet.type || !projet.state || !projet.from) {
+                            throw new Error("Missing required fields for projet.");
+                        }
+
+                        formattedData.push(projet);
+                        successCount++;
+                    } catch (error) {
+                        errorCount++;
+                    }
+                });
+
+                resolve({ data: formattedData, successCount, errorCount });
             } catch (error) {
                 reject(error);
             }
@@ -241,28 +272,45 @@ function processVieSocialeFile(file) {
                     return reject(new Error('Le fichier Vie Sociale ne contient pas de données.'));
                 }
 
+                let successCount = 0;
+                let errorCount = 0;
                 const formattedData = [];
                 let currentResident = null;
-                // Start from 1 to skip header row
+
                 for (let i = 1; i < sheetData.length; i++) {
-                    const row = sheetData[i];
-                    // Resident name is in the first column and the rest are empty
-                    if (row[0] && row[1] === undefined) {
-                        currentResident = extractName(row[0]);
-                    } else if (currentResident && row[1] && row[2]) { // Make sure date and type are not empty
-                        formattedData.push({
-                            "id": currentResident,
-                            "type": row[2], // "motif" is in the third column
-                            "date": toISODateString(row[1])  // "date" is in the second column
-                        });
+                    try {
+                        const row = sheetData[i];
+                        if (row[0] && row[1] === undefined) {
+                            currentResident = extractName(row[0]);
+                        } else if (currentResident && row[1] && row[2]) {
+                            const event = {
+                                "id": currentResident,
+                                "type": row[2],
+                                "date": toISODateString(row[1])
+                            };
+
+                            if (!event.id || !event.type || !event.date) {
+                                throw new Error("Missing required fields for vie sociale event.");
+                            }
+
+                            formattedData.push(event);
+                            successCount++;
+                        } else {
+                            // This case can be an error if the row is not empty
+                            if (row.some(cell => cell !== null && cell !== undefined && cell !== '')) {
+                                throw new Error("Invalid row format in vie sociale file.");
+                            }
+                        }
+                    } catch (error) {
+                        errorCount++;
                     }
                 }
 
-                if (formattedData.length === 0) {
+                if (formattedData.length === 0 && errorCount > 0) {
                     return reject(new Error("Aucune donnée valide n'a été trouvée dans le fichier Vie Sociale."));
                 }
 
-                resolve(formattedData);
+                resolve({ data: formattedData, successCount, errorCount });
             } catch (error) {
                 reject(error);
             }
@@ -432,9 +480,26 @@ function processVieSocialeFile(file) {
             return p.from && p.from >= oneYearAgo;
         });
     }
+
+    get validitePp() {
+        const ppEvents = this.vieSociale
+            .filter(v => v.type === 'PP - Présentation et Consentement' && v.date)
+            .sort((a, b) => b.date.getTime() - a.date.getTime());
+
+        if (ppEvents.length === 0) {
+            return null;
+        }
+
+        const lastPps = ppEvents.slice(0, 3);
+
+        const oldestOfLastPps = lastPps[lastPps.length - 1];
+
+        return oldestOfLastPps.date;
+    }
 }
 </script>
-    <script>document.addEventListener('DOMContentLoaded', () => {
+    <script>// Entry point for the dashboard logic
+document.addEventListener('DOMContentLoaded', () => {
     const tableContainer = document.getElementById('table-container');
     const printTableButton = document.getElementById('print-table-button');
     const filterErrorButton = document.getElementById('filter-error-button');
@@ -503,6 +568,7 @@ function processVieSocialeFile(file) {
             { text: 'Projets signés (-1 an)', sortable: true },
             { text: 'Projets Brouillon de moins d\'un an', sortable: true },
             { text: 'PP et Consentement', sortable: true },
+            { text: 'Validité PP', sortable: true },
             { text: 'Bilan d\'intégration', sortable: true },
             { text: 'Projet Médical (-1 an)', sortable: true }
         ];
@@ -624,6 +690,9 @@ function processVieSocialeFile(file) {
                 ppEtConsentementCell.textContent = data.hasPpEtConsentement ? 'Oui' : 'Non';
                 applyStatusColor(ppEtConsentementCell, data.ppEtConsentementStatus);
 
+                const validitePpCell = row.insertCell();
+                validitePpCell.className = cellClasses;
+                validitePpCell.textContent = formatDate(data.validitePp);
 
                 const bilanIntegrationCell = row.insertCell();
                 bilanIntegrationCell.className = cellClasses;
@@ -673,10 +742,14 @@ function processVieSocialeFile(file) {
                         valB = b.hasPpEtConsentement;
                         break;
                     case 7:
+                        valA = a.validitePp;
+                        valB = b.validitePp;
+                        break;
+                    case 8:
                         valA = a.hasBilanIntegration;
                         valB = b.hasBilanIntegration;
                         break;
-                    case 8:
+                    case 9:
                         valA = a.hasMedicalProjetLastYear;
                         valB = b.hasMedicalProjetLastYear;
                         break;
@@ -699,57 +772,50 @@ function processVieSocialeFile(file) {
         tableContainer.appendChild(table);
     }
 
-    // Load default data
-    Promise.all([
-        fetch('residents.json').then(response => response.json()),
-        fetch('projets.json').then(response => response.json()),
-        fetch('vie_sociale.json').then(response => response.json())
-    ])
-    .then(([residentsData, projetsData, vieSocialeData]) => {
-        tableData = {
-            residents: residentsData['Résidents'],
-            projets: projetsData['Projets'],
-            vieSociale: vieSocialeData['Vie Sociale']
-        };
-        generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
-    })
-    .catch(error => {
-        console.error('Erreur lors du chargement des données par défaut:', error);
-        tableContainer.textContent = 'Erreur lors du chargement des données par défaut. Veuillez vérifier la console.';
-    });
-
-    function setValidationIndicator(input, isValid) {
+    function setValidationIndicator(input, fileInfo, success, message) {
         const parentDiv = input.parentElement.parentElement;
         parentDiv.classList.remove('bg-white', 'bg-green-100', 'bg-red-100');
-        if (isValid === true) {
+        if (success === true) {
             parentDiv.classList.add('bg-green-100');
-        } else if (isValid === false) {
+        } else if (success === false) {
             parentDiv.classList.add('bg-red-100');
         } else {
             parentDiv.classList.add('bg-white');
         }
+        fileInfo.textContent = message;
     }
 
     async function handleFileSelect(event, type, processor) {
         const file = event.target.files[0];
         const input = event.target;
+        const fileInfo = document.getElementById(`${type}-file-info`);
+
         if (!file) {
-            setValidationIndicator(input, null);
+            setValidationIndicator(input, fileInfo, null, '');
             files[type] = null;
+            tableData[type] = null;
             return;
         }
 
         try {
-            const data = await processor(file);
-            console.log(`JSON pour ${type}:`, data);
-            tableData[type] = data;
+            const result = await processor(file);
+            console.log(`JSON pour ${type}:`, result.data);
+            tableData[type] = result.data;
             files[type] = file;
-            setValidationIndicator(input, true);
+
+            const successMessage = `${result.successCount} ligne(s) chargée(s) avec succès.`;
+            if (result.errorCount > 0) {
+                setValidationIndicator(input, fileInfo, false, `${successMessage} ${result.errorCount} erreur(s).`);
+            } else {
+                setValidationIndicator(input, fileInfo, true, successMessage);
+            }
+
             checkAndGenerateTable();
         } catch (error) {
             console.error(`Erreur de traitement du fichier pour ${type}:`, error);
-            setValidationIndicator(input, false);
+            setValidationIndicator(input, fileInfo, false, error.message);
             files[type] = null;
+            tableData[type] = null;
         }
     }
 
