@@ -156,9 +156,9 @@ class Data {
     }
 
     get validitePp() {
-        const ppEvents = this.vieSociale
-            .filter(v => v.type === 'PP - Présentation et Consentement' && v.date)
-            .sort((a, b) => b.date.getTime() - a.date.getTime());
+        const ppEvents = this.projets
+            .filter(p => p.state && p.state.trim() === 'Signature' && p.to)
+            .sort((a, b) => b.to.getTime() - a.to.getTime());
 
         if (ppEvents.length === 0) {
             return null;
@@ -168,6 +168,6 @@ class Data {
 
         const oldestOfLastPps = lastPps[lastPps.length - 1];
 
-        return oldestOfLastPps.date;
+        return oldestOfLastPps.to;
     }
 }
