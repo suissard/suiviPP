@@ -272,25 +272,6 @@ document.addEventListener('DOMContentLoaded', () => {
         tableContainer.appendChild(table);
     }
 
-    // Load default data
-    Promise.all([
-        fetch('residents.json').then(response => response.json()),
-        fetch('projets.json').then(response => response.json()),
-        fetch('vie_sociale.json').then(response => response.json())
-    ])
-    .then(([residentsData, projetsData, vieSocialeData]) => {
-        tableData = {
-            residents: residentsData['Résidents'],
-            projets: projetsData['Projets'],
-            vieSociale: vieSocialeData['Vie Sociale']
-        };
-        generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
-    })
-    .catch(error => {
-        console.error('Erreur lors du chargement des données par défaut:', error);
-        tableContainer.textContent = 'Erreur lors du chargement des données par défaut. Veuillez vérifier la console.';
-    });
-
     function setValidationIndicator(input, fileInfo, success, message) {
         const parentDiv = input.parentElement.parentElement;
         parentDiv.classList.remove('bg-white', 'bg-green-100', 'bg-red-100');
