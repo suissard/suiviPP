@@ -12,11 +12,11 @@ if (!fs.existsSync(buildDir)) {
 // Read the HTML template
 let html = fs.readFileSync(path.join(publicDir, 'index.html'), 'utf-8');
 
-// Inline CSS
-const cssPath = path.join(publicDir, 'style.css');
-if (fs.existsSync(cssPath)) {
-    const css = fs.readFileSync(cssPath, 'utf-8');
-    html = html.replace('<link rel="stylesheet" href="style.css">', `<style>${css}</style>`);
+// Inline print CSS
+const printCssPath = path.join(publicDir, 'print.css');
+if (fs.existsSync(printCssPath)) {
+    const css = fs.readFileSync(printCssPath, 'utf-8');
+    html = html.replace('<link rel="stylesheet" href="print.css" media="print">', `<style media="print">${css}</style>`);
 }
 
 // Inline JavaScript

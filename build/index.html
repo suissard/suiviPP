@@ -4,7 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de Suivi des Résidents</title>
-    <link rel="stylesheet" href="print.css" media="print">
+    <style media="print">@media print {
+    body, html {
+        margin: 0;
+        padding: 0;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    #table-container, #table-container * {
+        visibility: visible;
+    }
+
+    #table-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+
+    @page {
+        size: A4 portrait;
+        margin: 0.5cm;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 4px; /* Reduced padding */
+        font-size: 8pt; /* Reduced font size for more content */
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+}
+</style>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -43,6 +84,7 @@
                 <label for="filter-error-switch" class="ml-2 text-lg">Only errors</label>
             </div>
             <button id="print-table-button" class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 text-lg">Imprimer</button>
+            <button id="export-excel-button" class="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 text-lg">Export Excel</button>
         </div>
 
         <div id="table-container" class="mt-8 bg-white p-6 rounded-lg shadow-md"></div>
@@ -191,6 +233,27 @@ if (typeof module !== 'undefined' && module.exports) {
         processProjetsFile,
         processVieSocialeFile,
     };
+}
+
+function exportToExcel(data) {
+    const worksheetData = data.map(item => ({
+        'ID': item.resident.id,
+        'Date d\'entrée': item.resident.entry,
+        'Chambre': item.resident.chNum,
+        'Projets signés (-1 an)': item.projectsByStatus.signedLastYear,
+        'Projets Brouillon de moins d\'un an': item.draftProjectsLastYear,
+        'PP et Consentement': item.hasPpEtConsentement ? 'Oui' : 'Non',
+        'Validité PP': item.validitePp,
+        'Bilan d\'intégration': item.hasBilanIntegration ? 'Oui' : 'Non',
+        'Projet Médical (-1 an)': item.hasMedicalProjetLastYear ? 'Oui' : 'Non',
+        'Status': item.status,
+        'Status Reasons': item.statusReasons.join(', ')
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Suivi Résidents');
+    XLSX.writeFile(workbook, 'suivi_residents.xlsx');
 }
 
 function processProjetsFile(file) {
@@ -523,6 +586,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let currentFilter = null;
+    let sortedData = [];
 
     function generateTable(residents, projets, vieSociale) {
         tableContainer.innerHTML = ''; // Clear previous table
@@ -595,7 +659,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 4. Generate the table
         console.log('combinedData:', combinedData);
 
-        let sortedData = Array.from(combinedData.values());
+        sortedData = Array.from(combinedData.values());
 
         if (currentFilter) {
             sortedData = sortedData.filter(data => data.status === currentFilter);
@@ -833,6 +897,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     printTableButton.addEventListener('click', () => {
         window.print();
+    });
+
+    const exportExcelButton = document.getElementById('export-excel-button');
+    exportExcelButton.addEventListener('click', () => {
+        if (sortedData && sortedData.length > 0) {
+            exportToExcel(sortedData);
+        } else {
+            alert('No data to export!');
+        }
     });
 
     filterErrorSwitch.addEventListener('change', (event) => {
