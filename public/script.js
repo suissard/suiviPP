@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { text: 'Projets signés (-1 an)', sortable: true },
             { text: 'Projets Brouillon de moins d\'un an', sortable: true },
             { text: 'PP et Consentement', sortable: true },
+            { text: 'Validité PP', sortable: true },
             { text: 'Bilan d\'intégration', sortable: true },
             { text: 'Projet Médical (-1 an)', sortable: true }
         ];
@@ -189,6 +190,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 ppEtConsentementCell.textContent = data.hasPpEtConsentement ? 'Oui' : 'Non';
                 applyStatusColor(ppEtConsentementCell, data.ppEtConsentementStatus);
 
+                const validitePpCell = row.insertCell();
+                validitePpCell.className = cellClasses;
+                validitePpCell.textContent = formatDate(data.validitePp);
 
                 const bilanIntegrationCell = row.insertCell();
                 bilanIntegrationCell.className = cellClasses;
@@ -238,10 +242,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         valB = b.hasPpEtConsentement;
                         break;
                     case 7:
+                        valA = a.validitePp;
+                        valB = b.validitePp;
+                        break;
+                    case 8:
                         valA = a.hasBilanIntegration;
                         valB = b.hasBilanIntegration;
                         break;
-                    case 8:
+                    case 9:
                         valA = a.hasMedicalProjetLastYear;
                         valB = b.hasMedicalProjetLastYear;
                         break;
