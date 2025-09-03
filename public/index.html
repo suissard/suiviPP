@@ -37,10 +37,12 @@
             </div>
         </div>
 
-        <div class="mt-8 text-center">
-            <button id="filter-error-button" class="bg-red-500 text-white px-6 py-3 rounded-md hover:bg-red-600 text-lg">Filter Errors</button>
-            <button id="filter-warning-button" class="bg-yellow-500 text-white px-6 py-3 rounded-md hover:bg-yellow-600 text-lg ml-4">Filter Warnings</button>
-            <button id="print-table-button" class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 text-lg ml-4">Imprimer</button>
+        <div class="mt-8 flex justify-center items-center space-x-4">
+            <div class="flex items-center">
+                <input type="checkbox" id="filter-error-switch" class="h-6 w-11 rounded-full bg-gray-300 checked:bg-red-500 appearance-none relative cursor-pointer before:content-[''] before:h-5 before:w-5 before:rounded-full before:bg-white before:shadow-md before:absolute before:top-1/2 before:left-0.5 before:-translate-y-1/2 checked:before:translate-x-full before:transition">
+                <label for="filter-error-switch" class="ml-2 text-lg">Only errors</label>
+            </div>
+            <button id="print-table-button" class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 text-lg">Imprimer</button>
         </div>
 
         <div id="table-container" class="mt-8 bg-white p-6 rounded-lg shadow-md"></div>

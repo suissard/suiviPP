@@ -2,8 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const tableContainer = document.getElementById('table-container');
     const printTableButton = document.getElementById('print-table-button');
-    const filterErrorButton = document.getElementById('filter-error-button');
-    const filterWarningButton = document.getElementById('filter-warning-button');
+    const filterErrorSwitch = document.getElementById('filter-error-switch');
 
     const residentsInput = document.getElementById('residents-input');
     const projetsInput = document.getElementById('projets-input');
@@ -338,13 +337,12 @@ document.addEventListener('DOMContentLoaded', () => {
         window.print();
     });
 
-    filterErrorButton.addEventListener('click', () => {
-        currentFilter = currentFilter === 'error' ? null : 'error';
-        generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
-    });
-
-    filterWarningButton.addEventListener('click', () => {
-        currentFilter = currentFilter === 'warning' ? null : 'warning';
+    filterErrorSwitch.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            currentFilter = 'error';
+        } else {
+            currentFilter = null;
+        }
         generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
     });
 });
