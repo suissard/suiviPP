@@ -651,8 +651,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Apply row status colors
                 if (data.status === 'error') {
                     row.className = 'bg-red-100';
+                    row.title = data.statusReasons.join('\n');
                 } else if (data.status === 'warning') {
                     row.className = 'bg-yellow-100';
+                    row.title = data.statusReasons.join('\n');
                 }
 
                 const cellClasses = 'px-2 py-1 whitespace-nownowrap text-sm text-gray-900';
@@ -660,12 +662,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const idCell = row.insertCell();
                 idCell.className = cellClasses;
                 idCell.textContent = data.resident.id;
-                if (data.status === 'error' || data.status === 'warning') {
-                    const icon = document.createElement('span');
-                    icon.textContent = ' ❓';
-                    icon.title = data.statusReasons.join('\n');
-                    idCell.appendChild(icon);
-                }
 
                 const entryCell = row.insertCell();
                 entryCell.className = cellClasses;
