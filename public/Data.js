@@ -154,4 +154,20 @@ class Data {
             return p.from && p.from >= oneYearAgo;
         });
     }
+
+    get validitePp() {
+        const ppEvents = this.vieSociale
+            .filter(v => v.type === 'PP - Présentation et Consentement' && v.date)
+            .sort((a, b) => b.date.getTime() - a.date.getTime());
+
+        if (ppEvents.length === 0) {
+            return null;
+        }
+
+        const lastPps = ppEvents.slice(0, 3);
+
+        const oldestOfLastPps = lastPps[lastPps.length - 1];
+
+        return oldestOfLastPps.date;
+    }
 }
