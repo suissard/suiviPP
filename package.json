@@ -21,7 +21,7 @@
   "homepage": "https://github.com/suissard/suiviPP#readme",
   "devDependencies": {
     "jsdom": "^26.1.0",
-    "serve": "^14.2.3",
+    "serve": "^14.2.4",
     "vitest": "^3.2.4"
   },
   "dependencies": {
