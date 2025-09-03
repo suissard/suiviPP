@@ -141,6 +141,27 @@ if (typeof module !== 'undefined' && module.exports) {
     };
 }
 
+function exportToExcel(data) {
+    const worksheetData = data.map(item => ({
+        'ID': item.resident.id,
+        'Date d\'entrée': item.resident.entry,
+        'Chambre': item.resident.chNum,
+        'Projets signés (-1 an)': item.projectsByStatus.signedLastYear,
+        'Projets Brouillon de moins d\'un an': item.draftProjectsLastYear,
+        'PP et Consentement': item.hasPpEtConsentement ? 'Oui' : 'Non',
+        'Validité PP': item.validitePp,
+        'Bilan d\'intégration': item.hasBilanIntegration ? 'Oui' : 'Non',
+        'Projet Médical (-1 an)': item.hasMedicalProjetLastYear ? 'Oui' : 'Non',
+        'Status': item.status,
+        'Status Reasons': item.statusReasons.join(', ')
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Suivi Résidents');
+    XLSX.writeFile(workbook, 'suivi_residents.xlsx');
+}
+
 function processProjetsFile(file) {
     return new Promise((resolve, reject) => {
         if (!file) {

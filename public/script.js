@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let currentFilter = null;
+    let sortedData = [];
 
     function generateTable(residents, projets, vieSociale) {
         tableContainer.innerHTML = ''; // Clear previous table
@@ -93,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 4. Generate the table
         console.log('combinedData:', combinedData);
 
-        let sortedData = Array.from(combinedData.values());
+        sortedData = Array.from(combinedData.values());
 
         if (currentFilter) {
             sortedData = sortedData.filter(data => data.status === currentFilter);
@@ -327,6 +328,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     printTableButton.addEventListener('click', () => {
         window.print();
+    });
+
+    const exportExcelButton = document.getElementById('export-excel-button');
+    exportExcelButton.addEventListener('click', () => {
+        if (sortedData && sortedData.length > 0) {
+            exportToExcel(sortedData);
+        } else {
+            alert('No data to export!');
+        }
     });
 
     filterErrorSwitch.addEventListener('change', (event) => {

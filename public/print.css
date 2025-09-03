@@ -1,4 +1,9 @@
 @media print {
+    body, html {
+        margin: 0;
+        padding: 0;
+    }
+
     body * {
         visibility: hidden;
     }
@@ -8,7 +13,10 @@
     }
 
     #table-container {
-        position: static;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
     }
 
     @page {
@@ -23,8 +31,8 @@
 
     th, td {
         border: 1px solid #ddd;
-        padding: 8px;
-        font-size: 10pt;
+        padding: 4px; /* Reduced padding */
+        font-size: 8pt; /* Reduced font size for more content */
     }
 
     th {
