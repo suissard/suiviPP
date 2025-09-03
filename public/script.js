@@ -288,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function handleFileSelect(event, type, processor) {
         const file = event.target.files[0];
         const input = event.target;
-        const fileInfo = document.getElementById(`${type}-file-info`);
+        const fileInfo = input.parentElement.nextElementSibling;
 
         if (!file) {
             setValidationIndicator(input, fileInfo, null, '');
