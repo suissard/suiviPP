@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tableContainer = document.getElementById('table-container');
     const printTableButton = document.getElementById('print-table-button');
     const filterErrorButton = document.getElementById('filter-error-button');
+    const filterWarningButton = document.getElementById('filter-warning-button');
 
     const residentsInput = document.getElementById('residents-input');
     const projetsInput = document.getElementById('projets-input');
@@ -34,13 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
         thead.className = 'bg-gray-50';
         const headerRow = thead.insertRow();
         const headers = [
-            { text: 'Validité PP', sortable: true },
+            { text: 'Aide', sortable: false },
             { text: 'ID', sortable: true },
             { text: 'Date d\'entrée', sortable: true },
             { text: 'Chambre', sortable: true },
             { text: 'Projets signés (-1 an)', sortable: true },
             { text: 'Projets Brouillon de moins d\'un an', sortable: true },
             { text: 'PP et Consentement', sortable: true },
+            { text: 'Validité PP', sortable: true },
             { text: 'Bilan d\'intégration', sortable: true },
             { text: 'Projet Médical (-1 an)', sortable: true }
         ];
@@ -100,15 +102,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function defaultSort(data) {
+            const statusOrder = { 'error': 1, 'warning': 2, 'success': 3 };
+
             return data.sort((a, b) => {
+                // 1. Sort by status
+                const statusComparison = statusOrder[a.status] - statusOrder[b.status];
+                if (statusComparison !== 0) return statusComparison;
+
+                // 2. Sort by validitePp (oldest to newest)
                 const dateA = a.validitePp;
                 const dateB = b.validitePp;
 
-                if (!dateA && !dateB) return 0;
-                if (!dateA) return -1;
-                if (!dateB) return 1;
+                if (dateA && dateB) {
+                    return dateA.getTime() - dateB.getTime();
+                } else if (dateA) {
+                    return -1; // a has a date, b doesn't, so a comes first
+                } else if (dateB) {
+                    return 1; // b has a date, a doesn't, so b comes first
+                }
 
-                return dateB.getTime() - dateA.getTime();
+                return 0;
             });
         }
 
@@ -144,9 +157,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const cellClasses = 'px-6 py-4 whitespace-nownowrap text-sm text-gray-900';
 
-                const validitePpCell = row.insertCell();
-                validitePpCell.className = cellClasses;
-                validitePpCell.textContent = formatDate(data.validitePp);
+                const helpCell = row.insertCell();
+                helpCell.className = cellClasses;
+                if (data.status === 'error' || data.status === 'warning') {
+                    const icon = document.createElement('span');
+                    icon.textContent = '❓';
+                    icon.title = data.statusReasons.join('\n');
+                    helpCell.appendChild(icon);
+                }
 
                 const idCell = row.insertCell();
                 idCell.className = cellClasses;
@@ -176,6 +194,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 ppEtConsentementCell.textContent = data.hasPpEtConsentement ? 'Oui' : 'Non';
                 applyStatusColor(ppEtConsentementCell, data.ppEtConsentementStatus);
 
+                const validitePpCell = row.insertCell();
+                validitePpCell.className = cellClasses;
+                validitePpCell.textContent = formatDate(data.validitePp);
+
                 const bilanIntegrationCell = row.insertCell();
                 bilanIntegrationCell.className = cellClasses;
                 bilanIntegrationCell.textContent = data.hasBilanIntegration ? 'Oui' : 'Non';
@@ -199,10 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 let valA, valB;
 
                 switch (columnIndex) {
-                    case 0:
-                        valA = a.validitePp;
-                        valB = b.validitePp;
-                        break;
                     case 1:
                         valA = a.resident.id;
                         valB = b.resident.id;
@@ -228,10 +246,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         valB = b.hasPpEtConsentement;
                         break;
                     case 7:
+                        valA = a.validitePp;
+                        valB = b.validitePp;
+                        break;
+                    case 8:
                         valA = a.hasBilanIntegration;
                         valB = b.hasBilanIntegration;
                         break;
-                    case 8:
+                    case 9:
                         valA = a.hasMedicalProjetLastYear;
                         valB = b.hasMedicalProjetLastYear;
                         break;
@@ -313,24 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     printTableButton.addEventListener('click', () => {
-        const tableContent = document.getElementById('table-container').innerHTML;
-        const originalContent = document.body.innerHTML;
-
-        document.body.innerHTML = tableContent;
         window.print();
-        document.body.innerHTML = originalContent;
-
-        // Re-add event listeners because they are lost when we overwrite the body
-        // This is a simplified re-attachment. A more robust solution might be needed
-        // for more complex applications.
-        document.getElementById('residents-input').addEventListener('change', (e) => handleFileSelect(e, 'residents', processResidentsFile));
-        document.getElementById('projets-input').addEventListener('change', (e) => handleFileSelect(e, 'projets', processProjetsFile));
-        document.getElementById('vie-sociale-input').addEventListener('change', (e) => handleFileSelect(e, 'vieSociale', processVieSocialeFile));
-        document.getElementById('print-table-button').addEventListener('click', arguments.callee);
-        document.getElementById('filter-error-button').addEventListener('click', () => {
-            currentFilter = currentFilter === 'error' ? null : 'error';
-            generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
-        });
     });
 
     filterErrorButton.addEventListener('click', () => {
@@ -338,5 +343,8 @@ document.addEventListener('DOMContentLoaded', () => {
         generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
     });
 
+    filterWarningButton.addEventListener('click', () => {
+        currentFilter = currentFilter === 'warning' ? null : 'warning';
+        generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
     });
 });
