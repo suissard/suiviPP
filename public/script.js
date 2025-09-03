@@ -291,38 +291,50 @@ document.addEventListener('DOMContentLoaded', () => {
         tableContainer.textContent = 'Erreur lors du chargement des données par défaut. Veuillez vérifier la console.';
     });
 
-    function setValidationIndicator(input, isValid) {
+    function setValidationIndicator(input, fileInfo, success, message) {
         const parentDiv = input.parentElement.parentElement;
         parentDiv.classList.remove('bg-white', 'bg-green-100', 'bg-red-100');
-        if (isValid === true) {
+        if (success === true) {
             parentDiv.classList.add('bg-green-100');
-        } else if (isValid === false) {
+        } else if (success === false) {
             parentDiv.classList.add('bg-red-100');
         } else {
             parentDiv.classList.add('bg-white');
         }
+        fileInfo.textContent = message;
     }
 
     async function handleFileSelect(event, type, processor) {
         const file = event.target.files[0];
         const input = event.target;
+        const fileInfo = document.getElementById(`${type}-file-info`);
+
         if (!file) {
-            setValidationIndicator(input, null);
+            setValidationIndicator(input, fileInfo, null, '');
             files[type] = null;
+            tableData[type] = null;
             return;
         }
 
         try {
-            const data = await processor(file);
-            console.log(`JSON pour ${type}:`, data);
-            tableData[type] = data;
+            const result = await processor(file);
+            console.log(`JSON pour ${type}:`, result.data);
+            tableData[type] = result.data;
             files[type] = file;
-            setValidationIndicator(input, true);
+
+            const successMessage = `${result.successCount} ligne(s) chargée(s) avec succès.`;
+            if (result.errorCount > 0) {
+                setValidationIndicator(input, fileInfo, false, `${successMessage} ${result.errorCount} erreur(s).`);
+            } else {
+                setValidationIndicator(input, fileInfo, true, successMessage);
+            }
+
             checkAndGenerateTable();
         } catch (error) {
             console.error(`Erreur de traitement du fichier pour ${type}:`, error);
-            setValidationIndicator(input, false);
+            setValidationIndicator(input, fileInfo, false, error.message);
             files[type] = null;
+            tableData[type] = null;
         }
     }
 

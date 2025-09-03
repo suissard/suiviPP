@@ -90,21 +90,35 @@ function processResidentsFile(file) {
                     }
                 }
 
-                const formattedData = jsonData.map(row => {
-                    let entryDate = row["Entrée"];
-                    // The robust toISODateString now handles numbers, so this inline check is no longer needed.
-                    // However, to minimize changes, we'll leave it. The function is idempotent.
-                    if (typeof entryDate === 'number') {
-                        entryDate = new Date(Math.round((entryDate - 25569) * 86400 * 1000));
+                let successCount = 0;
+                let errorCount = 0;
+                const formattedData = [];
+
+                jsonData.forEach(row => {
+                    try {
+                        let entryDate = row["Entrée"];
+                        if (typeof entryDate === 'number') {
+                            entryDate = new Date(Math.round((entryDate - 25569) * 86400 * 1000));
+                        }
+
+                        const resident = {
+                            "id": extractName(row["Résident"]),
+                            "entry": toISODateString(entryDate),
+                            "chNum": row["N° de chambre"]
+                        };
+
+                        if (!resident.id || !resident.entry || !resident.chNum) {
+                            throw new Error("Missing required fields for resident.");
+                        }
+
+                        formattedData.push(resident);
+                        successCount++;
+                    } catch (error) {
+                        errorCount++;
                     }
-                    return {
-                        "id": extractName(row["Résident"]),
-                        "entry": toISODateString(entryDate),
-                        "chNum": row["N° de chambre"]
-                    };
                 });
 
-                resolve(formattedData);
+                resolve({ data: formattedData, successCount, errorCount });
             } catch (error) {
                 reject(error);
             }
@@ -149,15 +163,32 @@ function processProjetsFile(file) {
                     }
                 }
 
-                const formattedData = jsonData.map(row => ({
-                    "id": extractName(row["Résident"]),
-                    "type": row["Libellé"],
-                    "state": row["Étape"],
-                    "from": toISODateString(row["Du"]),
-                    "to": toISODateString(row["Au"])
-                }));
+                let successCount = 0;
+                let errorCount = 0;
+                const formattedData = [];
 
-                resolve(formattedData);
+                jsonData.forEach(row => {
+                    try {
+                        const projet = {
+                            "id": extractName(row["Résident"]),
+                            "type": row["Libellé"],
+                            "state": row["Étape"],
+                            "from": toISODateString(row["Du"]),
+                            "to": toISODateString(row["Au"])
+                        };
+
+                        if (!projet.id || !projet.type || !projet.state || !projet.from) {
+                            throw new Error("Missing required fields for projet.");
+                        }
+
+                        formattedData.push(projet);
+                        successCount++;
+                    } catch (error) {
+                        errorCount++;
+                    }
+                });
+
+                resolve({ data: formattedData, successCount, errorCount });
             } catch (error) {
                 reject(error);
             }
@@ -191,28 +222,45 @@ function processVieSocialeFile(file) {
                     return reject(new Error('Le fichier Vie Sociale ne contient pas de données.'));
                 }
 
+                let successCount = 0;
+                let errorCount = 0;
                 const formattedData = [];
                 let currentResident = null;
-                // Start from 1 to skip header row
+
                 for (let i = 1; i < sheetData.length; i++) {
-                    const row = sheetData[i];
-                    // Resident name is in the first column and the rest are empty
-                    if (row[0] && row[1] === undefined) {
-                        currentResident = extractName(row[0]);
-                    } else if (currentResident && row[1] && row[2]) { // Make sure date and type are not empty
-                        formattedData.push({
-                            "id": currentResident,
-                            "type": row[2], // "motif" is in the third column
-                            "date": toISODateString(row[1])  // "date" is in the second column
-                        });
+                    try {
+                        const row = sheetData[i];
+                        if (row[0] && row[1] === undefined) {
+                            currentResident = extractName(row[0]);
+                        } else if (currentResident && row[1] && row[2]) {
+                            const event = {
+                                "id": currentResident,
+                                "type": row[2],
+                                "date": toISODateString(row[1])
+                            };
+
+                            if (!event.id || !event.type || !event.date) {
+                                throw new Error("Missing required fields for vie sociale event.");
+                            }
+
+                            formattedData.push(event);
+                            successCount++;
+                        } else {
+                            // This case can be an error if the row is not empty
+                            if (row.some(cell => cell !== null && cell !== undefined && cell !== '')) {
+                                throw new Error("Invalid row format in vie sociale file.");
+                            }
+                        }
+                    } catch (error) {
+                        errorCount++;
                     }
                 }
 
-                if (formattedData.length === 0) {
+                if (formattedData.length === 0 && errorCount > 0) {
                     return reject(new Error("Aucune donnée valide n'a été trouvée dans le fichier Vie Sociale."));
                 }
 
-                resolve(formattedData);
+                resolve({ data: formattedData, successCount, errorCount });
             } catch (error) {
                 reject(error);
             }
