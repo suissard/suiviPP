@@ -25,36 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function generateTable(residents, projets, vieSociale) {
         tableContainer.innerHTML = ''; // Clear previous table
-        if (!residents || !projets || !vieSociale) {
-            tableContainer.textContent = 'Veuillez charger tous les fichiers de données avant de générer le tableau.';
-            return;
-        }
 
-        const combinedData = new Map();
-
-        // 1. Initialize with resident data and create Data instances
-        residents.forEach(resident => {
-            combinedData.set(resident.id, new Data(resident));
-        });
-
-        // 2. Add projects to residents
-        projets.forEach(projet => {
-            if (combinedData.has(projet.id)) {
-                combinedData.get(projet.id).addProjet(projet);
-            }
-        });
-
-        // 3. Add social life events to residents
-        vieSociale.forEach(event => {
-            if (combinedData.has(event.id)) {
-                combinedData.get(event.id).addVieSociale(event);
-            }
-        });
-
-        // 4. Generate the table
-        console.log('combinedData:', combinedData);
         const table = document.createElement('table');
         table.className = 'min-w-full divide-y divide-gray-200';
+        tableContainer.appendChild(table);
 
         // Table header
         const thead = table.createTHead();
@@ -87,6 +61,40 @@ document.addEventListener('DOMContentLoaded', () => {
         // Table body
         const tbody = table.createTBody();
         tbody.className = 'bg-white divide-y divide-gray-200';
+
+        if (!residents || !projets || !vieSociale) {
+            const row = tbody.insertRow();
+            const cell = row.insertCell();
+            cell.colSpan = headers.length;
+            cell.textContent = 'Veuillez charger tous les fichiers de données avant de générer le tableau.';
+            cell.className = 'px-6 py-4 text-center text-gray-500';
+            return;
+        }
+
+        const combinedData = new Map();
+
+        // 1. Initialize with resident data and create Data instances
+        residents.forEach(resident => {
+            combinedData.set(resident.id, new Data(resident));
+        });
+
+        // 2. Add projects to residents
+        projets.forEach(projet => {
+            if (combinedData.has(projet.id)) {
+                combinedData.get(projet.id).addProjet(projet);
+            }
+        });
+
+        // 3. Add social life events to residents
+        vieSociale.forEach(event => {
+            if (combinedData.has(event.id)) {
+                combinedData.get(event.id).addVieSociale(event);
+            }
+        });
+
+        // 4. Generate the table
+        console.log('combinedData:', combinedData);
+
         let sortedData = Array.from(combinedData.values());
 
         if (currentFilter) {
