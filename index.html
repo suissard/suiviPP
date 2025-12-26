@@ -1,257 +1,925 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Bien-être | Thème Nature</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        /* Définition des polices et des couleurs personnalisées */
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #FCFAF7; /* Un blanc cassé très chaleureux, comme la lumière du soleil filtrée */
-            color: #3B322C; /* Un brun très foncé, comme la terre humide, pour le texte */
+    <title>Tableau de Suivi des Résidents</title>
+    <style media="print">@media print {
+    body, html {
+        margin: 0;
+        padding: 0;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    #table-container, #table-container * {
+        visibility: visible;
+    }
+
+    #table-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+
+    @page {
+        size: A4 portrait;
+        margin: 0.5cm;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 4px; /* Reduced padding */
+        font-size: 8pt; /* Reduced font size for more content */
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+}
+</style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto p-8">
+        <h1 class="text-4xl font-bold text-center mb-8">Tableau de Suivi des Résidents</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <label for="residents-input" class="block text-lg font-medium text-gray-700 mb-2">Fichier Résidents (XLSX):</label>
+                <div class="flex items-center">
+                    <input type="file" id="residents-input" accept=".xlsx" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
+                </div>
+                <div id="residents-file-info" class="text-sm mt-2"></div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <label for="projets-input" class="block text-lg font-medium text-gray-700 mb-2">Fichier Projets (XLSX):</label>
+                <div class="flex items-center">
+                    <input type="file" id="projets-input" accept=".xlsx" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
+                </div>
+                <div id="projets-file-info" class="text-sm mt-2"></div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <label for="vie-sociale-input" class="block text-lg font-medium text-gray-700 mb-2">Fichier Vie Sociale (XLSX):</label>
+                <div class="flex items-center">
+                    <input type="file" id="vie-sociale-input" accept=".xlsx" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
+                </div>
+                <div id="vie-sociale-file-info" class="text-sm mt-2"></div>
+            </div>
+        </div>
+
+        <div class="mt-8 flex justify-center items-center space-x-4">
+            <div class="flex items-center">
+                <input type="checkbox" id="filter-error-switch" class="h-6 w-11 rounded-full bg-gray-300 checked:bg-red-500 appearance-none relative cursor-pointer before:content-[''] before:h-5 before:w-5 before:rounded-full before:bg-white before:shadow-md before:absolute before:top-1/2 before:left-0.5 before:-translate-y-1/2 checked:before:translate-x-full before:transition">
+                <label for="filter-error-switch" class="ml-2 text-lg">Only errors</label>
+            </div>
+            <button id="print-table-button" class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 text-lg">Imprimer</button>
+            <button id="export-excel-button" class="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 text-lg">Export Excel</button>
+        </div>
+
+        <div id="table-container" class="mt-8 bg-white p-6 rounded-lg shadow-md"></div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script>function extractName(fullName) {
+  if (!fullName) {
+    return '';
+  }
+
+  let processedName = String(fullName);
+
+  // Remove titles like "Mme.", "M.", "MR"
+  processedName = processedName.replace(/^(Mme|M|MR)\.?\s+/, '');
+
+  // Stop at "Née"
+  const neeIndex = processedName.indexOf('Née');
+  if (neeIndex > -1) {
+    processedName = processedName.substring(0, neeIndex);
+  }
+
+  // Stop at a comma, which often separates other names
+  const commaIndex = processedName.indexOf(',');
+  if (commaIndex > -1) {
+    processedName = processedName.substring(0, commaIndex);
+  }
+
+  // Stop at parenthesis
+  const parenthesisIndex = processedName.indexOf('(');
+  if (parenthesisIndex > -1) {
+    processedName = processedName.substring(0, parenthesisIndex);
+  }
+
+  // Trim any remaining whitespace
+  return processedName.trim();
+}
+
+function toISODateString(date) {
+    if (!date) {
+        return null;
+    }
+
+    let d;
+    if (date instanceof Date) {
+        d = date;
+    } else if (typeof date === 'string' && date.includes('/')) {
+        const parts = date.split('/');
+        if (parts.length === 3) {
+            // Assuming DD/MM/YYYY
+            const day = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10) - 1; // Month is 0-indexed
+            const year = parseInt(parts[2], 10);
+            d = new Date(Date.UTC(year, month, day));
+        } else {
+            d = new Date(date); // Fallback for other string formats
         }
-        h1, h2, h3, .font-display {
-            font-family: 'Playfair Display', serif;
-        }
-        p {
-            line-height: 1.7; 
+    } else if (typeof date === 'number') {
+        // It could be an Excel serial number.
+        d = new Date(Math.round((date - 25569) * 86400 * 1000));
+    }
+    else {
+        d = new Date(date); // Fallback for other types
+    }
+
+    // Check if the date is valid
+    if (isNaN(d.getTime())) {
+        return null;
+    }
+
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+function processResidentsFile(file) {
+    return new Promise((resolve, reject) => {
+        if (!file) {
+            return reject(new Error('No file selected.'));
         }
 
-        /* Thème de couleur "Nature / Arbre" */
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'brand-primary': '#4A6A54',   /* Vert forêt profond, comme les feuilles */
-                        'brand-primary-light': '#6A8A74',
-                        'brand-secondary': '#8A6B54', /* Brun chaud, comme l'écorce d'un arbre */
-                        'brand-light': '#F4F1EAD',    /* Beige très clair, comme le bois de bouleau */
-                        'brand-background': '#FCFAF7',
-                        'brand-text': '#3B322C',
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            try {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const sheetName = workbook.SheetNames[0];
+                const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { cellDates: true });
+
+                if (jsonData.length > 0) {
+                    const firstRow = jsonData[0];
+                    if (!('Résident' in firstRow && 'Entrée' in firstRow && 'N° de chambre' in firstRow)) {
+                        return reject(new Error('Le fichier Résidents ne contient pas les colonnes attendues.'));
                     }
                 }
+
+                let successCount = 0;
+                let errorCount = 0;
+                const formattedData = [];
+
+                jsonData.forEach(row => {
+                    try {
+                        let entryDate = row["Entrée"];
+                        if (typeof entryDate === 'number') {
+                            entryDate = new Date(Math.round((entryDate - 25569) * 86400 * 1000));
+                        }
+
+                        const resident = {
+                            "id": extractName(row["Résident"]),
+                            "entry": toISODateString(entryDate),
+                            "chNum": row["N° de chambre"]
+                        };
+
+                        if (!resident.id || !resident.entry || !resident.chNum) {
+                            throw new Error("Missing required fields for resident.");
+                        }
+
+                        formattedData.push(resident);
+                        successCount++;
+                    } catch (error) {
+                        errorCount++;
+                    }
+                });
+
+                resolve({ data: formattedData, successCount, errorCount });
+            } catch (error) {
+                reject(error);
+            }
+        };
+
+        reader.onerror = (error) => {
+            reject(error);
+        };
+
+        reader.readAsArrayBuffer(file);
+    });
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        extractName,
+        processResidentsFile,
+        processProjetsFile,
+        processVieSocialeFile,
+    };
+}
+
+function exportToExcel(data) {
+    const worksheetData = data.map(item => ({
+        'ID': item.resident.id,
+        'Date d\'entrée': item.resident.entry,
+        'Chambre': item.resident.chNum,
+        'Projets signés (-1 an)': item.projectsByStatus.signedLastYear,
+        'Projets Brouillon de moins d\'un an': item.draftProjectsLastYear,
+        'PP et Consentement': item.hasPpEtConsentement ? 'Oui' : 'Non',
+        'Validité PP': item.validitePp,
+        'Bilan d\'intégration': item.hasBilanIntegration ? 'Oui' : 'Non',
+        'Projet Médical (-1 an)': item.hasMedicalProjetLastYear ? 'Oui' : 'Non',
+        'Status': item.status,
+        'Status Reasons': item.statusReasons.join(', ')
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Suivi Résidents');
+    XLSX.writeFile(workbook, 'suivi_residents.xlsx');
+}
+
+function processProjetsFile(file) {
+    return new Promise((resolve, reject) => {
+        if (!file) {
+            return reject(new Error('No file selected.'));
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            try {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const sheetName = workbook.SheetNames[0];
+                const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { cellDates: true });
+
+                if (jsonData.length > 0) {
+                    const firstRow = jsonData[0];
+                    if (!('Résident' in firstRow && 'Libellé' in firstRow && 'Étape' in firstRow && 'Du' in firstRow && 'Au' in firstRow)) {
+                        return reject(new Error('Le fichier Projets ne contient pas les colonnes attendues.'));
+                    }
+                }
+
+                let successCount = 0;
+                let errorCount = 0;
+                const formattedData = [];
+
+                jsonData.forEach(row => {
+                    try {
+                        const projet = {
+                            "id": extractName(row["Résident"]),
+                            "type": row["Libellé"],
+                            "state": row["Étape"],
+                            "from": toISODateString(row["Du"]),
+                            "to": toISODateString(row["Au"])
+                        };
+
+                        if (!projet.id || !projet.type || !projet.state || !projet.from) {
+                            throw new Error("Missing required fields for projet.");
+                        }
+
+                        formattedData.push(projet);
+                        successCount++;
+                    } catch (error) {
+                        errorCount++;
+                    }
+                });
+
+                resolve({ data: formattedData, successCount, errorCount });
+            } catch (error) {
+                reject(error);
+            }
+        };
+
+        reader.onerror = (error) => {
+            reject(error);
+        };
+
+        reader.readAsArrayBuffer(file);
+    });
+}
+
+function processVieSocialeFile(file) {
+    return new Promise((resolve, reject) => {
+        if (!file) {
+            return reject(new Error('No file selected.'));
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            try {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array', cellDates: true });
+                const sheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[sheetName];
+                const sheetData = XLSX.utils.sheet_to_json(worksheet, { header: 1, raw: false });
+
+                if (sheetData.length < 2) {
+                    return reject(new Error('Le fichier Vie Sociale ne contient pas de données.'));
+                }
+
+                let successCount = 0;
+                let errorCount = 0;
+                const formattedData = [];
+                let currentResident = null;
+
+                for (let i = 1; i < sheetData.length; i++) {
+                    try {
+                        const row = sheetData[i];
+                        if (row[0] && row[1] === undefined) {
+                            currentResident = extractName(row[0]);
+                        } else if (currentResident && row[1] && row[2]) {
+                            const event = {
+                                "id": currentResident,
+                                "type": row[2],
+                                "date": toISODateString(row[1])
+                            };
+
+                            if (!event.id || !event.type || !event.date) {
+                                throw new Error("Missing required fields for vie sociale event.");
+                            }
+
+                            formattedData.push(event);
+                            successCount++;
+                        } else {
+                            // This case can be an error if the row is not empty
+                            if (row.some(cell => cell !== null && cell !== undefined && cell !== '')) {
+                                throw new Error("Invalid row format in vie sociale file.");
+                            }
+                        }
+                    } catch (error) {
+                        errorCount++;
+                    }
+                }
+
+                if (formattedData.length === 0 && errorCount > 0) {
+                    return reject(new Error("Aucune donnée valide n'a été trouvée dans le fichier Vie Sociale."));
+                }
+
+                resolve({ data: formattedData, successCount, errorCount });
+            } catch (error) {
+                reject(error);
+            }
+        };
+
+        reader.onerror = (error) => {
+            reject(error);
+        };
+
+        reader.readAsArrayBuffer(file);
+    });
+}
+</script>
+    <script>class Data {
+    constructor(resident) {
+        this.resident = resident;
+        if (this.resident.entry) {
+            this.resident.entry = new Date(this.resident.entry);
+        }
+        this.projets = [];
+        this.vieSociale = [];
+    }
+
+    addProjet(projet) {
+        if (projet.from) {
+            projet.from = new Date(projet.from);
+        }
+        if (projet.to) {
+            projet.to = new Date(projet.to);
+        }
+        this.projets.push(projet);
+    }
+
+    addVieSociale(event) {
+        if (event.date) {
+            event.date = new Date(event.date);
+        }
+        this.vieSociale.push(event);
+    }
+
+    get status() {
+        const statuses = [
+            this.signedProjectStatus,
+            this.draftProjectStatus,
+            this.ppEtConsentementStatus,
+            this.bilanIntegrationStatus,
+            this.medicalProjetLastYearStatus
+        ];
+
+        if (statuses.includes('error')) {
+            return 'error';
+        }
+        if (statuses.includes('warning')) {
+            return 'warning';
+        }
+        return 'success';
+    }
+
+    get statusReasons() {
+        const reasons = [];
+        if (this.signedProjectStatus === 'error') {
+            reasons.push('Le nombre de projets signés de moins d\'un an est inférieur à 3.');
+        }
+        if (this.draftProjectStatus === 'warning') {
+            reasons.push('Il y a des projets en état de brouillon de moins d\'un an.');
+        }
+        if (this.ppEtConsentementStatus === 'error') {
+            reasons.push('PP et consentement manquant.');
+        }
+        if (this.bilanIntegrationStatus === 'error') {
+            reasons.push('Bilan d\'intégration manquant.');
+        }
+        if (this.medicalProjetLastYearStatus === 'error') {
+            reasons.push('Projet médical de moins d\'un an manquant.');
+        }
+        return reasons;
+    }
+
+    get signedProjectStatus() {
+        return this.projectsByStatus.signedLastYear < 3 ? 'error' : 'normal';
+    }
+
+    get draftProjectStatus() {
+        return this.draftProjectsLastYear > 0 ? 'warning' : 'normal';
+    }
+
+    get ppEtConsentementStatus() {
+        return this.hasPpEtConsentement ? 'normal' : 'error';
+    }
+
+    get bilanIntegrationStatus() {
+        return this.hasBilanIntegration ? 'normal' : 'error';
+    }
+
+    get medicalProjetLastYearStatus() {
+        return this.hasMedicalProjetLastYear ? 'normal' : 'error';
+    }
+
+    get projectsCount() {
+        return this.projets.length;
+    }
+
+    get signatureProjetsCount() {
+        return this.projets.filter(p => p.state && p.state.trim() === 'Signature').length;
+    }
+
+    get brouillonProjetsCount() {
+        return this.projets.filter(p => p.state && p.state.trim() === 'Brouillon').length;
+    }
+
+    get draftProjectsLastYear() {
+        const today = new Date();
+        const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+        return this.projets.filter(p => {
+            if (!p.state || p.state.trim() !== 'Brouillon') return false;
+            return p.from && p.from >= oneYearAgo;
+        }).length;
+    }
+
+    get projectsByStatus() {
+        const today = new Date();
+        const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+
+        const statusCounts = {
+            signedLastYear: 0,
+            onGoing: 0,
+            finished: 0,
+            future: 0,
+            draft: this.brouillonProjetsCount,
+            signed: this.signatureProjetsCount,
+        };
+
+        this.projets.forEach(p => {
+            if (!p.state) return;
+            const state = p.state.trim();
+            if (state === 'Signature' && p.from >= oneYearAgo) {
+                statusCounts.signedLastYear++;
+            }
+            if (state === 'En cours') {
+                statusCounts.onGoing++;
+            }
+            if (state === 'Clôture') { // Corrected keyword
+                statusCounts.finished++;
+            }
+            if (state === 'À venir') {
+                statusCounts.future++;
+            }
+        });
+
+        return statusCounts;
+    }
+
+    get hasPpEtConsentement() {
+        return this.vieSociale.some(v => v.type === 'PP - Présentation et Consentement');
+    }
+
+    get hasBilanIntegration() {
+        return this.vieSociale.some(v => v.type === 'Bilan d’intégration');
+    }
+
+    get hasMedicalProjetLastYear() {
+        const today = new Date();
+        const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+        return this.projets.some(p => {
+            if (p.type !== 'Prise en charge médicale') return false;
+            // Assuming 'from' date should be within the last year
+            return p.from && p.from >= oneYearAgo;
+        });
+    }
+
+    get validitePp() {
+        const ppEvents = this.projets
+            .filter(p => p.state && p.state.trim() === 'Signature' && p.to)
+            .sort((a, b) => b.to.getTime() - a.to.getTime());
+
+        if (ppEvents.length === 0) {
+            return null;
+        }
+
+        const lastPps = ppEvents.slice(0, 3);
+
+        const oldestOfLastPps = lastPps[lastPps.length - 1];
+
+        return oldestOfLastPps.to;
+    }
+}
+</script>
+    <script>// Entry point for the dashboard logic
+document.addEventListener('DOMContentLoaded', () => {
+    const tableContainer = document.getElementById('table-container');
+    const printTableButton = document.getElementById('print-table-button');
+    const filterErrorSwitch = document.getElementById('filter-error-switch');
+
+    const residentsInput = document.getElementById('residents-input');
+    const projetsInput = document.getElementById('projets-input');
+    const vieSocialeInput = document.getElementById('vie-sociale-input');
+
+    let tableData = {
+        residents: null,
+        projets: null,
+        vieSociale: null
+    };
+
+    let files = {
+        residents: null,
+        projets: null,
+        vieSociale: null
+    }
+
+    let currentFilter = null;
+    let sortedData = [];
+
+    function generateTable(residents, projets, vieSociale) {
+        tableContainer.innerHTML = ''; // Clear previous table
+
+        const table = document.createElement('table');
+        table.className = 'min-w-full divide-y divide-gray-200';
+        tableContainer.appendChild(table);
+
+        // Table header
+        const thead = table.createTHead();
+        thead.className = 'bg-gray-50';
+        const headerRow = thead.insertRow();
+        const headers = [
+            { text: 'ID', sortable: true },
+            { text: 'Date d\'entrée', sortable: true },
+            { text: 'Chambre', sortable: true },
+            { text: 'Projets signés (-1 an)', sortable: true },
+            { text: 'Projets Brouillon de moins d\'un an', sortable: true },
+            { text: 'PP et Consentement', sortable: true },
+            { text: 'Validité PP', sortable: true },
+            { text: 'Bilan d\'intégration', sortable: true },
+            { text: 'Projet Médical (-1 an)', sortable: true }
+        ];
+
+        headers.forEach((header, index) => {
+            const th = document.createElement('th');
+            th.className = 'px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider';
+            th.textContent = header.text;
+            if (header.sortable) {
+                th.style.cursor = 'pointer';
+                th.addEventListener('click', () => sortTable(index));
+            }
+            headerRow.appendChild(th);
+        });
+
+        // Table body
+        const tbody = table.createTBody();
+        tbody.className = 'bg-white divide-y divide-gray-200';
+
+        if (!residents || !projets || !vieSociale) {
+            const row = tbody.insertRow();
+            const cell = row.insertCell();
+            cell.colSpan = headers.length;
+            cell.textContent = 'Veuillez charger tous les fichiers de données avant de générer le tableau.';
+            cell.className = 'px-6 py-4 text-center text-gray-500';
+            return;
+        }
+
+        const combinedData = new Map();
+
+        // 1. Initialize with resident data and create Data instances
+        residents.forEach(resident => {
+            combinedData.set(resident.id, new Data(resident));
+        });
+
+        // 2. Add projects to residents
+        projets.forEach(projet => {
+            if (combinedData.has(projet.id)) {
+                combinedData.get(projet.id).addProjet(projet);
+            }
+        });
+
+        // 3. Add social life events to residents
+        vieSociale.forEach(event => {
+            if (combinedData.has(event.id)) {
+                combinedData.get(event.id).addVieSociale(event);
+            }
+        });
+
+        // 4. Generate the table
+        console.log('combinedData:', combinedData);
+
+        sortedData = Array.from(combinedData.values());
+
+        if (currentFilter) {
+            sortedData = sortedData.filter(data => data.status === currentFilter);
+        }
+
+        function defaultSort(data) {
+            const statusOrder = { 'error': 1, 'warning': 2, 'success': 3 };
+
+            return data.sort((a, b) => {
+                // 0. Priority: Missing Bilan d'intégration
+                const aMissingBilan = !a.hasBilanIntegration;
+                const bMissingBilan = !b.hasBilanIntegration;
+
+                if (aMissingBilan && !bMissingBilan) return -1;
+                if (!aMissingBilan && bMissingBilan) return 1;
+
+                // 1. Sort by status
+                const statusComparison = statusOrder[a.status] - statusOrder[b.status];
+                if (statusComparison !== 0) return statusComparison;
+
+                // 2. Sort by validitePp (oldest to newest)
+                const dateA = a.validitePp;
+                const dateB = b.validitePp;
+
+                if (dateA && dateB) {
+                    return dateA.getTime() - dateB.getTime();
+                } else if (dateA) {
+                    return -1; // a has a date, b doesn't, so a comes first
+                } else if (dateB) {
+                    return 1; // b has a date, a doesn't, so b comes first
+                }
+
+                return 0;
+            });
+        }
+
+        defaultSort(sortedData);
+
+        function formatDate(date) {
+            if (!date) return '';
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        function applyStatusColor(element, status) {
+            if (status === 'error') {
+                element.classList.add('bg-red-200');
+            } else if (status === 'warning') {
+                element.classList.add('bg-yellow-200');
             }
         }
 
-        /* Animation pour l'apparition douce des sections */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .fade-in-section {
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out forwards;
-        }
+        function renderTable(dataToRender) {
+            tbody.innerHTML = ''; // Clear existing rows
+            dataToRender.forEach(data => {
+                const row = tbody.insertRow();
 
-        /* Style pour la barre de navigation "sticky" */
-        .nav-scrolled {
-            background-color: rgba(252, 250, 247, 0.85);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        }
-        
-        /* --- NOUVEAU : Animation du menu mobile --- */
-        #mobile-menu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
-        }
-        #mobile-menu.menu-open {
-            max-height: 300px; /* Hauteur suffisante pour afficher tous les liens */
-        }
-        
-        /* Effet de survol pour les boutons avec dégradé */
-        .btn-gradient {
-            background-size: 200% 100%;
-            transition: background-position 0.5s ease;
-        }
-        .btn-gradient:hover {
-            background-position: right center;
-        }
-
-    </style>
-</head>
-<body class="bg-brand-background text-brand-text">
-
-    <!-- HEADER & NAVIGATION -->
-    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-display font-bold text-brand-primary transition-transform duration-300 hover:scale-105">Casa Bien-être</a>
-            <nav class="hidden md:flex space-x-6 items-center">
-                <a href="#services" class="hover:text-brand-primary transition-colors duration-300 pb-1 border-b-2 border-transparent hover:border-brand-primary">Nos Soins</a>
-                <a href="#about" class="hover:text-brand-primary transition-colors duration-300 pb-1 border-b-2 border-transparent hover:border-brand-primary">Qui suis-je ?</a>
-                <a href="#testimonials" class="hover:text-brand-primary transition-colors duration-300 pb-1 border-b-2 border-transparent hover:border-brand-primary">Témoignages</a>
-                <a href="#contact" class="bg-gradient-to-r from-brand-primary to-brand-primary-light text-white px-5 py-2 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 btn-gradient">Contact</a>
-            </nav>
-            <button id="mobile-menu-button" class="md:hidden text-brand-primary">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-        </div>
-        <!-- Menu mobile -->
-        <div id="mobile-menu" class="md:hidden bg-brand-background shadow-xl">
-            <a href="#services" class="block text-center py-3 px-4 hover:bg-brand-light transition-colors duration-300">Nos Soins</a>
-            <a href="#about" class="block text-center py-3 px-4 hover:bg-brand-light transition-colors duration-300">Qui suis-je ?</a>
-            <a href="#testimonials" class="block text-center py-3 px-4 hover:bg-brand-light transition-colors duration-300">Témoignages</a>
-            <a href="#contact" class="block text-center py-3 px-4 bg-brand-primary text-white hover:bg-opacity-90 transition-colors duration-300">Contact</a>
-        </div>
-    </header>
-
-    <main>
-        <!-- HERO SECTION -->
-        <section class="min-h-screen bg-cover bg-center flex items-center justify-center pt-20 relative" style="background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
-            <!--  -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-black/20"></div>
-            <div class="relative bg-black bg-opacity-10 p-8 md:p-12 rounded-lg text-center text-white backdrop-blur-sm">
-                <h1 class="text-4xl md:text-6xl font-display mb-4 animate-fade-in-down">Casa Bien-être</h1>
-                <p class="text-lg md:text-2xl mb-8 font-light animate-fade-in-up">Un espace de douceur pour le corps et l'esprit.</p>
-                <a href="#services" class="bg-brand-light text-brand-text px-8 py-3 rounded-full text-lg shadow-xl hover:bg-opacity-90 transition-all duration-300 transform hover:-translate-y-1">Découvrir les soins</a>
-            </div>
-        </section>
-
-        <!-- SERVICES SECTION -->
-        <section id="services" class="py-20 bg-white">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-4xl font-display mb-4">Une pause pour vous</h2>
-                <p class="max-w-2xl mx-auto mb-12 text-lg">Explorez nos soins conçus pour harmoniser votre énergie et apaiser vos tensions.</p>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    <!-- Service Card -->
-                    <div class="service-card bg-brand-background p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-                        <div class="bg-gradient-to-br from-brand-primary to-brand-primary-light text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 shadow-md">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.586 15.586a2 2 0 002.828-2.828l-3-3a2 2 0 00-2.828 0l-1.586 1.586a2 2 0 000 2.828l3 3zM12 12l-3-3m0 0l-1.586-1.586a2 2 0 00-2.828 2.828l3 3a2 2 0 002.828 0l1.586-1.586zM5 5l1.586 1.586m-1.586 0a2 2 0 000 2.828l3 3a2 2 0 002.828 0l1.586-1.586m-4.414-4.414L9 9"/></svg>
-                        </div>
-                        <h3 class="text-2xl font-display mb-3">Réflexologie</h3>
-                        <p>Plantaire, palmaire, faciale... Une stimulation des points réflexes pour un rééquilibrage profond.</p>
-                    </div>
-                    <!-- Service Card -->
-                    <div class="service-card bg-brand-background p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-                       <div class="bg-gradient-to-br from-brand-primary to-brand-primary-light text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 shadow-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor"><path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 011-1h.5a1.5 1.5 0 000-3H6a1 1 0 01-1-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z"/></svg>
-                        </div>
-                        <h3 class="text-2xl font-display mb-3">Massages</h3>
-                        <p>Des massages bien-être adaptés à vos besoins, y compris pour femme enceinte et bébé.</p>
-                    </div>
-                    <!-- Service Card -->
-                    <div class="service-card bg-brand-background p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-                       <div class="bg-gradient-to-br from-brand-primary to-brand-primary-light text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 shadow-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                        </div>
-                        <h3 class="text-2xl font-display mb-3">La Casa</h3>
-                        <p>Un espace chaleureux et professionnel disponible à la location pour vos propres activités bien-être.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ABOUT SECTION -->
-        <section id="about" class="py-20 bg-brand-light">
-            <div class="container mx-auto px-6">
-                <div class="flex flex-col md:flex-row items-center gap-12">
-                    <div class="md:w-1/2 w-full">
-                        <img src="https://images.unsplash.com/photo-1594385994269-082414dbec67?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Portrait de la praticienne" class="rounded-xl shadow-2xl w-full h-auto object-cover">
-                    </div>
-                    <div class="md:w-1/2 w-full">
-                        <h2 class="text-4xl font-display mb-4">Ma philosophie</h2>
-                        <p class="mb-4 text-lg">Je suis convaincue que le bien-être naît de l'équilibre entre le corps, l'âme et l'esprit. Chaque soin est une invitation à vous reconnecter avec vous-même, dans un cadre bienveillant et à l'écoute de vos besoins.</p>
-                        <p>Formée à différentes techniques de réflexologie et de massage, je mets mon savoir-faire et ma passion à votre service pour vous accompagner sur le chemin de la sérénité et de la vitalité.</p>
-                         <a href="#contact" class="mt-8 inline-block bg-brand-secondary text-white px-8 py-3 rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-300 transform hover:-translate-y-0.5">Prendre rendez-vous</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TESTIMONIALS SECTION -->
-        <section id="testimonials" class="py-20 bg-white">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-4xl font-display mb-12">Ce que vous en dites</h2>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                     <!-- Testimonial Card -->
-                    <div class="bg-brand-background p-8 rounded-xl shadow-lg transition-all duration-300">
-                        <p class="italic mb-4">"Un pur moment de détente. Je suis sortie de la séance complètement relaxée et ressourcée. Une praticienne à l'écoute et très professionnelle."</p>
-                        <p class="font-bold text-brand-primary">- Sophie L.</p>
-                    </div>
-                    <!-- Testimonial Card mis en avant -->
-                    <div class="bg-brand-background p-8 rounded-xl shadow-lg transition-all duration-300 md:transform md:scale-105 md:shadow-xl border-t-4 border-brand-secondary">
-                        <p class="italic mb-4">"Les séances de réflexologie m'ont beaucoup aidé à soulager mes tensions. Un grand merci pour votre douceur et votre expertise !"</p>
-                        <p class="font-bold text-brand-primary">- Marc D.</p>
-                    </div>
-                     <!-- Testimonial Card -->
-                    <div class="bg-brand-background p-8 rounded-xl shadow-lg transition-all duration-300">
-                        <p class="italic mb-4">"Un cadre magnifique et apaisant. On se sent tout de suite bien. Les massages sont incroyables, je recommande vivement."</p>
-                        <p class="font-bold text-brand-primary">- Hélène B.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CONTACT & BOOKING SECTION -->
-        <section id="contact" class="py-20 bg-brand-primary/10">
-            <div class="container mx-auto px-6 text-center relative">
-                <h2 class="text-4xl font-display mb-4">Contactez-moi</h2>
-                <p class="max-w-xl mx-auto mb-8 text-lg">Prêt(e) à prendre du temps pour vous ? N'hésitez pas à me contacter pour toute question ou pour prendre rendez-vous.</p>
-                <a href="mailto:contact@casa-bienetre.fr" class="bg-gradient-to-r from-brand-primary to-brand-primary-light text-white text-xl px-10 py-4 rounded-full shadow-xl transition-all duration-300 transform hover:-translate-y-1 btn-gradient">
-                    Envoyer un email
-                </a>
-                <div class="mt-10">
-                    <p class="mb-2">Ou par téléphone au <a href="tel:+33XXXXXXXXX" class="font-semibold text-brand-primary hover:underline">06 XX XX XX XX</a></p>
-                    <p>Meschers-sur-Gironde</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-brand-text text-white py-8">
-        <div class="container mx-auto px-6 text-center">
-            <p>&copy; 2024 Casa Bien-être. Tous droits réservés.</p>
-            <p class="text-sm text-gray-400 mt-2">Design inspiré et modernisé avec soin.</p>
-        </div>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('nav-scrolled');
-                } else {
-                    navbar.classList.remove('nav-scrolled');
+                // Apply row status colors
+                if (data.status === 'error') {
+                    row.className = 'bg-red-100';
+                    row.title = data.statusReasons.join('\n');
+                } else if (data.status === 'warning') {
+                    row.className = 'bg-yellow-100';
+                    row.title = data.statusReasons.join('\n');
                 }
+
+                const cellClasses = 'px-2 py-1 whitespace-nownowrap text-sm text-gray-900';
+
+                const idCell = row.insertCell();
+                idCell.className = cellClasses;
+                idCell.textContent = data.resident.id;
+
+                const entryCell = row.insertCell();
+                entryCell.className = cellClasses;
+                entryCell.textContent = formatDate(data.resident.entry);
+
+                const chNumCell = row.insertCell();
+                chNumCell.className = cellClasses;
+                chNumCell.textContent = data.resident.chNum;
+
+                const signedLastYearCell = row.insertCell();
+                signedLastYearCell.className = cellClasses;
+                signedLastYearCell.textContent = data.projectsByStatus.signedLastYear;
+                applyStatusColor(signedLastYearCell, data.signedProjectStatus);
+
+
+                const draftLastYearCell = row.insertCell();
+                draftLastYearCell.className = cellClasses;
+                draftLastYearCell.textContent = data.draftProjectsLastYear;
+                applyStatusColor(draftLastYearCell, data.draftProjectStatus);
+
+                const ppEtConsentementCell = row.insertCell();
+                ppEtConsentementCell.className = cellClasses;
+                ppEtConsentementCell.textContent = data.hasPpEtConsentement ? 'Oui' : 'Non';
+                applyStatusColor(ppEtConsentementCell, data.ppEtConsentementStatus);
+
+                const validitePpCell = row.insertCell();
+                validitePpCell.className = cellClasses;
+                validitePpCell.textContent = formatDate(data.validitePp);
+
+                const bilanIntegrationCell = row.insertCell();
+                bilanIntegrationCell.className = cellClasses;
+                bilanIntegrationCell.textContent = data.hasBilanIntegration ? 'Oui' : 'Non';
+                applyStatusColor(bilanIntegrationCell, data.bilanIntegrationStatus);
+
+
+                const medicalProjetCell = row.insertCell();
+                medicalProjetCell.className = cellClasses;
+                medicalProjetCell.textContent = data.hasMedicalProjetLastYear ? 'Oui' : 'Non';
+                applyStatusColor(medicalProjetCell, data.medicalProjetLastYearStatus);
+            });
+        }
+
+        let sortDirection = 'asc';
+
+        function sortTable(columnIndex) {
+            const isAsc = sortDirection === 'asc';
+            sortDirection = isAsc ? 'desc' : 'asc';
+
+            sortedData.sort((a, b) => {
+                let valA, valB;
+
+                switch (columnIndex) {
+                    case 1:
+                        valA = a.resident.id;
+                        valB = b.resident.id;
+                        break;
+                    case 2:
+                        valA = a.resident.entry;
+                        valB = b.resident.entry;
+                        break;
+                    case 3:
+                        valA = a.resident.chNum;
+                        valB = b.resident.chNum;
+                        break;
+                    case 4:
+                        valA = a.projectsByStatus.signedLastYear;
+                        valB = b.projectsByStatus.signedLastYear;
+                        break;
+                    case 5:
+                        valA = a.draftProjectsLastYear;
+                        valB = b.draftProjectsLastYear;
+                        break;
+                    case 6:
+                        valA = a.hasPpEtConsentement;
+                        valB = b.hasPpEtConsentement;
+                        break;
+                    case 7:
+                        valA = a.validitePp;
+                        valB = b.validitePp;
+                        break;
+                    case 8:
+                        valA = a.hasBilanIntegration;
+                        valB = b.hasBilanIntegration;
+                        break;
+                    case 9:
+                        valA = a.hasMedicalProjetLastYear;
+                        valB = b.hasMedicalProjetLastYear;
+                        break;
+                }
+
+                if (valA < valB) {
+                    return isAsc ? -1 : 1;
+                }
+                if (valA > valB) {
+                    return isAsc ? 1 : -1;
+                }
+                return 0;
             });
 
-            // --- NOUVEAU : Script pour le menu animé ---
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('menu-open');
-            });
-            
-            // Ferme le menu quand on clique sur un lien
-            const mobileLinks = mobileMenu.querySelectorAll('a');
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                     mobileMenu.classList.remove('menu-open');
-                });
-            });
+            renderTable(sortedData);
+        }
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('fade-in-section');
-                    }
-                });
-            }, { threshold: 0.1 });
+        renderTable(sortedData);
 
-            document.querySelectorAll('section > div').forEach(el => observer.observe(el));
-            document.querySelectorAll('.service-card').forEach(el => observer.observe(el));
-        });
-    </script>
+        tableContainer.appendChild(table);
+    }
+
+    function setValidationIndicator(input, fileInfo, success, message) {
+        const parentDiv = input.parentElement.parentElement;
+        parentDiv.classList.remove('bg-white', 'bg-green-100', 'bg-red-100');
+        if (success === true) {
+            parentDiv.classList.add('bg-green-100');
+        } else if (success === false) {
+            parentDiv.classList.add('bg-red-100');
+        } else {
+            parentDiv.classList.add('bg-white');
+        }
+        fileInfo.textContent = message;
+    }
+
+    async function handleFileSelect(event, type, processor) {
+        const file = event.target.files[0];
+        const input = event.target;
+        const fileInfo = input.parentElement.nextElementSibling;
+
+        if (!file) {
+            setValidationIndicator(input, fileInfo, null, '');
+            files[type] = null;
+            tableData[type] = null;
+            return;
+        }
+
+        try {
+            const result = await processor(file);
+            console.log(`JSON pour ${type}:`, result.data);
+            tableData[type] = result.data;
+            files[type] = file;
+
+            const successMessage = `${result.successCount} ligne(s) chargée(s) avec succès.`;
+            if (result.errorCount > 0) {
+                setValidationIndicator(input, fileInfo, false, `${successMessage} ${result.errorCount} erreur(s).`);
+            } else {
+                setValidationIndicator(input, fileInfo, true, successMessage);
+            }
+
+            checkAndGenerateTable();
+        } catch (error) {
+            console.error(`Erreur de traitement du fichier pour ${type}:`, error);
+            setValidationIndicator(input, fileInfo, false, error.message);
+            files[type] = null;
+            tableData[type] = null;
+        }
+    }
+
+    residentsInput.addEventListener('change', (e) => handleFileSelect(e, 'residents', processResidentsFile));
+    projetsInput.addEventListener('change', (e) => handleFileSelect(e, 'projets', processProjetsFile));
+    vieSocialeInput.addEventListener('change', (e) => handleFileSelect(e, 'vieSociale', processVieSocialeFile));
+
+
+    function checkAndGenerateTable() {
+        if (tableData.residents && tableData.projets && tableData.vieSociale) {
+            generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
+        }
+    }
+
+    printTableButton.addEventListener('click', () => {
+        window.print();
+    });
+
+    const exportExcelButton = document.getElementById('export-excel-button');
+    exportExcelButton.addEventListener('click', () => {
+        if (sortedData && sortedData.length > 0) {
+            exportToExcel(sortedData);
+        } else {
+            alert('No data to export!');
+        }
+    });
+
+    filterErrorSwitch.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            currentFilter = 'error';
+        } else {
+            currentFilter = null;
+        }
+        generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
+    });
+});
+</script>
 </body>
 </html>
-
-
-    

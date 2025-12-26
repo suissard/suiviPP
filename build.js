@@ -38,7 +38,7 @@ if (fs.existsSync(jsPath)) {
     html = html.replace('<script src="script.js"></script>', `<script>${js}</script>`);
 }
 
-// Write the bundled HTML to the build directory
-fs.writeFileSync(path.join(buildDir, 'index.html'), html);
+// Write the bundled HTML to the root directory
+fs.writeFileSync(path.join(__dirname, 'index.html'), html);
 
 console.log('Build complete!');

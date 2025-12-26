@@ -104,6 +104,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const statusOrder = { 'error': 1, 'warning': 2, 'success': 3 };
 
             return data.sort((a, b) => {
+                // 0. Priority: Missing Bilan d'intégration
+                const aMissingBilan = !a.hasBilanIntegration;
+                const bMissingBilan = !b.hasBilanIntegration;
+
+                if (aMissingBilan && !bMissingBilan) return -1;
+                if (!aMissingBilan && bMissingBilan) return 1;
+
                 // 1. Sort by status
                 const statusComparison = statusOrder[a.status] - statusOrder[b.status];
                 if (statusComparison !== 0) return statusComparison;
