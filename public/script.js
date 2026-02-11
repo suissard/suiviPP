@@ -111,6 +111,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (aMissingBilan && !bMissingBilan) return -1;
                 if (!aMissingBilan && bMissingBilan) return 1;
 
+                if (aMissingBilan && bMissingBilan) {
+                    const entryA = a.resident.entry;
+                    const entryB = b.resident.entry;
+                    if (entryA && entryB) {
+                        return entryA.getTime() - entryB.getTime();
+                    } else if (entryA) {
+                        return -1;
+                    } else if (entryB) {
+                        return 1;
+                    }
+                }
+
                 // 1. Sort by status
                 const statusComparison = statusOrder[a.status] - statusOrder[b.status];
                 if (statusComparison !== 0) return statusComparison;
