@@ -366,47 +366,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
     });
-
-    // Tutorial logic
-    const tutoButton = document.getElementById('tuto-button');
-    const tutoModal = document.getElementById('tuto-modal');
-    const closeTuto = document.getElementById('close-tuto');
-    const prevTuto = document.getElementById('prev-tuto');
-    const nextTuto = document.getElementById('next-tuto');
-    const tutoImage = document.getElementById('tuto-image');
-    const tutoCurrent = document.getElementById('tuto-current');
-
-    const images = ['Stat%20PP%201.PNG', 'Stat%20PP%202.PNG', 'Stat%20PP%203.PNG'];
-    let currentImageIndex = 0;
-
-    function updateTuto() {
-        tutoImage.src = images[currentImageIndex];
-        tutoCurrent.textContent = currentImageIndex + 1;
-        prevTuto.disabled = currentImageIndex === 0;
-        nextTuto.disabled = currentImageIndex === images.length - 1;
-    }
-
-    tutoButton.addEventListener('click', () => {
-        tutoModal.classList.remove('hidden');
-        currentImageIndex = 0;
-        updateTuto();
-    });
-
-    closeTuto.addEventListener('click', () => {
-        tutoModal.classList.add('hidden');
-    });
-
-    prevTuto.addEventListener('click', () => {
-        if (currentImageIndex > 0) {
-            currentImageIndex--;
-            updateTuto();
-        }
-    });
-
-    nextTuto.addEventListener('click', () => {
-        if (currentImageIndex < images.length - 1) {
-            currentImageIndex++;
-            updateTuto();
-        }
-    });
 });

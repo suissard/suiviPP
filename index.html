@@ -98,7 +98,7 @@
                 <input type="checkbox" id="filter-error-switch" class="h-6 w-11 rounded-full bg-gray-300 checked:bg-red-500 appearance-none relative cursor-pointer before:content-[''] before:h-5 before:w-5 before:rounded-full before:bg-white before:shadow-md before:absolute before:top-1/2 before:left-0.5 before:-translate-y-1/2 checked:before:translate-x-full before:transition">
                 <label for="filter-error-switch" class="ml-2 text-lg">Only errors</label>
             </div>
-            <button id="tuto-button" class="bg-purple-500 text-white px-6 py-3 rounded-md hover:bg-purple-600 text-lg">Tuto</button>
+            <a id="tuto-button" href="Tuto extraction suiviPP.pdf" target="_blank" class="bg-purple-500 text-white px-6 py-3 rounded-md hover:bg-purple-600 text-lg text-center flex items-center justify-center">Tuto</a>
             <button id="print-table-button" class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 text-lg">Imprimer</button>
             <button id="export-excel-button" class="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 text-lg">Export Excel</button>
         </div>
@@ -947,78 +947,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         generateTable(tableData.residents, tableData.projets, tableData.vieSociale);
     });
-
-    // Tutorial logic
-    const tutoButton = document.getElementById('tuto-button');
-    const tutoModal = document.getElementById('tuto-modal');
-    const closeTuto = document.getElementById('close-tuto');
-    const prevTuto = document.getElementById('prev-tuto');
-    const nextTuto = document.getElementById('next-tuto');
-    const tutoImage = document.getElementById('tuto-image');
-    const tutoCurrent = document.getElementById('tuto-current');
-
-    const images = ['Stat%20PP%201.PNG', 'Stat%20PP%202.PNG', 'Stat%20PP%203.PNG'];
-    let currentImageIndex = 0;
-
-    function updateTuto() {
-        tutoImage.src = images[currentImageIndex];
-        tutoCurrent.textContent = currentImageIndex + 1;
-        prevTuto.disabled = currentImageIndex === 0;
-        nextTuto.disabled = currentImageIndex === images.length - 1;
-    }
-
-    tutoButton.addEventListener('click', () => {
-        tutoModal.classList.remove('hidden');
-        currentImageIndex = 0;
-        updateTuto();
-    });
-
-    closeTuto.addEventListener('click', () => {
-        tutoModal.classList.add('hidden');
-    });
-
-    prevTuto.addEventListener('click', () => {
-        if (currentImageIndex > 0) {
-            currentImageIndex--;
-            updateTuto();
-        }
-    });
-
-    nextTuto.addEventListener('click', () => {
-        if (currentImageIndex < images.length - 1) {
-            currentImageIndex++;
-            updateTuto();
-        }
-    });
 });
 </script>
-
-    <!-- Tutorial Modal -->
-    <div id="tuto-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black bg-opacity-75 flex items-center justify-center">
-        <div class="relative bg-white rounded-lg max-w-4xl w-full mx-4 p-4 shadow-2xl">
-            <button id="close-tuto" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800 focus:outline-none">
-                <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-
-            <div class="text-center mb-4">
-                <h2 class="text-2xl font-bold">Tutoriel</h2>
-            </div>
-
-            <div class="relative w-full h-[60vh] flex items-center justify-center bg-gray-100 rounded">
-                <img id="tuto-image" src="Stat%20PP%201.PNG" alt="Tutorial slide" class="max-h-full max-w-full object-contain drop-shadow-md">
-            </div>
-
-            <div class="flex justify-between items-center mt-6">
-                <button id="prev-tuto" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded text-gray-800 disabled:opacity-50 disabled:cursor-not-allowed">Précédent</button>
-                <div class="text-gray-600 font-medium">
-                    <span id="tuto-current">1</span> / <span id="tuto-total">3</span>
-                </div>
-                <button id="next-tuto" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded text-white disabled:opacity-50 disabled:cursor-not-allowed">Suivant</button>
-            </div>
-        </div>
-    </div>
 
 </body>
 </html>

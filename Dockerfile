@@ -20,8 +20,9 @@ FROM nginx:alpine
 # Let's copy `index.html` and the images into Nginx's serving directory.
 
 COPY --from=builder /app/index.html /usr/share/nginx/html/index.html
-# Copy images that are in the public folder and used by the tutorial
+# Copy images and PDF files that are in the public folder and used by the tutorial
 COPY --from=builder /app/public/*.PNG /usr/share/nginx/html/
+COPY --from=builder /app/public/*.pdf /usr/share/nginx/html/
 
 # Expose port 80
 EXPOSE 80
